@@ -1,0 +1,67 @@
+<!DOCTYPE html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r118/three.js"></script>
+  <script src="./loaders/OBJLoader.js"></script>
+  <script src="./loaders/MTLLoader.js"></script>
+  <style type="text/css">
+    body {
+      margin: 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    let obj;
+    const scene = new THREE.Scene();
+
+    const light = new THREE.DirectionalLight('#ffffff', 0.9);
+    light.position.set(-20, 0, 100);
+
+    const camera = new THREE.PerspectiveCamera(75, (window.innerWidth / window.innerHeight), 0.1, 1000);
+    camera.position.z = 5;
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setClearColor("#e5e5e5");
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const objLoader = new THREE.OBJLoader();
+    objLoader.setPath('/blenderfiles/');
+    const mtlLoader = new THREE.MTLLoader();
+    mtlLoader.setPath('/blenderfiles/');
+
+    new Promise((resolve) => {
+      mtlLoader.load('scandiRoundModelblue.mtl', (materials) => {
+        resolve(materials);
+      })
+    }).then((materials) => {
+      materials.preload();
+      objLoader.setMaterials(materials);
+      objLoader.load('scandiRoundModelblue.obj', (object) => {
+        obj = object;
+        scene.add(object);
+      })
+    })
+
+
+    const animate = () => {
+
+      if (obj) {
+        obj.rotation.x += 0.01;
+        obj.rotation.y += 0.01;
+      }
+      requestAnimationFrame(animate);
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+
+</html>
