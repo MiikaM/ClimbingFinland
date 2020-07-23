@@ -12,7 +12,6 @@ const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'Unknown place' })
 }
 
-
 const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
