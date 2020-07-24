@@ -39,11 +39,7 @@ const isObject = (object) => {
 
 const isCity = (city) => {
 
-  const intersection = cities.find(city)
-
-  if (!intersection || intersection.length < 1) return false
-
-  return true
+  return cities.includes(city)
 }
 
 const isPicture = (picture) => {

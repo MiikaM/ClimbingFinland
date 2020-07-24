@@ -1,5 +1,6 @@
 const validator = require('../utils/validator')
 const helper = require('./test_helpers')
+const cities = require('../data/cities.json')
 
 describe('Checks hours and minutes correctly', () => {
 
@@ -180,7 +181,7 @@ describe('isStringArray works as intended', () => {
 
 describe('isObject works as inntended', () => {
 
-  test.only('Returns true for objects', () => {
+  test('Returns true for objects', () => {
     const arrays = [...helper.correctDays, ...helper.wrongDaysIncorrect, ...helper.correctWeek]
     const result = arrays.map(bigObject => validator.isObject(bigObject))
 
@@ -188,7 +189,7 @@ describe('isObject works as inntended', () => {
     expect(result).not.toContain(false)
   })
 
-  test.only('Returns false on non strings', () => {
+  test('Returns false on non strings', () => {
     
     const arrays = [...helper.correctURLs, ...helper.correctTimes, ...helper.wrongTimes]
 
@@ -200,6 +201,22 @@ describe('isObject works as inntended', () => {
 
     console.log({result})
 
+    expect(result).not.toContain(true)
+  })
+})
+
+describe('isCity works as intended', () => {
+
+  test.only('isCity returns true when the city is in the finnish city list', () => {
+    const result = cities.map(city => validator.isCity(city))
+    console.log({result})
+    expect(result).not.toContain(false)
+  })
+
+
+  test.only('isCity returns false when the city is not in the finnish city list', () => {
+    const result = helper.wrongCities.map(city => validator.isCity(city))
+    console.log({result})
     expect(result).not.toContain(true)
   })
 })
