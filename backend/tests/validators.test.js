@@ -1,6 +1,5 @@
 const validator = require('../utils/validator')
 const helper = require('./test_helpers')
-const { isUrl } = require('../utils/validator')
 
 describe('Checks hours and minutes correctly', () => {
 
@@ -116,15 +115,89 @@ describe('Checks that week has correct input of days', () => {
 
 describe('IsUrl works as intended', () => {
 
-  test.only('Works with correct urls', () => {
-    const result = helper.correctURLs.map(url => isUrl(url))
+  test('Works with correct urls', () => {
+    const result = helper.correctURLs.map(url => validator.isUrl(url))
+    console.log({ result })
+
+    expect(result).not.toContain(false)
+  })
+
+  test('Handles incorrect urls correctly', () => {
+    const result = helper.wrongURLs.map(url => validator.isUrl(url))
+    console.log({ result })
+
+    expect(result).not.toContain(true)
+  })
+})
+
+describe('isString works as intended', () => {
+
+  test('Returns true for strings', () => {
+    const result = helper.correctTimes.map(time => validator.isString(time))
+
+    expect(result).not.toContain(false)
+  })
+
+  test('Returns false on non strings', () => {
+    const numberArray = []
+
+    for (let i = 0; i < 1000; i++) {
+      numberArray.push(Math.random() * 1000000 + 1)
+    }
+
+    const result = numberArray.map(number => validator.isString(number))
+
+    expect(result).not.toContain(true)
+  })
+})
+
+describe('isStringArray works as intended', () => {
+
+  test('Returns true for a string array', () => {
+    const arrays = [...helper.wrongTimes, ...helper.correctTimes, ...helper.correctURLs]
+
+    const result = arrays.map(array => validator.isStringArray(array))
+
     console.log({result})
 
     expect(result).not.toContain(false)
   })
 
-  test.only('Handles incorrect urls correctly', () => {
-    const result = helper.wrongURLs.map(url => isUrl(url))
+  test('Returns false for a non string array', () => {
+    const numArray = []
+
+    for (let index = 0; index < 50; index++) {
+      numArray.push(Math.random() * 1000 + 1)
+    }
+
+    const arrays = [...numArray, ...helper.wrongWeekBadInputs, ...helper.correctWeek, ...helper.wrongDaysIncorrect]
+
+    const result = arrays.map(array => validator.isStringArray(array))
+
+    expect(result).not.toContain(true)
+  })
+})
+
+describe('isObject works as inntended', () => {
+
+  test.only('Returns true for objects', () => {
+    const arrays = [...helper.correctDays, ...helper.wrongDaysIncorrect, ...helper.correctWeek]
+    const result = arrays.map(bigObject => validator.isObject(bigObject))
+
+    console.log({result})
+    expect(result).not.toContain(false)
+  })
+
+  test.only('Returns false on non strings', () => {
+    
+    const arrays = [...helper.correctURLs, ...helper.correctTimes, ...helper.wrongTimes]
+
+    for (let i = 0; i < 1000; i++) {
+      arrays.push(Math.random() * 1000000 + 1)
+    }
+
+    const result = arrays.map(number => validator.isObject(number))
+
     console.log({result})
 
     expect(result).not.toContain(true)

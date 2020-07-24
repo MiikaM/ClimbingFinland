@@ -400,6 +400,7 @@ const wrongURLs = [
   'http://www.foo.bar./',
   'http://.www.foo.bar./'
 ]
+
 module.exports = {
   correctTimes, wrongTimes, correctDays, wrongDaysIncorrect, wrongDaysMissing, correctWeek,
   wrongWeekUndefined, wrongWeekBadInputs, correctURLs, wrongURLs
