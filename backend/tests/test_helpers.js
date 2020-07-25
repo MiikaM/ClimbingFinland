@@ -505,7 +505,111 @@ const wrongURLs = [
   'http://.www.foo.bar./'
 ]
 
+const wrongImageURLs = [
+  'https://agreement.example.com/'
+  , 'https://www.example.com/?addition=back'
+  , 'https://www.example.net/'
+  , 'http://www.example.edu/?boat=boy'
+  , 'https://www.example.com/'
+  , 'https://example.org/'
+  , 'http://www.example.com/?babies=aunt'
+  , 'http://www.example.com/'
+  , 'http://art.example.edu/berry.html#basketball'
+  , 'https://example.com/'
+  , 'https://www.example.edu/?amount=advice#addition'
+  , 'https://example.com/base/apparatus.html'
+  , 'http://example.com/bedroom/bed.html'
+  , 'https://www.example.com/'
+  , 'http://www.example.com/'
+  , 'https://www.example.com/'
+  , 'https://army.example.com/blade.php'
+  , 'http://afterthought.example.org/beef/aunt.php'
+  , 'http://baseball.example.com/'
+  , 'https://example.com/apparatus'
+  , 'http://example.edu/afternoon/activity?approval=branch'
+  , 'https://birds.example.com/'
+  , 'http://www.example.org/animal?bed=amount'
+  , 'https://example.com/aunt/appliance'
+  , 'http://example.com/'
+  , 'http://www.example.com/boy.html'
+  , 'https://blood.example.com/arm#achiever'
+  , 'https://bead.example.com/?argument=behavior&ants=advertisement'
+  , 'https://act.example.com/arm/agreement.html'
+  , 'http://www.example.com/arm.php'
+  , 'http://alarm.example.org/addition#book'
+  , 'https://example.com/bat/agreement?bit=boy'
+  , 'http://www.example.com/'
+  , 'https://www.example.com/'
+  , 'http://www.example.com/bells'
+  , 'https://example.com/?behavior=birthday#apparatus'
+  , 'https://www.example.com/believe'
+  , 'http://example.com/?air=apparel&bite=bell'
+  , 'https://example.com/aftermath.php#bite'
+  , 'https://www.example.net/afternoon/blade'
+  , 'http://example.net/'
+  , 'http://www.example.com/birth/bells'
+  , 'http://example.com/'
+  , 'https://example.com/bridge'
+  , 'http://example.com/brake/bird'
+  , 'http://www.example.com/achiever.php#bead'
+  , 'https://www.example.com/'
+  , 'http://bite.example.edu/advertisement/bedroom.php'
+  , 'https://www.example.com/aunt'
+  , 'http://believe.example.com/'
+  , 'https://example.com/afterthought/blood'
+  , 'http://www.example.edu/'
+  , 'http://example.com/bikes.htm'
+  , 'https://bedroom.example.com/'
+  , 'http://www.example.org/'
+  , 'https://www.example.com/boot/ball'
+  , 'http://www.example.com/'
+  , 'https://www.example.edu/approval/alarm.php?apparel=basketball&apparatus=back'
+  , 'http://example.org/?base=bomb',
+  'http://www.example.com/'
+]
+
+const imageUrls = [
+  'https://i.ytimg.com/vi/wuq40V9nssw/maxresdefault.jpg',
+  'https://www.oulunkiipeilykeskus.com/wp-content/uploads/2017/03/oulunkiipeilykeskus_toppila.jpg',
+  'https://www.bouldertehdas.fi/boulder/themes/fusion/bouldertehdas/images/banner_new.jpg',
+  'https://static.wixstatic.com/media/48b705_2b204ec82a0543b08bb7c301c14315c1~mv2.jpg/v1/fill/w_872,h_540,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/48b705_2b204ec82a0543b08bb7c301c14315c1~mv2.webp',
+  'https://i.ytimg.com/vi/hSrd8sZeI2o/maxresdefault.jpg',
+  'https://voema.net/wp-content/uploads/2018/09/2017_panorama1_www.jpg',
+
+  'https://i.ytimg.com/vi/wuq40V9nssw/maxresdefault.gif',
+  'https://www.oulunkiipeilykeskus.com/wp-content/uploads/2017/03/oulunkiipeilykeskus_toppila.gif',
+  'https://www.bouldertehdas.fi/boulder/themes/fusion/bouldertehdas/images/banner_new.gif',
+  'https://static.wixstatic.com/media/48b705_2b204ec82a0543b08bb7c301c14315c1~mv2.gif/v1/fill/w_872,h_540,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/48b705_2b204ec82a0543b08bb7c301c14315c1~mv2.webp',
+  'https://i.ytimg.com/vi/hSrd8sZeI2o/maxresdefault.gif',
+  'https://voema.net/wp-content/uploads/2018/09/2017_panorama1_www.gif',
+
+  'https://i.ytimg.com/vi/wuq40V9nssw/maxresdefault.jpeg',
+  'https://www.oulunkiipeilykeskus.com/wp-content/uploads/2017/03/oulunkiipeilykeskus_toppila.jpeg',
+  'https://www.bouldertehdas.fi/boulder/themes/fusion/bouldertehdas/images/banner_new.jpeg',
+  'https://static.wixstatic.com/media/48b705_2b204ec82a0543b08bb7c301c14315c1~mv2.jpeg/v1/fill/w_872,h_540,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/48b705_2b204ec82a0543b08bb7c301c14315c1~mv2.webp',
+  'https://i.ytimg.com/vi/hSrd8sZeI2o/maxresdefault.jpeg',
+  'https://voema.net/wp-content/uploads/2018/09/2017_panorama1_www.jpeg',
+
+  'https://i.ytimg.com/vi/wuq40V9nssw/maxresdefault.tiff',
+  'https://www.oulunkiipeilykeskus.com/wp-content/uploads/2017/03/oulunkiipeilykeskus_toppila.tiff',
+  'https://www.bouldertehdas.fi/boulder/themes/fusion/bouldertehdas/images/banner_new.tiff',
+  'https://static.wixstatic.com/media/48b705_2b204ec82a0543b08bb7c301c14315c1~mv2.tiff/v1/fill/w_872,h_540,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/48b705_2b204ec82a0543b08bb7c301c14315c1~mv2.webp',
+  'https://i.ytimg.com/vi/hSrd8sZeI2o/maxresdefault.tiff',
+  'https://voema.net/wp-content/uploads/2018/09/2017_panorama1_www.tiff',
+
+  'https://i.ytimg.com/vi/wuq40V9nssw/maxresdefault.png',
+  'https://www.oulunkiipeilykeskus.com/wp-content/uploads/2017/03/oulunkiipeilykeskus_toppila.png',
+  'https://www.bouldertehdas.fi/boulder/themes/fusion/bouldertehdas/images/banner_new.png',
+  'https://static.wixstatic.com/media/48b705_2b204ec82a0543b08bb7c301c14315c1~mv2.png/v1/fill/w_872,h_540,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01/48b705_2b204ec82a0543b08bb7c301c14315c1~mv2.webp',
+  'https://i.ytimg.com/vi/hSrd8sZeI2o/maxresdefault.png',
+  'https://voema.net/wp-content/uploads/2018/09/2017_panorama1_www.png',
+
+
+
+
+]
+
 module.exports = {
   correctTimes, wrongTimes, correctDays, wrongDaysIncorrect, wrongDaysMissing, correctWeek,
-  wrongWeekUndefined, wrongWeekBadInputs, correctURLs, wrongURLs, wrongCities
+  wrongWeekUndefined, wrongWeekBadInputs, correctURLs, wrongURLs, wrongCities, wrongImageURLs, imageUrls
 }

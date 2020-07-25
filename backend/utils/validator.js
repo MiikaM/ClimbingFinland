@@ -4,7 +4,7 @@ const cities = require('../data/cities.json')
 
 
 const timeReg = /\d\d:\d\d/
-const pictReg = /\.(gif|jpg|jpeg|tiff|png)$/
+const pictReg = /\.(gif|jpg|jpeg|tiff|png)/
 
 const isString = (text) => {
   return typeof text === 'string' || text instanceof String

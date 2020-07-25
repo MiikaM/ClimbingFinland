@@ -19,7 +19,7 @@ const newPlace = (object) => {
 
 const parseName = (name) => {
   if (!name || !isString(name)) {
-    throw new Error('Incorrect or missing name: ' + name);
+    throw new Error('Incorrect or missing name: ' + name)
   }
 
   return name
@@ -27,7 +27,7 @@ const parseName = (name) => {
 
 const parseDescription = description => {
   if (!description || !isString(description)) {
-    throw new Error('Incorrect or missing text: ' + description);
+    throw new Error('Incorrect or missing text: ' + description)
   }
 
   return description

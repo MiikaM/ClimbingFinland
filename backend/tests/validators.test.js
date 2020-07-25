@@ -2,7 +2,7 @@ const validator = require('../utils/validator')
 const helper = require('./test_helpers')
 const cities = require('../data/cities.json')
 
-describe('Checks hours and minutes correctly', () => {
+describe('Checks hours and minutes correctly: hasHourMinutes', () => {
 
   test('correct times', () => {
     // const result = []
@@ -18,7 +18,7 @@ describe('Checks hours and minutes correctly', () => {
 
 })
 
-describe('Checks that day has an open and closing time', () => {
+describe('Checks that day has an open and closing time: hasOpenClose', () => {
 
   test('Handles correct day inputs correctly and returns true', () => {
     const result = helper.correctDays.map(day => validator.hasOpenClose(day))
@@ -77,7 +77,7 @@ describe('Checks that day has an open and closing time', () => {
   })
 })
 
-describe('Checks that week has correct input of days', () => {
+describe('Checks that week has correct input of days: hasDays', () => {
 
   test('Handles correct inputs by returning true', () => {
     const result = helper.correctWeek.map(day => validator.hasDays(day))
@@ -207,15 +207,31 @@ describe('isObject works as inntended', () => {
 
 describe('isCity works as intended', () => {
 
-  test.only('isCity returns true when the city is in the finnish city list', () => {
+  test('isCity returns true when the city is in the finnish city list', () => {
     const result = cities.map(city => validator.isCity(city))
     console.log({result})
     expect(result).not.toContain(false)
   })
 
 
-  test.only('isCity returns false when the city is not in the finnish city list', () => {
+  test('isCity returns false when the city is not in the finnish city list', () => {
     const result = helper.wrongCities.map(city => validator.isCity(city))
+    console.log({result})
+    expect(result).not.toContain(true)
+  })
+})
+
+describe('isPicture works as intended', () => {
+
+  test.only('isPicture returns true when the string matches any image file ending', () => {
+    const result = helper.imageUrls.map(image => validator.isPicture(image))
+    console.log({result})
+    expect(result).not.toContain(false)
+  })
+
+
+  test.only('isPicture returns false when the string doesnt match any image file ending', () => {
+    const result = helper.wrongImageURLs.map(image => validator.isCity(image))
     console.log({result})
     expect(result).not.toContain(true)
   })
