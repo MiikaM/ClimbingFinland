@@ -609,7 +609,274 @@ const imageUrls = [
 
 ]
 
+const priceCategories = [
+  {
+    onetime: 12,
+    tentime: 99,
+    month: 69,
+  },
+  {
+    onetime: 0,
+    tentime: 12.789546,
+    month: 3,
+  },
+  {
+    onetime: 12354676567868,
+    tentime: 23425476,
+    month: 1,
+  },
+  {
+    onetime: NaN,
+    tentime: NaN,
+    month: NaN,
+  },
+  {
+    onetime: 12,
+    tentime: 99,
+    month: 69,
+  },
+  {
+    onetime: NaN,
+    tentime: 99,
+    month: 69,
+  },
+  {
+    onetime: 12,
+    tentime: 99,
+    month: NaN,
+  },
+  {
+    onetime: 12,
+    tentime: 99,
+    month: 69,
+  }
+]
+
+const incorrectPrices = [
+  {
+    onetime: -12,
+    tentime: undefined,
+    month: null,
+  },
+  {
+    onetime: '0',
+    tentime: '12' + '789546',
+    month: '',
+  },
+  {
+    onetime: '12354676567868',
+    tentime: -0.00000000000000000000000000000000000000000000000001,
+    month: 1,
+  },
+  {
+    onetime: 'NaN',
+    tentime: NaN,
+    month: NaN,
+  },
+  {
+    onetime: '12',
+    tentime: '99',
+    month: '69',
+  },
+  {
+    onetime: NaN,
+    tentime: -2,
+    month: -0.1,
+  },
+  {
+    onetime: !NaN,
+    tentime: true,
+    month: false,
+  },
+  {
+    onetime: '12',
+    tentime: 'ten',
+    month: 's',
+  }
+]
+
+const incorrectCategories = [
+  {
+    onetime: -12,
+    tentime: undefined,
+  },
+  {
+    time: '0',
+    tentime: '12' + '789546',
+    month: '',
+  },
+  {
+    k: -0.00000000000000000000000000000000000000000000000001,
+    month: 1,
+  },
+  {
+    onetime: 'NaN',
+    month: NaN,
+  },
+  {
+    onetime: '12',
+  },
+  {
+    month: -0.1,
+  },
+  {
+    undefined
+  },
+  {
+    tentime: 'ten',
+    month: 's',
+  }
+]
+
+const nullCategories = [
+  {
+
+  },
+  null,
+  [
+    '12354676567868',
+    -0.00000000000000000000000000000000000000000000000001,
+    1,
+  ],
+  'jaah',
+  3,
+  () => console.log('Hey')
+]
+
+const pricing = [
+  {
+    adult: {
+      onetime: 12,
+      tentime: 99,
+      month: 69,
+    },
+    under15: {
+      onetime: 0,
+      tentime: 12.789546,
+      month: 3,
+    }
+  },
+  {
+    adult: {
+      onetime: 12,
+      tentime: 99,
+      month: 69,
+    },
+    under15: {
+      onetime: 0,
+      tentime: 12.789546,
+      month: 3,
+    },
+    student: {
+      onetime: 12,
+      tentime: 99,
+      month: 69,
+    },
+    senior: {
+      onetime: 0,
+      tentime: 12.789546,
+      month: 3,
+    },
+    under5: {
+      onetime: 12,
+      tentime: 99,
+      month: 69,
+    },
+    kids: {
+      onetime: NaN,
+      tentime: NaN,
+      month: NaN,
+    }
+  },
+  {
+    studentAndSenior: {
+      onetime: NaN,
+      tentime: NaN,
+      month: NaN,
+    },
+    under15: {
+      onetime: 0,
+      tentime: 12.789546,
+      month: 3,
+    }
+  },
+  {
+    adult: {
+      onetime: 12,
+      tentime: 99,
+      month: 69,
+    },
+    under15: {
+      onetime: 0,
+      tentime: 12.789546,
+      month: 3,
+    }
+  },
+  {
+    adult: {
+      onetime: 12,
+      tentime: 99,
+      month: 69,
+    }
+  }
+]
+
+const wrongPricing = [
+  {
+
+  },
+  undefined,
+  null,
+  [
+    '12354676567868',
+    -0.00000000000000000000000000000000000000000000000001,
+    1,
+  ],
+  'jaah',
+  3,
+  () => console.log('Hey')
+]
+
+const wrongPricing2 = [
+  {
+    adult: {
+      onetime: -12,
+      tentime: undefined,
+    }
+  },
+  {
+    student: {
+      time: '0',
+      tentime: '12' + '789546',
+      month: '',
+    }
+  },
+  {
+    under15: {
+      k: -0.00000000000000000000000000000000000000000000000001,
+      month: 1,
+    },
+    under5: {
+      onetime: 'NaN',
+      month: NaN,
+    },
+    adult: {
+      onetime: '12',
+    },
+    senior: {
+      month: -0.1,
+    },
+    under18: {
+      undefined
+    },
+    members: {
+      tentime: 'ten',
+      month: 's',
+    }
+  }
+]
 module.exports = {
   correctTimes, wrongTimes, correctDays, wrongDaysIncorrect, wrongDaysMissing, correctWeek,
-  wrongWeekUndefined, wrongWeekBadInputs, correctURLs, wrongURLs, wrongCities, wrongImageURLs, imageUrls
+  wrongWeekUndefined, wrongWeekBadInputs, correctURLs, wrongURLs, wrongCities, wrongImageURLs, imageUrls,
+  priceCategories, incorrectPrices, incorrectCategories, nullCategories, pricing, wrongPricing, wrongPricing2
 }

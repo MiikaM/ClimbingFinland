@@ -2,7 +2,6 @@ const logger = require('./logger')
 const validator = require('validator')
 const cities = require('../data/cities.json')
 
-
 const timeReg = /\d\d:\d\d/
 const pictReg = /\.(gif|jpg|jpeg|tiff|png)/
 
@@ -27,6 +26,7 @@ const isUrl = (url) => {
 }
 
 const isObject = (object) => {
+  // console.log({object})
   // console.log(typeof object)
   // console.log(Object.keys(object).length)
   // console.log( Object.keys(object).length !== 0)
@@ -34,7 +34,7 @@ const isObject = (object) => {
   // console.log(object.length)
 
   return ((typeof object === 'object' || object instanceof Object) &&
-    Object.keys(object).length && Object.keys(object).length !== 0 && !object.length)
+    Object.keys(object).length && Object.keys(object).length !== 0 && !(object.length !== undefined))
 }
 
 const isCity = (city) => {
@@ -47,40 +47,38 @@ const isPicture = (picture) => {
 }
 
 const hasPrices = (prices) => {
-  if (!prices || !isObject(prices) || !prices === undefined) {
-    throw new TypeError('Incorrect or missing price category input')
+  if (!prices || !isObject(prices)) {
+    throw new TypeError('Incorrect or missing pricing input')
   }
+  try {
+    Object.values(prices).map(priceCategory => {
+      hasPriceCategories(priceCategory)
+    })
 
-  Object.values(prices).map(priceCategory => {
-    try {
-      if (hasPriceCategories(priceCategory)) {
-        return true
-      }
-    } catch (e) {
-      logger.error(e.message)
-    }
-
-  })
+    return true
+  } catch (e) {
+    logger.error(e.message)
+  }
+  return false
 }
 
 
 const hasPriceCategories = (priceCategory) => {
 
+  if (!priceCategory || !isObject(priceCategory)) {
+    throw new TypeError('Missing or invalid price category input')
+  }
+
   const prices = { ...priceCategory }
 
-  if (!priceCategory || !isObject(priceCategory)) {
-    throw new TypeError('Missing or invalid pricecategory input')
-  }
 
   if (!Object.prototype.hasOwnProperty.call(prices, 'onetime') || !Object.prototype.hasOwnProperty.call(prices, 'tentime') || !Object.prototype.hasOwnProperty.call(prices, 'month')) {
     throw new Error('Incorrect input of price array: prices need to be defined for "onetime", "tentime" and "month"')
   }
 
   Object.values(prices).map(price => {
-    try {
-      isPrice(price)
-    } catch (e) {
-      logger.error(e.message)
+    if (!isPrice(price)) {
+      throw new Error('Incorrect input of price')
     }
   })
 
@@ -89,24 +87,27 @@ const hasPriceCategories = (priceCategory) => {
 }
 
 const isPrice = (price) => {
-  return ((typeof price === 'number' || price instanceof Number) && price > 0)
+  let result = false
+
+  if (typeof price === 'number' || price instanceof Number) result = true
+  if (isNaN(price)) return result
+  if (price < 0) result = false
+
+  return result
 }
 
 const hasDays = (open_hours) => {
   if (!open_hours || open_hours === undefined || !isObject(open_hours)) {
     throw new TypeError('Incorrect or missing week input')
   }
-
-  Object.values(open_hours).map(day => {
-    try {
-      if (hasOpenClose(day)) {
-        return true
-      }
-    } catch (e) {
-      logger.error(e.message)
-    }
-  })
-
+  try {
+    Object.values(open_hours).map(day => {
+      hasOpenClose(day)
+    })
+    return true
+  } catch (e) {
+    logger.error(e.message)
+  }
   return false
 }
 
