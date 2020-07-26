@@ -89,13 +89,7 @@ const hasPriceCategories = (priceCategory) => {
 }
 
 const isPrice = (price) => {
-  const number = Number(price)
-
-  if (!number) {
-    throw new Error('Incorrect input of price')
-  }
-
-  return true
+  return ((typeof price === 'number' || price instanceof Number) && price > 0)
 }
 
 const hasDays = (open_hours) => {
@@ -173,6 +167,8 @@ module.exports = {
   isCity,
   isPicture,
   hasPrices,
+  hasPriceCategories,
+  isPrice,
   hasDays,
   hasHourMinutes,
   hasOpenClose

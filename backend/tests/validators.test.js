@@ -159,7 +159,7 @@ describe('isStringArray works as intended', () => {
 
     const result = arrays.map(array => validator.isStringArray(array))
 
-    console.log({result})
+    console.log({ result })
 
     expect(result).not.toContain(false)
   })
@@ -185,12 +185,12 @@ describe('isObject works as inntended', () => {
     const arrays = [...helper.correctDays, ...helper.wrongDaysIncorrect, ...helper.correctWeek]
     const result = arrays.map(bigObject => validator.isObject(bigObject))
 
-    console.log({result})
+    console.log({ result })
     expect(result).not.toContain(false)
   })
 
   test('Returns false on non strings', () => {
-    
+
     const arrays = [...helper.correctURLs, ...helper.correctTimes, ...helper.wrongTimes]
 
     for (let i = 0; i < 1000; i++) {
@@ -199,7 +199,7 @@ describe('isObject works as inntended', () => {
 
     const result = arrays.map(number => validator.isObject(number))
 
-    console.log({result})
+    console.log({ result })
 
     expect(result).not.toContain(true)
   })
@@ -209,30 +209,57 @@ describe('isCity works as intended', () => {
 
   test('isCity returns true when the city is in the finnish city list', () => {
     const result = cities.map(city => validator.isCity(city))
-    console.log({result})
+    console.log({ result })
     expect(result).not.toContain(false)
   })
 
 
   test('isCity returns false when the city is not in the finnish city list', () => {
     const result = helper.wrongCities.map(city => validator.isCity(city))
-    console.log({result})
+    console.log({ result })
     expect(result).not.toContain(true)
   })
 })
 
 describe('isPicture works as intended', () => {
 
-  test.only('isPicture returns true when the string matches any image file ending', () => {
+  test('isPicture returns true when the string has any image file ending', () => {
     const result = helper.imageUrls.map(image => validator.isPicture(image))
-    console.log({result})
+    console.log({ result })
     expect(result).not.toContain(false)
   })
 
 
-  test.only('isPicture returns false when the string doesnt match any image file ending', () => {
-    const result = helper.wrongImageURLs.map(image => validator.isCity(image))
-    console.log({result})
+  test('isPicture returns false when the string doesnt have any image file ending', () => {
+    const result = helper.wrongImageURLs.map(image => validator.isPicture(image))
+    console.log({ result })
+    expect(result).not.toContain(true)
+  })
+})
+
+describe('isPrice checks that the input is a number or undefined/null', () => {
+
+  test('isPrice returns true when the input is a number', () => {
+    const numberArray = []
+    for (let i = 0; i < 1000; i++) {
+      numberArray.push(Math.random() * 10000000 + 1)
+    }
+    const result = numberArray.map(price => validator.isPrice(price))
+
+    console.log({ result })
+    expect(result).not.toContain(false)
+  })
+
+
+  test('isPrice returns false  when the input is not a number', () => {
+    const numberArray = []
+    for (let i = 0; i < 1000; i++) {
+      numberArray.push(Math.random() * (-10000000) - 1)
+    }
+    const arrays = [...helper.correctTimes, ...helper.wrongCities, ...helper.correctDays, ...helper.wrongWeekUndefined, ...helper.wrongURLs, ...helper.wrongWeekBadInputs, ...numberArray]
+    const result = arrays.map(price => validator.isPrice(price))
+
+    console.log({ result })
     expect(result).not.toContain(true)
   })
 })
