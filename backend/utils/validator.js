@@ -62,7 +62,6 @@ const hasPrices = (prices) => {
   return false
 }
 
-
 const hasPriceCategories = (priceCategory) => {
 
   if (!priceCategory || !isObject(priceCategory)) {

@@ -1,5 +1,8 @@
 const placesRouter = require('express').Router()
 const Place = require('../models/place')
+const { checkPlace } = require('../utils/parse')
+const { addPlace, updatePlace, removePlace } = require('../services/placeService')
+const logger = require('../utils/logger')
 
 
 placesRouter.get('/', async (req, res) => {
@@ -8,30 +11,34 @@ placesRouter.get('/', async (req, res) => {
 })
 
 placesRouter.post('/', async (req, res) => {
-  const body = req.body
 
-  const place = new Place({
-    name: body.name,
-    description: body.description,
-    url: body.url,
-    open_hours: body.open_hours,
-    prices: body.prices,
-    picture: body.picture,
-    tags: body.tags,
-    
-  })
-
-  const placeToSave = await place.save()
-  res.status(201).json(placeToSave.toJSON())
+  try {
+    const newPlace = checkPlace(req.body)
+    const addedPlace = await addPlace(newPlace)
+    res.status(201).json(addedPlace.toJSON())
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
 })
 
-placesRouter.put('/:id', async (request, response) => {
-  const place = request.body
-  const placeToUpdate = await Place.findByIdAndUpdate(request.params.id, place, { new: true })
-  if (placeToUpdate) {
-    response.json(placeToUpdate.toJSON()).status(204).end()
-  } else {
-    response.status(404).end()
+placesRouter.put('/:id', async (req, res) => {
+  
+  try {
+    const place = checkPlace(req.body)
+
+    const updated = await updatePlace(req.params.id, place)
+    res.json(updated.toJSON()).status(204).end()
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
+})
+
+placesRouter.delete('/:id', async (req, res) => {
+  try {
+    removePlace(req.params.id)
+    res.json(204).end()
+  } catch (e) {
+    res.status(401).json()
   }
 })
 

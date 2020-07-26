@@ -1,8 +1,7 @@
 
-const { hasDays, isString, isUrl, isStringArray, isCity, isPicture } = require('./validator')
-const logger = require('./logger')
+const { hasDays, isString, isUrl, isStringArray, isCity, isPicture, hasPrices } = require('./validator')
 
-const newPlace = (object) => {
+const checkPlace = (object) => {
   const checkedPlace = {
     name: parseName(object.name),
     description: parseDescription(object.description),
@@ -37,33 +36,26 @@ const parseUrl = (url) => {
   if (!url || !isUrl(url)) {
     throw new Error('Incorrect or missing url: ' + url)
   }
+
   const urlNew = new URL(url)
 
   return urlNew
 }
 
 const parseOpenHours = (open_hours) => {
-  try {
-    if (!open_hours || !hasDays(open_hours)) {
-      throw new Error('Incorrect or missing open hours: ' + open_hours)
-    }
-  } catch (e) {
-    logger.error(e.message)
-    return false
+  if (!open_hours || !hasDays(open_hours)) {
+    throw new Error('Incorrect or missing open hours')
   }
 
-  return true
+  return open_hours
 }
 
 const parsePrices = (prices) => {
-  try {
-    if (!prices || !hasPrices(prices)) {
-      throw new Error('Incorrect or missing open hours: ' + prices)
-    }
-  } catch (e) {
-    logger.error(e.message)
-    return false
+  if (!prices || !hasPrices(prices)) {
+    throw new Error('Incorrect or missing pricing: ', {prices})
   }
+
+  return prices
 }
 
 const parseImage = (picture) => {
@@ -89,6 +81,7 @@ const parseCity = (city) => {
 
   return city
 }
+
 module.exports = {
-  newPlace
+  checkPlace
 }
