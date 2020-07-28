@@ -13,6 +13,7 @@ import {
   ExpandMore
 } from '@material-ui/icons'
 import Prices from './prices'
+import OpenHours from './open_hours'
 
 
 
@@ -24,6 +25,10 @@ const Info = ({ place }) => {
     null :
     place.prices
 
+  const open_hours = !place.open_hours ?
+    null :
+    place.open_hours
+
   if (pricing) {
     let name = ''
     let value0
@@ -34,6 +39,9 @@ const Info = ({ place }) => {
     console.log({ value0, value1 })
   }
 
+  if (open_hours) {
+    console.log({ open_hours })
+  }
 
 
   const handleOpenHoursClick = (e) => {
@@ -46,10 +54,6 @@ const Info = ({ place }) => {
     setShowPrices(!showPrices)
   }
 
-  const ListItemLink = () => {
-
-  }
-
   return (
     <div>
       <h2>{place.name}</h2>
@@ -58,7 +62,7 @@ const Info = ({ place }) => {
         component='nav'
         aria-labelledby='nested-list-subheader'
         subheader={
-          <ListSubheader component='div' id='nested-list-subheader'>
+          <ListSubheader component='h2' id='nested-list-subheader'>
             Info
         </ListSubheader>
         }>
@@ -69,21 +73,7 @@ const Info = ({ place }) => {
           <ListItemText primary='Opening hours' />
           {showOpenHours ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
-        <Collapse in={showOpenHours} timeout='auto' unmountOnExit>
-          <List component='div' disablePadding>
-            <ListItem >
-              <ListItemText>
-                regular: {place.open_hours.regular}
-              </ListItemText>
-              <ListItemText>
-                la: {place.open_hours.la}
-              </ListItemText>
-              <ListItemText>
-                su: {place.open_hours.su}
-              </ListItemText>
-            </ListItem>
-          </List>
-        </Collapse>
+        <OpenHours show={showOpenHours} open_hours={open_hours} />
         <ListItem button onClick={handlePricingClick}>
           <ListItemText primary='Pricing' />
           {showPrices ? <ExpandLess /> : <ExpandMore />}

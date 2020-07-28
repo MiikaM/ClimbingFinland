@@ -6,9 +6,10 @@ import {
   ListItemText,
   Collapse
 } from '@material-ui/core'
+import { useStyles } from './open_hours'
 
 const Prices = ({ show, prices }) => {
-
+  const classes = useStyles()
 
   const priceNames = Object.keys(prices).map(price => `${price}`)
 
@@ -21,12 +22,12 @@ const Prices = ({ show, prices }) => {
           <List key={name}
             component='div'
             subheader={
-              <ListSubheader component='div' id='name-list-subheader'>
+              <ListSubheader component='h3' id='name-list-subheader' className={classes.nested}>
                 {name}
               </ListSubheader>
             }
           >
-            <ListItem>
+            <ListItem className={classes.moreNested}>
               <ListItemText>
                 Kertamaksu: {prices[`${name}`].onetime}€
               </ListItemText>
