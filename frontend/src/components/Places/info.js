@@ -3,15 +3,20 @@ import {
   ListSubheader,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
-  ExpandLess,
-  ExpanndMore,
-  Box,
   Collapse,
-  Typography,
-
+  Link
 } from '@material-ui/core'
+
+import {
+  ExpandLess,
+  ExpandMore
+} from '@material-ui/icons'
+import Prices from './prices'
+
+
+
+
 const Info = ({ place }) => {
   const [showOpenHours, setShowOpenHours] = useState(false)
   const [showPrices, setShowPrices] = useState(false)
@@ -41,6 +46,10 @@ const Info = ({ place }) => {
     setShowPrices(!showPrices)
   }
 
+  const ListItemLink = () => {
+
+  }
+
   return (
     <div>
       <h2>{place.name}</h2>
@@ -58,6 +67,7 @@ const Info = ({ place }) => {
         </ListItem>
         <ListItem button onClick={handleOpenHoursClick}>
           <ListItemText primary='Opening hours' />
+          {showOpenHours ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={showOpenHours} timeout='auto' unmountOnExit>
           <List component='div' disablePadding>
@@ -76,24 +86,10 @@ const Info = ({ place }) => {
         </Collapse>
         <ListItem button onClick={handlePricingClick}>
           <ListItemText primary='Pricing' />
+          {showPrices ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
-
-        <Collapse in={showPrices} timeout='auto' unmountOnExit>
-          <List component='div' disablePadding>
-            <ListItem >
-              <ListItemText>
-                Kertamaksu: {place.prices.onetime}€
-              </ListItemText>
-              <ListItemText>
-                10-kerran kortti: {place.prices.tentime}€
-              </ListItemText>
-              <ListItemText>
-                Kuukausikortti: {place.prices.month}€
-              </ListItemText>
-            </ListItem>
-          </List>
-        </Collapse>
-        <ListItem button>
+        <Prices show={showPrices} prices={pricing} />
+        <ListItem button component='a' href={place.url}>
           <ListItemText primary={place.url} />
         </ListItem>
         <ListItem button>

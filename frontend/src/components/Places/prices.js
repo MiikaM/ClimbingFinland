@@ -1,33 +1,47 @@
+import React from 'react'
+import {
+  ListSubheader,
+  List,
+  ListItem,
+  ListItemText,
+  Collapse
+} from '@material-ui/core'
+
 const Prices = ({ show, prices }) => {
 
-  const priceObjects = Object.values(prices).map(priceCat => priceCat)
+
   const priceNames = Object.keys(prices).map(price => `${price}`)
 
+  if (!priceNames) return null
+
   return (
-    <div>
+    <Collapse in={show} timeout='auto' unmountOnExit>
       {
         priceNames.map(name => (
-          <List component='div'
+          <List key={name}
+            component='div'
             subheader={
               <ListSubheader component='div' id='name-list-subheader'>
                 {name}
               </ListSubheader>
             }
           >
+            <ListItem>
+              <ListItemText>
+                Kertamaksu: {prices[`${name}`].onetime}€
+              </ListItemText>
+              <ListItemText>
+                10-kerran kortti: {prices[`${name}`].tentime}€
+              </ListItemText>
+              <ListItemText>
+                Kuukausikortti: {prices[`${name}`].month}€
+              </ListItemText>
+            </ListItem>
 
           </List>
-          <ListItemText>
-            {name}
-          </ListItemText>
         ))
       }
-    </div>
-    <List component='div'
-      subheader={}
-    >
-
-
-    </List>
+    </Collapse>
   )
 }
 
