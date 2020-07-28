@@ -13,12 +13,33 @@ import {
 
 } from '@material-ui/core'
 const Info = ({ place }) => {
-  const [open, setOpen] = useState(false)
+  const [showOpenHours, setShowOpenHours] = useState(false)
+  const [showPrices, setShowPrices] = useState(false)
+  const pricing = !place.prices ?
+    null :
+    place.prices
 
-  const handleClick = (e) => {
+  if (pricing) {
+    let name = ''
+    let value0
+    let value1
+    name = Object.keys(pricing).map(price => `${price}`)
+    value0 = pricing[`${name[0]}`].onetime
+    value1 = pricing[`${name[1]}`].tentime
+    console.log({ value0, value1 })
+  }
+
+
+
+  const handleOpenHoursClick = (e) => {
     e.preventDefault()
-    setOpen(!open)
-  } 
+    setShowOpenHours(!showOpenHours)
+  }
+
+  const handlePricingClick = (e) => {
+    e.preventDefault()
+    setShowPrices(!showPrices)
+  }
 
   return (
     <div>
@@ -35,12 +56,43 @@ const Info = ({ place }) => {
         <ListItem button>
           <ListItemText primary='Open' />
         </ListItem>
-        <ListItem button onClick={handleClick}>
-          <ListItemText primary='Openning hours' />
+        <ListItem button onClick={handleOpenHoursClick}>
+          <ListItemText primary='Opening hours' />
         </ListItem>
-        <ListItem button>
+        <Collapse in={showOpenHours} timeout='auto' unmountOnExit>
+          <List component='div' disablePadding>
+            <ListItem >
+              <ListItemText>
+                regular: {place.open_hours.regular}
+              </ListItemText>
+              <ListItemText>
+                la: {place.open_hours.la}
+              </ListItemText>
+              <ListItemText>
+                su: {place.open_hours.su}
+              </ListItemText>
+            </ListItem>
+          </List>
+        </Collapse>
+        <ListItem button onClick={handlePricingClick}>
           <ListItemText primary='Pricing' />
         </ListItem>
+
+        <Collapse in={showPrices} timeout='auto' unmountOnExit>
+          <List component='div' disablePadding>
+            <ListItem >
+              <ListItemText>
+                Kertamaksu: {place.prices.onetime}€
+              </ListItemText>
+              <ListItemText>
+                10-kerran kortti: {place.prices.tentime}€
+              </ListItemText>
+              <ListItemText>
+                Kuukausikortti: {place.prices.month}€
+              </ListItemText>
+            </ListItem>
+          </List>
+        </Collapse>
         <ListItem button>
           <ListItemText primary={place.url} />
         </ListItem>

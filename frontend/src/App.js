@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   Switch, Route, Link
 } from 'react-router-dom'
 import { Container } from '@material-ui/core'
 
 import Places from './components/Places'
+import { initializePlaces } from './reducers/placeReducer'
 
 const App = () => {
   const dispatch = useDispatch()
