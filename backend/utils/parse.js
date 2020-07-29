@@ -6,9 +6,9 @@ const checkPlace = (object) => {
     name: parseName(object.name),
     description: parseDescription(object.description),
     url: parseUrl(object.url),
-    open_hours: parseOpenHours(object.open_hours),
+    openingHours: parseOpenHours(object.openingHours),
     prices: parsePrices(object.prices),
-    picture: parseImage(object.picture),
+    image: parseImage(object.image),
     tags: parseTags(object.tags),
     city: parseCity(object.city)
   }

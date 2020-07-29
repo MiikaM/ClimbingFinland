@@ -12,16 +12,14 @@ const placeSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  picture: {
+  image: {
     type: String
   },
-  open_hours: {
-    type: Map,
-    of: Object
+  openingHours: {
+    type: Object
   },
   prices: {
-    type: Map,
-    of: Object
+    type: Object
   },
   tags: {
     type: Array,

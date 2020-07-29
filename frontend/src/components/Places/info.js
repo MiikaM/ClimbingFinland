@@ -4,16 +4,21 @@ import {
   List,
   ListItem,
   ListItemText,
+  ListItemIcon,
   Collapse,
   Link
 } from '@material-ui/core'
 
 import {
   ExpandLess,
-  ExpandMore
+  ExpandMore,
+  CheckCircleOutlineOutlined,
+  HighlightOffOutlined
 } from '@material-ui/icons'
 import Prices from './prices'
 import OpenHours from './open_hours'
+
+import Open from './open'
 
 
 
@@ -25,9 +30,9 @@ const Info = ({ place }) => {
     null :
     place.prices
 
-  const open_hours = !place.open_hours ?
+  const open_hours = !place.openingHours ?
     null :
-    place.open_hours
+    place.openingHours
 
   if (pricing) {
     let name = ''
@@ -41,6 +46,7 @@ const Info = ({ place }) => {
 
   if (open_hours) {
     console.log({ open_hours })
+
   }
 
 
@@ -57,7 +63,7 @@ const Info = ({ place }) => {
   return (
     <div>
       <h2>{place.name}</h2>
-      <img src={place.picture} alt='From this place' />
+      <img src={place.image} alt='From this place' />
       <List
         component='nav'
         aria-labelledby='nested-list-subheader'
@@ -66,9 +72,21 @@ const Info = ({ place }) => {
             Info
         </ListSubheader>
         }>
-        <ListItem button>
-          <ListItemText primary='Open' />
-        </ListItem>
+        {Open(open_hours) ?
+          <ListItem button>
+            <ListItemText primary='Open' />
+            <ListItemIcon>
+              <CheckCircleOutlineOutlined style={{ color: '#32cd32' }} />
+            </ListItemIcon>
+          </ListItem> :
+          <ListItem button>
+            <ListItemText primary='Closed' />
+            <ListItemIcon>
+              <HighlightOffOutlined style={{color: '#cd3232'}} />
+            </ListItemIcon>
+          </ListItem>
+        }
+
         <ListItem button onClick={handleOpenHoursClick}>
           <ListItemText primary='Opening hours' />
           {showOpenHours ? <ExpandLess /> : <ExpandMore />}

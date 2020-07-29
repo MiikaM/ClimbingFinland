@@ -22,7 +22,7 @@ placesRouter.post('/', async (req, res) => {
 })
 
 placesRouter.put('/:id', async (req, res) => {
-  
+
   try {
     const place = checkPlace(req.body)
 
