@@ -8,11 +8,11 @@ const isItOpen = (hours, minutes, openToday) => {
   const closingMinutes = Number(openToday[1].split(':')[1])
 
   if (hours > openingHour && hours < closingHour) {
-    return true
+    return  true
   } else if (hours === openingHour) {
     if (minutes >= openingMinutes) return true
   } else if (hours === closingHour) {
-    if (minutes <= closingMinutes) return true
+    if (minutes <= closingMinutes) return  true
   }
   return false
 }

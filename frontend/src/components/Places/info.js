@@ -34,21 +34,7 @@ const Info = ({ place }) => {
     null :
     place.openingHours
 
-  if (pricing) {
-    let name = ''
-    let value0
-    let value1
-    name = Object.keys(pricing).map(price => `${price}`)
-    value0 = pricing[`${name[0]}`].onetime
-    value1 = pricing[`${name[1]}`].tentime
-    console.log({ value0, value1 })
-  }
-
-  if (open_hours) {
-    console.log({ open_hours })
-
-  }
-
+  const open = Open(open_hours)
 
   const handleOpenHoursClick = (e) => {
     e.preventDefault()
@@ -61,10 +47,11 @@ const Info = ({ place }) => {
   }
 
   return (
-    <div>
+    <div >
       <h2>{place.name}</h2>
       <img src={place.image} alt='From this place' />
       <List
+        width={100}
         component='nav'
         aria-labelledby='nested-list-subheader'
         subheader={
@@ -72,7 +59,7 @@ const Info = ({ place }) => {
             Info
         </ListSubheader>
         }>
-        {Open(open_hours) ?
+        {open ?
           <ListItem button>
             <ListItemText primary='Open' />
             <ListItemIcon>
@@ -82,29 +69,34 @@ const Info = ({ place }) => {
           <ListItem button>
             <ListItemText primary='Closed' />
             <ListItemIcon>
-              <HighlightOffOutlined style={{color: '#cd3232'}} />
+              <HighlightOffOutlined style={{ color: '#cd3232' }} />
             </ListItemIcon>
           </ListItem>
         }
-
         <ListItem button onClick={handleOpenHoursClick}>
           <ListItemText primary='Opening hours' />
           {showOpenHours ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
-        <OpenHours show={showOpenHours} open_hours={open_hours} />
+        <Collapse in={showOpenHours} timeout='auto' unmountOnExit>
+          <OpenHours show={showOpenHours} open_hours={open_hours} />
+        </Collapse>
         <ListItem button onClick={handlePricingClick}>
           <ListItemText primary='Pricing' />
           {showPrices ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
-        <Prices show={showPrices} prices={pricing} />
+        <Collapse in={showPrices} timeout='auto' unmountOnExit>
+          <Prices show={showPrices} prices={pricing} />
+        </Collapse>
         <ListItem button component='a' href={place.url}>
           <ListItemText primary={place.url} />
         </ListItem>
         <ListItem button>
           <ListItemText primary={place.city} />
         </ListItem>
-        <ListItem button>
-          <ListItemText primary={place.tags[0]} />
+        <ListItem button width={50}>
+          {place.tags.map(tag => (
+            <ListItemText primary={tag} />
+          ))}
         </ListItem>
       </List>
     </div>

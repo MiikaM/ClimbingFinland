@@ -6,6 +6,7 @@ import {
 import { Container } from '@material-ui/core'
 
 import Places from './components/Places'
+import ChosenPlace from './components/ChosenPlace'
 import { initializePlaces } from './reducers/placeReducer'
 
 const App = () => {
@@ -18,14 +19,16 @@ const App = () => {
   return (
     <Container>
       <div>
+        {/* <NavBar /> */}
         <Switch>
-          <Route path='/'>
+          <Route exact path='/'>
             <Places />
           </Route>
-          <Route path='/:id'>
-            {/* <ChosenPlace /> */}
+          <Route path='/places/:id'>
+            <ChosenPlace />
           </Route>
         </Switch>
+        {/* <Footer /> */}
       </div>
     </Container>
   )

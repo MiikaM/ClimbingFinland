@@ -28,19 +28,26 @@ const OpenHours = ({ open_hours, show }) => {
   const dayNames = Object.keys(open_hours).map(day => `${day}`)
 
   return (
-    <Collapse in={show} timeout='auto' unmountOnExit>
+    <div>
       {
         dayNames.map(name => (
           <List key={name}>
-            <ListItem className={classes.nested}>
-              <ListItemText>
-                {name}: {open_hours[`${name}`].open} - {open_hours[`${name}`].close}
-              </ListItemText>
-            </ListItem>
+            {open_hours[`${name}`].open === 'Closed' ?
+              <ListItem className={classes.nested}>
+                <ListItemText>
+                  {name}: {open_hours[`${name}`].open}
+                </ListItemText>
+              </ListItem> :
+              <ListItem className={classes.nested}>
+                <ListItemText>
+                  {name}: {open_hours[`${name}`].open} - {open_hours[`${name}`].close}
+                </ListItemText>
+              </ListItem>
+            }
           </List>
         ))
       }
-    </Collapse>
+    </div>
   )
 }
 
