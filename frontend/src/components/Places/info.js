@@ -49,7 +49,9 @@ const Info = ({ place }) => {
   return (
     <div >
       <h2>{place.name}</h2>
-      <img src={place.image} alt='From this place' />
+      <Link href={`/places/${place.id}`}>
+        <img src={place.image} href='#' alt='From this place' />
+      </Link>
       <List
         width={100}
         component='nav'
@@ -95,11 +97,11 @@ const Info = ({ place }) => {
         </ListItem>
         <ListItem button width={50}>
           {place.tags.map(tag => (
-            <ListItemText primary={tag} />
+            <ListItemText key={tag} primary={tag} />
           ))}
         </ListItem>
       </List>
-    </div>
+    </div >
   )
 }
 

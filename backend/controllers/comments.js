@@ -1,8 +1,7 @@
 const commentsRouter = require('express').Router()
 const Comment = require('../models/comment')
 const { checkComment } = require('../utils/parse')
-const { addComment, removeComment } = require('../services/placeService')
-const logger = require('../utils/logger')
+const { addComment, removeComment } = require('../services/commentService')
 
 
 commentsRouter.get('/', async (req, res) => {

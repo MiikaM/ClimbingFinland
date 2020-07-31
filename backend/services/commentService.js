@@ -1,8 +1,8 @@
-const Comment = require('../models/Comment')
+const Comment = require('../models/comment')
 
-const addComment = async (Comment) => {
+const addComment = async (comment) => {
   const newComment = new Comment({
-    ...Comment
+    ...comment
   })
 
   const savedComment = await newComment.save()

@@ -4,6 +4,8 @@ import { useRouteMatch } from 'react-router-dom'
 import Prices from '../Places/prices'
 import OpenHours from '../Places/open_hours'
 import CommentForm from '../CommentForm'
+import CommentSection from '../CommentSection'
+import { addComment } from '../../reducers/commentReducer'
 
 const ChosenPlace = () => {
   const dispatch = useDispatch()
@@ -23,7 +25,7 @@ const ChosenPlace = () => {
         comment: values.comment,
         date: new Date()
       }))
-    } catch(e) {
+    } catch (e) {
       console.error('Error on submitComment: ', e.message)
     }
 
@@ -43,7 +45,7 @@ const ChosenPlace = () => {
         The pricing is directional. More accurate information about pricing and everything else can be found
         from the gyms website.
       </p>
-      {/* <CommentSection /> */}
+      <CommentSection />
       <CommentForm onSubmit={submitComment} />
     </div >
   )

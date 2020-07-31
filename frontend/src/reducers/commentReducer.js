@@ -1,30 +1,40 @@
-import placeService from '../services/placeService'
+import commentService from '../services/commentService'
 
 export const initializeComments = () => {
   return async dispatch => {
-    const places = await placeService.getAll()
-    dispatch({
-      type: 'INIT_PLACES',
-      data: places
-    })
+    try {
+      const comments = await commentService.getAll()
+      console.log({ comments })
+      dispatch({
+        type: 'INIT_COMMENTS',
+        data: comments
+      })
+    } catch(exception) {
+      console.error('Error on initialize comments: ', exception.message)
+    }
   }
 }
 
-export const addComment = () => {
+export const addComment = (comment) => {
   return async dispatch => {
-    const places = await commentService.addComment()
-    dispatch({
-      type: 'INIT_PLACES',
-      data: places
-    })
+    try {
+      const newComment = await commentService.addComment(comment)
+      dispatch({
+        type: 'ADD_COMMENT',
+        data: newComment
+      })
+    } catch (exception) {
+      console.error('Error on addComment dispatch: ', exception.message)
+    }
+
   }
 }
 
 const reducer = (state = [], action) => {
-  let id = null
+  // let id = null
   switch (action.type) {
-    // case 'NEW_BLOG':
-    //   return state.concat(action.data)
+    case 'ADD_COMMENT':
+      return state.concat(action.data)
     // case 'VOTE':
     //   id = action.data.id
     //   return state.map(blog =>
@@ -32,7 +42,7 @@ const reducer = (state = [], action) => {
     //   )
     // case 'DELETE':
     //   return state.filter(blog => blog.id !== action.data.id)
-    case 'INIT_PLACES':
+    case 'INIT_COMMENTS':
       return action.data
     default:
       return state

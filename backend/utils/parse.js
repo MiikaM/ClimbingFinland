@@ -18,9 +18,10 @@ const checkPlace = (object) => {
 }
 
 const checkComment = (object) => {
+  const date = new Date()
   const checkedPlace = {
-    comment: parseName(object.name),
-    date: parseDate(object.date),
+    comment: parseComment(object.comment),
+    date: parseDate(date),
   }
 
   return checkedPlace
@@ -41,6 +42,15 @@ const parseDescription = description => {
 
   return description
 }
+
+const parseComment = comment => {
+  if (!comment || !isString(comment)) {
+    throw new Error('Incorrect or missing comment: ' + comment)
+  }
+
+  return comment
+}
+
 
 const parseUrl = (url) => {
   if (!url || !isUrl(url)) {
