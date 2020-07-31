@@ -7,6 +7,7 @@ const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 const placesRouter = require('./controllers/places')
+const commentsRouter = require('./controllers/comments')
 
 
 const mongoUrl = config.MONGODB_URI
@@ -26,7 +27,7 @@ app.use(express.json())
 app.use(middleware.morg)
 // app.use(middleware.tokenExtractor)
 // app.use('/api/users', usersRouter)
-// app.use('/api/blogs', blogsRouter)
+app.use('/api/comments', commentsRouter)
 app.use('/api/places', placesRouter)
 
 // if (process.env.NODE_ENV === 'test') {

@@ -1,5 +1,6 @@
 
 const { hasDays, isString, isUrl, isStringArray, isCity, isPicture, hasPrices } = require('./validator')
+const { isDate } = require('lodash')
 
 const checkPlace = (object) => {
   const checkedPlace = {
@@ -11,6 +12,15 @@ const checkPlace = (object) => {
     image: parseImage(object.image),
     tags: parseTags(object.tags),
     city: parseCity(object.city)
+  }
+
+  return checkedPlace
+}
+
+const checkComment = (object) => {
+  const checkedPlace = {
+    comment: parseName(object.name),
+    date: parseDate(object.date),
   }
 
   return checkedPlace
@@ -82,6 +92,15 @@ const parseCity = (city) => {
   return city
 }
 
+const parseDate = (date) => {
+  if(!date || !isDate(date)) {
+    throw new Error ('Couldn\'t get the time of submission of comment.')
+  }
+  
+  return date
+}
+
 module.exports = {
-  checkPlace
+  checkPlace,
+  checkComment
 }

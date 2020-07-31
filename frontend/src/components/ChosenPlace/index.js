@@ -1,19 +1,33 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
 import Prices from '../Places/prices'
 import OpenHours from '../Places/open_hours'
+import CommentForm from '../CommentForm'
 
 const ChosenPlace = () => {
+  const dispatch = useDispatch()
   const places = useSelector(state => state.places)
   const match = useRouteMatch('/places/:id')
   const place = match
     ? places.find(place => place.id === match.params.id)
     : null
-  
 
-  if(!place) return null
-  console.log({ match, place})
+
+  if (!place) return null
+  console.log({ match, place })
+
+  const submitComment = (values) => {
+    try {
+      dispatch(addComment({
+        comment: values.comment,
+        date: new Date()
+      }))
+    } catch(e) {
+      console.error('Error on submitComment: ', e.message)
+    }
+
+  }
 
   return (
     <div>
@@ -30,6 +44,7 @@ const ChosenPlace = () => {
         from the gyms website.
       </p>
       {/* <CommentSection /> */}
+      <CommentForm onSubmit={submitComment} />
     </div >
   )
 }
