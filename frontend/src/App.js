@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
+import dotenv from 'dotenv'
 import {
   Switch, Route
 } from 'react-router-dom'
@@ -24,19 +25,21 @@ const App = () => {
       firebase.auth.GithubAuthProvider.PROVIDER_ID,
     ],
     callbacks: {
-      signInSuccess: () => false
+      signInSuccessWithAuthResult: () => false
     }
   }
 
   if (!firebase.apps.length) {
+    console.log(process.env.AUTHID, process.env.CLIENTID)
     firebase.initializeApp({
-      apiKey: process.env.AUTHID,
-      authDomain: process.env.CLIENTID
+      apiKey: 'AIzaSyCVmpjoCpS53LqU26ee693vwbKwIp3-0Mg',
+      authDomain: 'climbingfinland-cf142.web.app'
     })
   }
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
+      // dispatch((loginUser(user)))
       console.log({ user })
       setIsSignedIn(!!user)
     })

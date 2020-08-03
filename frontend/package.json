@@ -9,6 +9,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "drei": "0.0.66",
     "firebase": "^7.17.1",
     "formik": "^2.1.5",

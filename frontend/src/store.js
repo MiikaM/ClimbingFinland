@@ -8,7 +8,8 @@ import commentReducer from './reducers/commentReducer.js'
 const reducer = combineReducers({
   places: placeReducer,
   comments: commentReducer,
-  // login: loginReducer
+  // login: loginReducer,
+  // users: userReducer
 })
 
 const store = createStore(
