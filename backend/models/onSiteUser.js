@@ -1,17 +1,28 @@
 const mongoose = require('mongoose')
 const UserBase = require('./userBase')
 
-const OnSiteUser = UserBase.discriminator('OnSite',
+const OnSiteUser = UserBase.discriminator('OnSiteUser',
   new mongoose.Schema({
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      minlength: 6
+    },
     email: {
-      type: String
+      type: String,
+      unique: true
     },
     password: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
+      minlength: 8
     },
-    role: 'EndUser'
+    role: {
+      type: String,
+      default: 'EndUser'
+    }
   })
 )
 

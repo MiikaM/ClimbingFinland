@@ -1,19 +1,30 @@
 const mongoose = require('mongoose')
 const UserBase = require('./userBase')
 
-const ThirdPartyUser = UserBase.discriminator('ThirdParty',
+const AdminUser = UserBase.discriminator('AdminUser',
   new mongoose.Schema({
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      minlength: 6
+    },
     email: {
-      type: String
+      type: String,
+      unique: true
     },
     password: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
+      minlength: 8
     },
-    role: 'Admin'
+    role: {
+      type: String,
+      default: 'Admin'
+    }
   })
 )
 
 
-module.exports = ThirdPartyUser
+module.exports = AdminUser

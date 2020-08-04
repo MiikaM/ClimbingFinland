@@ -8,6 +8,7 @@ const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 const placesRouter = require('./controllers/places')
 const commentsRouter = require('./controllers/comments')
+const usersRouter = require('./controllers/users')
 
 
 const mongoUrl = config.MONGODB_URI
@@ -26,7 +27,7 @@ app.use(cors())
 app.use(express.json())
 app.use(middleware.morg)
 // app.use(middleware.tokenExtractor)
-// app.use('/api/users', usersRouter)
+app.use('/api/users', usersRouter)
 app.use('/api/comments', commentsRouter)
 app.use('/api/places', placesRouter)
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
-const options = { discriminatorKey: 'kind' }
+const options = { discriminatorKey: 'type', collection: 'users' }
 
 const userBaseSchema = mongoose.Schema({
   name: {
@@ -13,7 +13,8 @@ const userBaseSchema = mongoose.Schema({
     required: true
   },
   verified: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   favouritePlaces: [
     {
