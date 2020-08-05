@@ -32,8 +32,8 @@ const App = () => {
   if (!firebase.apps.length) {
     console.log(process.env.AUTHID, process.env.CLIENTID)
     firebase.initializeApp({
-      apiKey: 'AIzaSyCVmpjoCpS53LqU26ee693vwbKwIp3-0Mg',
-      authDomain: 'climbingfinland-cf142.web.app'
+      apiKey: '',
+      authDomain: ''
     })
   }
 
