@@ -6,4 +6,9 @@ const login = async (user) => {
   return response.data
 }
 
-export default {login}
+const googleLogin = async (user_token) => {
+  const response = await axios.post(baseUrl, user_token)
+  return response.data
+}
+
+export default {login, googleLogin}
