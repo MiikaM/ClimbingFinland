@@ -3,7 +3,7 @@ const UserBase = require('./userBase')
 
 const ThirdPartyUser = UserBase.discriminator('ThirdPartyUser',
   new mongoose.Schema({
-    idHash: {
+    idSub: {
       type: String,
       required: true,
       unique: true

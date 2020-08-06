@@ -4,7 +4,6 @@ export const initializeComments = () => {
   return async dispatch => {
     try {
       const comments = await commentService.getAll()
-      console.log({ comments })
       dispatch({
         type: 'INIT_COMMENTS',
         data: comments

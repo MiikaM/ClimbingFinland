@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
 const loginRouter = require('express').Router()
-const User = require('../models/user')
+// const jwt = require('jsonwebtoken')
+// const bcrypt = require('bcrypt')
+// const User = require('../models/user')
 const { validateGoogleUser, validateOnSiteUser } = require('./validateLogin')
 
 loginRouter.post('/', async (request, response) => {
@@ -23,11 +23,11 @@ loginRouter.post('/', async (request, response) => {
     
   }
 
-  const token = jwt.sign(userForToken, process.env.SECRET)
+  // const token = jwt.sign(userForToken, process.env.SECRET)
 
-  response
-    .status(200)
-    .send({ token, username: validatedUser.username, name: validatedUser.name })
+  // response
+  //   .status(200)
+  //   .send({ token, username: validatedUser.username, name: validatedUser.name })
 })
 
 module.exports = loginRouter

@@ -1,4 +1,4 @@
-import loginService from '../services/login'
+import loginService from '../services/loginService'
 import googleLoginService from '../services/googleLoginService'
 
 export const loginUser = (user) => {
@@ -15,12 +15,19 @@ export const loginUser = (user) => {
   }
 }
 
-export const googleLoginUser = async (user) => {
-  const user_token = await user.getIdToken()
+export const googleLoginUser = (user) => {
 
   return async dispatch => {
     try {
+      const user_token = {
+        token: await user.getIdToken(),
+        type: 'google'
+      }
+
+      console.log({ user, user_token })
+
       const loggedIn = await googleLoginService.login(user_token)
+      console.log({ loggedIn })
       dispatch({
         type: 'LOGIN',
         data: loggedIn

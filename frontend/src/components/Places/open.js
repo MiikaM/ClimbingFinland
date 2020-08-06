@@ -18,7 +18,6 @@ const isItOpen = (hours, minutes, openToday) => {
 }
 
 const Open = (open_hours) => {
-  console.log({open_hours})
   let openToday
   let open
   const now = new Date()
@@ -29,7 +28,6 @@ const Open = (open_hours) => {
   switch (today) {
     case 0:
       openToday = [open_hours.sun.open, open_hours.sun.close]
-      console.log({openToday})
       open = isItOpen(hours, minutes, openToday)
       return open
     case 1:
@@ -42,7 +40,6 @@ const Open = (open_hours) => {
       return open
     case 3:
       openToday = [open_hours.wed.open, open_hours.wed.close]
-      console.log({openToday})
       open = isItOpen(hours, minutes, openToday)
       return open
     case 4:

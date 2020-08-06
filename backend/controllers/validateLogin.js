@@ -1,6 +1,5 @@
 const { OAuth2Client } = require('google-auth-library')
 const client = new OAuth2Client(process.env.CLIENT_ID)
-const logger = require('../utils/logger')
 const bcrypt = require('bcrypt')
 const OnSiteUser = require('../models/onSiteUser')
 const ThirdPartyUser = require('../models/thirdPartyUser')
@@ -8,33 +7,41 @@ const ThirdPartyUser = require('../models/thirdPartyUser')
 
 
 const validateGoogleUser = async (token) => {
-  console.log({ token })
+  console.log({ token, client })
   let userId
+  let ticket
+
+  console.log(typeof token, process.env.CLIENT_ID)
   try {
-    const ticket = await client.verifyIdToken({
+    ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.CLIENT_ID
     })
-
-    const payload = ticket.getPayload()
-    userId = payload['sub']
-
   } catch (e) {
-    throw Error('Couldn\'t validate google user', e.message)
+    throw Error(e)
   }
 
-  const userFound = await ThirdPartyUser.findOne({ username: user.username })
-  const passwordCorrect = user === null
-    ? false
-    : await bcrypt.compare(user.password, userFound.passwordHash)
 
-  if (!(user && passwordCorrect)) {
-    return status(401).json({
-      error: 'invalid username or password'
-    })
+  console.log({ ticket })
+
+  const payload = ticket.getPayload()
+
+  console.log({ payload })
+
+  userId = payload['sub']
+
+  console.log({ userId })
+
+
+  const userFound = await ThirdPartyUser.findOne({ idSub: userId })
+
+  if (!userFound) {
+    throw Error('invalid username or password')
   }
+
 
   const userInfo = {
+    name: userFound.name,
     id: userId
   }
 
@@ -44,19 +51,6 @@ const validateGoogleUser = async (token) => {
 
 const validateOnSiteUser = async (user) => {
   console.log({ user })
-
-  const userFound = await OnSiteUser.findOne({ username: user.username })
-  const passwordCorrect = user === null
-    ? false
-    : await bcrypt.compare(user.password, userFound.passwordHash)
-
-  if (!(user && passwordCorrect)) {
-    return status(401).json({
-      error: 'invalid username or password'
-    })
-  }
-
-  return userInfo
 }
 
 module.exports = {

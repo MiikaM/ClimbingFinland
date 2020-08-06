@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
-import dotenv from 'dotenv'
 import {
   Switch, Route
 } from 'react-router-dom'
@@ -13,6 +12,7 @@ import ChosenPlace from './components/ChosenPlace'
 import CommentForm from './components/CommentForm'
 import { initializePlaces } from './reducers/placeReducer'
 import { initializeComments } from './reducers/commentReducer';
+import { googleLoginUser } from './reducers/loginReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -39,16 +39,11 @@ const App = () => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async user => {
-      // dispatch((loginUser(user)))
       if (user) {
-        const name = user.displayName
-
-        const token = await user.getIdToken()
-
-        console.log({token})
-
+        console.log({ user })
+        dispatch(googleLoginUser(user))
         setIsSignedIn(!!user)
-      }    
+      }
     })
 
   }, [])
