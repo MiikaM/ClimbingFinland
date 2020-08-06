@@ -13,6 +13,7 @@
     "drei": "0.0.66",
     "firebase": "^7.17.1",
     "formik": "^2.1.5",
+    "google-oauth-jwt": "^0.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-firebaseui": "^4.1.0",

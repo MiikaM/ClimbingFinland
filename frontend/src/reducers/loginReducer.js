@@ -15,18 +15,18 @@ export const loginUser = (user) => {
   }
 }
 
-export const googleLoginUser = (user) => {
+export const googleLoginUser = (user_token) => {
 
   return async dispatch => {
     try {
-      const user_token = {
-        token: await user.getIdToken(),
+      const user = {
+        token: user_token,
         type: 'google'
       }
 
       console.log({ user, user_token })
 
-      const loggedIn = await googleLoginService.login(user_token)
+      const loggedIn = await googleLoginService.login(user)
       console.log({ loggedIn })
       dispatch({
         type: 'LOGIN',

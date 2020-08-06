@@ -32,16 +32,17 @@ const App = () => {
   if (!firebase.apps.length) {
     console.log(process.env.AUTHID, process.env.CLIENTID)
     firebase.initializeApp({
-      apiKey: '',
-      authDomain: ''
+      apiKey: 'AIzaSyCVmpjoCpS53LqU26ee693vwbKwIp3-0Mg',
+      authDomain: 'climbingfinland-cf142.web.app'
     })
   }
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async user => {
       if (user) {
+        const id_token = user.getIdToken()
         console.log({ user })
-        dispatch(googleLoginUser(user))
+        dispatch(googleLoginUser(id_token))
         setIsSignedIn(!!user)
       }
     })

@@ -3,6 +3,8 @@ const client = new OAuth2Client(process.env.CLIENT_ID)
 const bcrypt = require('bcrypt')
 const OnSiteUser = require('../models/onSiteUser')
 const ThirdPartyUser = require('../models/thirdPartyUser')
+const axios = require('axios')
+const request = require('google-oauth-jwt')
 
 
 
@@ -13,8 +15,10 @@ const validateGoogleUser = async (token) => {
 
   console.log(typeof token, process.env.CLIENT_ID)
   try {
+    // const ticket = await axios.get(`https://oauth2.googleapis.com/tokeninfo?id_token=`)
+
     ticket = await client.verifyIdToken({
-      idToken: token,
+      idToken: token.i,
       audience: process.env.CLIENT_ID
     })
   } catch (e) {
