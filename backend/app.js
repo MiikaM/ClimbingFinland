@@ -27,7 +27,7 @@ mongoose.connect(mongoUrl, { useCreateIndex: true, useFindAndModify: false, useN
 app.use(cors())
 app.use(express.json())
 app.use(middleware.morg)
-// app.use(middleware.tokenExtractor)
+app.use(middleware.tokenExtractor)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 

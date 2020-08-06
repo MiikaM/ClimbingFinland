@@ -1,38 +1,26 @@
-const { OAuth2Client } = require('google-auth-library')
-const client = new OAuth2Client(process.env.CLIENT_ID)
+const jwt = require('jsonwebtoken')
+const admin = require('../services/firebaseService')
 const bcrypt = require('bcrypt')
-const OnSiteUser = require('../models/onSiteUser')
 const ThirdPartyUser = require('../models/thirdPartyUser')
-const axios = require('axios')
-const request = require('google-oauth-jwt')
+const UserBase = require('../models/userBase')
 
 
 
 const validateGoogleUser = async (token) => {
-  console.log({ token, client })
+  console.log({ token })
   let userId
   let ticket
 
   console.log(typeof token, process.env.CLIENT_ID)
   try {
-    // const ticket = await axios.get(`https://oauth2.googleapis.com/tokeninfo?id_token=`)
-
-    ticket = await client.verifyIdToken({
-      idToken: token.i,
-      audience: process.env.CLIENT_ID
-    })
+    ticket = await admin.auth().verifyIdToken(token)
   } catch (e) {
-    throw Error(e)
+    throw Error('Error on verifying Google user: ', e.message)
   }
-
 
   console.log({ ticket })
 
-  const payload = ticket.getPayload()
-
-  console.log({ payload })
-
-  userId = payload['sub']
+  userId = ticket['sub']
 
   console.log({ userId })
 
@@ -43,18 +31,36 @@ const validateGoogleUser = async (token) => {
     throw Error('invalid username or password')
   }
 
-
-  const userInfo = {
+  const userForToken = {
     name: userFound.name,
-    id: userId
+    id: userFound.idSub
   }
 
-  return userInfo
+  return userForToken
 
 }
 
 const validateOnSiteUser = async (user) => {
   console.log({ user })
+
+
+  const userInDb = await UserBase.findOne({ username: user.username })
+  console.log({userInDb})
+  const passwordCorrect = user === null
+    ? false
+    : await bcrypt.compare(user.password, userInDb.password)
+
+  if (!(user && passwordCorrect)) {
+    throw Error('invalid username or password')
+  }
+
+  const userForToken = {
+    username: userInDb.username,
+    name: userInDb.name,
+    id: user._id,
+  }
+
+  return userForToken
 }
 
 module.exports = {
