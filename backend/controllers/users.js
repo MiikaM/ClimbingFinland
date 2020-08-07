@@ -1,6 +1,6 @@
 const usersRouter = require('express').Router()
 const UserBase = require('../models/userBase')
-const { userChecker, userCheckerThirdParty } = require('./userChecker')
+const { userChecker } = require('../utils/userHandling')
 const { removeUser } = require('../services/userService')
 const logger = require('../utils/logger')
 

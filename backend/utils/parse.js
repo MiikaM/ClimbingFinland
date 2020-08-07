@@ -2,30 +2,6 @@
 const { hasDays, isString, isUrl, isStringArray, isCity, isPicture, hasPrices } = require('./validator')
 const { isDate } = require('lodash')
 
-const checkPlace = (object) => {
-  const checkedPlace = {
-    name: parseName(object.name),
-    description: parseDescription(object.description),
-    url: parseUrl(object.url),
-    openingHours: parseOpenHours(object.openingHours),
-    prices: parsePrices(object.prices),
-    image: parseImage(object.image),
-    tags: parseTags(object.tags),
-    city: parseCity(object.city)
-  }
-
-  return checkedPlace
-}
-
-const checkComment = (object) => {
-  const date = new Date()
-  const checkedPlace = {
-    comment: parseComment(object.comment),
-    date: parseDate(date),
-  }
-
-  return checkedPlace
-}
 
 const parseName = (name) => {
   if (!name || !isString(name)) {
@@ -72,7 +48,7 @@ const parseOpenHours = (open_hours) => {
 
 const parsePrices = (prices) => {
   if (!prices || !hasPrices(prices)) {
-    throw new Error('Incorrect or missing pricing: ', {prices})
+    throw new Error('Incorrect or missing pricing: ', { prices })
   }
 
   return prices
@@ -103,14 +79,22 @@ const parseCity = (city) => {
 }
 
 const parseDate = (date) => {
-  if(!date || !isDate(date)) {
-    throw new Error ('Couldn\'t get the time of submission of comment.')
+  if (!date || !isDate(date)) {
+    throw new Error('Couldn\'t get the time of submission of comment.')
   }
-  
+
   return date
 }
 
 module.exports = {
-  checkPlace,
-  checkComment
+  parseName,
+  parseCity,
+  parseComment,
+  parseDate,
+  parseDescription,
+  parseImage,
+  parseOpenHours,
+  parsePrices,
+  parseTags,
+  parseUrl
 }

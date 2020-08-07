@@ -13,6 +13,7 @@ import CommentForm from './components/CommentForm'
 import { initializePlaces } from './reducers/placeReducer'
 import { initializeComments } from './reducers/commentReducer';
 import { googleLoginUser } from './reducers/loginReducer'
+import firebaseConfig from './config/firebaseConfig'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -31,10 +32,7 @@ const App = () => {
 
   if (!firebase.apps.length) {
     console.log(process.env.AUTHID, process.env.CLIENTID)
-    firebase.initializeApp({
-      apiKey: '',
-      authDomain: ''
-    })
+    firebase.initializeApp(firebaseConfig)
   }
 
   useEffect(() => {

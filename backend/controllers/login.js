@@ -1,8 +1,6 @@
 const loginRouter = require('express').Router()
 const jwt = require('jsonwebtoken')
-// const bcrypt = require('bcrypt')
-// const User = require('../models/user')
-const { validateGoogleUser, validateOnSiteUser } = require('./validateLogin')
+const { validateGoogleUser, validateOnSiteUser } = require('../utils/loginHandling')
 const logger = require('../utils/logger')
 
 loginRouter.post('/', async (request, response) => {

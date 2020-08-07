@@ -1,10 +1,9 @@
-const jwt = require('jsonwebtoken')
-const admin = require('../services/firebaseService')
+const admin = require('../../services/firebaseService')
 const bcrypt = require('bcrypt')
-const ThirdPartyUser = require('../models/thirdPartyUser')
-const UserBase = require('../models/userBase')
-const { userCheckerThirdParty } = require('./userChecker')
-const logger = require('../utils/logger')
+const ThirdPartyUser = require('../../models/thirdPartyUser')
+const UserBase = require('../../models/userBase')
+const { userCheckerThirdParty } = require('../userHandling')
+const logger = require('../logger')
 
 
 

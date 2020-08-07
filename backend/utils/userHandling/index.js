@@ -1,7 +1,7 @@
-const AdminUser = require('../models/adminUser')
+const AdminUser = require('../../models/adminUser')
 const bcrypt = require('bcrypt')
-const OnSiteUser = require('../models/onSiteUser')
-const ThirdPartyUser = require('../models/thirdPartyUser')
+const OnSiteUser = require('../../models/onSiteUser')
+const ThirdPartyUser = require('../../models/thirdPartyUser')
 
 
 const userChecker = async (user_data) => {
