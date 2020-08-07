@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 // const bcrypt = require('bcrypt')
 // const User = require('../models/user')
 const { validateGoogleUser, validateOnSiteUser } = require('./validateLogin')
+const logger = require('../utils/logger')
 
 loginRouter.post('/', async (request, response) => {
   const body = request.body
@@ -11,6 +12,8 @@ loginRouter.post('/', async (request, response) => {
     try {
       validatedUser = await validateGoogleUser(request.token)
     } catch (e) {
+      logger.error(e.message)
+
       return response.status(401).json({
         error: e.message
       })
@@ -21,6 +24,7 @@ loginRouter.post('/', async (request, response) => {
     try {
       validatedUser = await validateOnSiteUser(body.user)
     } catch (e) {
+      logger.error(e.message)
       return response.status(401).json({ error: e.message })
     }
   }
@@ -34,6 +38,7 @@ loginRouter.post('/', async (request, response) => {
   }
 
   const token = jwt.sign(userForToken, process.env.SECRET)
+
 
   response.status(200).send({ token, name: userForToken.name, id: userForToken.id })
 })

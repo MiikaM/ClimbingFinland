@@ -13,6 +13,10 @@ const OnSiteUser = UserBase.discriminator('OnSiteUser',
       type: String,
       unique: true
     },
+    avatar: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Image'
+    },
     password: {
       type: String,
       required: true,

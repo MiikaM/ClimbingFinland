@@ -1,10 +1,11 @@
 const AdminUser = require('../models/adminUser')
 const bcrypt = require('bcrypt')
 const OnSiteUser = require('../models/onSiteUser')
+const ThirdPartyUser = require('../models/thirdPartyUser')
 
 
 const userChecker = async (user_data) => {
-  console.log({user_data})
+  console.log({ user_data })
 
   if (!user_data.password || user_data.password.length < 3) {
     throw new Error('Password minimun length is 3')
@@ -18,6 +19,44 @@ const userChecker = async (user_data) => {
   }
 
   return createOnSite(user_data, passwordHash)
+}
+
+const userCheckerThirdParty = (user_data) => {
+  console.log({ user_data })
+
+  if (user_data.iss !== process.env.PROJECT_ISS || user_data.aud !== process.env.PROJECT_ID || !checkIatExp(user_data.iat, user_data.exp)) {
+    throw new Error('User token is not authenticated by google.')
+  }
+
+  const user = createThirdParty(user_data)
+
+  console.log({ user })
+
+  if (!user) {
+    throw new Error('User creation failed.')
+  }
+
+  return user
+}
+
+const checkIatExp = (iat, exp) => {
+  const iatCorrect = ((Math.round((new Date()).getTime() / 1000)) > iat)
+  const expCorrect = ((Math.round((new Date()).getTime() / 1000)) < exp)
+  return (iatCorrect && expCorrect)
+}
+
+const createThirdParty = (thirdParty_data) => {
+  console.log({ thirdParty_data })
+
+  const thirdParty = new ThirdPartyUser({
+    idSub: thirdParty_data.sub,
+    name: thirdParty_data.name,
+    verified: thirdParty_data.email_verified,
+    email: thirdParty_data.email,
+    avatar: thirdParty_data.picture
+  })
+
+  return thirdParty
 }
 
 const createAdmin = (admin_data, passwordHash) => {
@@ -45,5 +84,6 @@ const createOnSite = (onSite_data, passwordHash) => {
 }
 
 module.exports = {
-  userChecker
+  userChecker,
+  userCheckerThirdParty
 }

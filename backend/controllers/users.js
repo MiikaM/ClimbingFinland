@@ -1,6 +1,8 @@
 const usersRouter = require('express').Router()
 const UserBase = require('../models/userBase')
-const { userChecker } = require('./userChecker')
+const { userChecker, userCheckerThirdParty } = require('./userChecker')
+const { removeUser } = require('../services/userService')
+const logger = require('../utils/logger')
 
 
 usersRouter.get('/', async (request, response) => {
@@ -23,13 +25,24 @@ usersRouter.post('/', async (request, response) => {
   const body = request.body
 
   try {
-    console.log({body})
+    console.log({ body })
     const userToSave = await userChecker(body)
-    console.log({userToSave})
+    console.log({ userToSave })
     const savedUser = await userToSave.save()
     response.json(savedUser)
   } catch (e) {
-    response.status(401).json({error: e.message})
+    response.status(401).json({ error: e.message })
+  }
+})
+
+usersRouter.delete('/:id', async (request, response) => {
+
+  try {
+    await removeUser(request.params.id, request.token)
+    response.json(204).end()
+  } catch (e) {
+    logger.error(e)
+    response.status(401).json({ error: e.message })
   }
 })
 

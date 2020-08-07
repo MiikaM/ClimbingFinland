@@ -6,7 +6,7 @@ morgan.token('contents', function (req) {
 })
 
 //Logs the request info
-const morg = morgan(':method :url :status :res[content-length] - :response-time ms')
+const morg = morgan(':method :url :status :res[content-length] - :response-time ms :contents')
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'Unknown place' })

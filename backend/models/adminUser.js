@@ -13,6 +13,10 @@ const AdminUser = UserBase.discriminator('AdminUser',
       type: String,
       unique: true
     },
+    avatar: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Image'
+    },
     password: {
       type: String,
       required: true,
