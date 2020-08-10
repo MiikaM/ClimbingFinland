@@ -1,8 +1,11 @@
 const usersRouter = require('express').Router()
 const UserBase = require('../models/userBase')
+const Image = require('../models/image')
 const { userChecker } = require('../utils/userHandling')
 const { removeUser } = require('../services/userService')
 const logger = require('../utils/logger')
+const upload = require('../utils/multer')
+const jwt = require('jsonwebtoken')
 
 
 usersRouter.get('/', async (request, response) => {
@@ -44,6 +47,40 @@ usersRouter.delete('/:id', async (request, response) => {
     logger.error(e)
     response.status(401).json({ error: e.message })
   }
+})
+
+usersRouter.put('/uploadImage/:id', upload.single('imageData'), async (req, res) => {
+  console.log(req.body)
+  const body = req.body
+  const file = req.file
+
+  const decodedToken = jwt.verify(req.token, process.env.SECRET)
+  if (!req.token || !decodedToken.id) {
+    return res.status(401).json({ error: 'token missing or invalid' })
+  }
+  const user = await UserBase.findById(decodedToken.id)
+
+  const newImage = new Image({
+    imageName: body.imageName,
+    imageData: file.path
+  })
+
+  try {
+    const imageSaved = await newImage.save()
+
+    console.log({ imageSaved })
+
+    user.avatar = imageSaved.id
+
+    res.status(200).json({
+      success: true,
+      document: imageSaved
+    })
+  } catch (e) {
+    logger.error(e.message)
+    res.status(400).json({ error: e.message })
+  }
+
 })
 
 module.exports = usersRouter

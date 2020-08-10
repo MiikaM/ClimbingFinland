@@ -13,7 +13,8 @@ import CommentForm from './components/CommentForm'
 import { initializePlaces } from './reducers/placeReducer'
 import { initializeComments } from './reducers/commentReducer';
 import { googleLoginUser } from './reducers/loginReducer'
-import firebaseConfig from './config/firebaseConfig'
+import { firebaseConfig } from './firebase'
+import ImageForm from './components/ImageForm'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -68,6 +69,9 @@ const App = () => {
           <Route exact path='/'>
             <Places />
           </Route>
+          <Route exact path='/upload'>
+            <ImageForm />
+          </Route>
           <Route path='/places/:id'>
             <ChosenPlace />
           </Route>
@@ -77,7 +81,7 @@ const App = () => {
         </Switch>
         {/* <Footer /> */}
       </div>
-    </Container>
+    </Container >
   )
 }
 

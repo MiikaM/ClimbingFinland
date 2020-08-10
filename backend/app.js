@@ -10,7 +10,6 @@ const placesRouter = require('./controllers/places')
 const commentsRouter = require('./controllers/comments')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
-const imageRouter = require('./controllers/iamges')
 
 
 
@@ -35,7 +34,6 @@ app.use('/api/login', loginRouter)
 app.use('/uploads', express.static('uploads'))
 app.use('/api/comments', commentsRouter)
 app.use('/api/places', placesRouter)
-app.use('/api/image', imageRouter)
 
 // if (process.env.NODE_ENV === 'test') {
 //   const testingRouter = require('./controllers/testing')

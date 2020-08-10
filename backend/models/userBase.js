@@ -16,6 +16,10 @@ const userBaseSchema = mongoose.Schema({
     type: Boolean,
     default: false
   },
+  avatar: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Image'
+  },
   favouritePlaces: [
     {
       type: mongoose.Schema.Types.ObjectId,
