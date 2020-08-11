@@ -7,9 +7,12 @@ const getAll = () => {
 }
 
 const uploadAvatar = (image, id) => {
-  const config = {
-    headers: { Authorization: token }
-  }
+  // const config = {
+  //   headers: { Authorization: token }
+  // }
+
+  const request = axios.put(`${baseUrl}/uploadImage/${id}`, image)
+  return request.then(response => response.data)
 }
 
 export default { getAll }
