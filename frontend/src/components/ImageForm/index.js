@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { uploadAvatar } from '../../reducers/userReducer'
 
 const ImageForm = () => {
   const [image, setImage] = useState(null)
+  const users = useSelector(state => state.users)
+  
   const dispatch = useDispatch()
 
   const handleChange = (event) => {
@@ -21,6 +24,14 @@ const ImageForm = () => {
       dispatch(uploadAvatar(image))
     }
   }
+
+  if (!users) return null
+
+  const user = users
+    ? users.find(user => user.id.toString() === '5f294ce5e5953a8730d56fe5')
+    : null
+
+  console.log({ user })
 
   return (
     <div>

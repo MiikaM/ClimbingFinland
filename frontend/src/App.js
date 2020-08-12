@@ -12,6 +12,7 @@ import ChosenPlace from './components/ChosenPlace'
 import CommentForm from './components/CommentForm'
 import { initializePlaces } from './reducers/placeReducer'
 import { initializeComments } from './reducers/commentReducer';
+import { initializeUsers } from './reducers/userReducer';
 import { googleLoginUser } from './reducers/loginReducer'
 import { firebaseConfig } from './firebase'
 import ImageForm from './components/ImageForm'
@@ -51,6 +52,8 @@ const App = () => {
   useEffect(() => {
     dispatch(initializePlaces())
     dispatch(initializeComments())
+    dispatch(initializeUsers())
+
   }, [dispatch])
 
   return (

@@ -2,6 +2,10 @@ const AdminUser = require('../../models/adminUser')
 const bcrypt = require('bcrypt')
 const OnSiteUser = require('../../models/onSiteUser')
 const ThirdPartyUser = require('../../models/thirdPartyUser')
+const sharp = require('sharp')
+const fs = require('fs')
+const path = require('path')
+const logger = require('../logger')
 
 
 const userChecker = async (user_data) => {
@@ -83,7 +87,31 @@ const createOnSite = (onSite_data, passwordHash) => {
   return onSite
 }
 
+const resizeImage = async (image) => {
+  console.log({ image })
+
+  try {
+    const resizePath = `${image.destination}resized/${image.filename}`
+    const resized = await sharp(image.path)
+      .resize({
+        fit: sharp.fit.contain,
+        width: 370
+      })
+      .webp({ quality: 85, lossless: true })
+      .toFile(
+        path.resolve(resizePath)
+      )
+    // console.log({ resized })
+    fs.unlinkSync(image.path)
+
+    return resizePath
+  } catch (e) {
+    logger.error(e.message)
+  }
+}
+
 module.exports = {
   userChecker,
-  userCheckerThirdParty
+  userCheckerThirdParty,
+  resizeImage
 }

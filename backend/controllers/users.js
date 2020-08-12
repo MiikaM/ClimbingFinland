@@ -1,11 +1,12 @@
 const usersRouter = require('express').Router()
 const UserBase = require('../models/userBase')
 const Image = require('../models/image')
-const { userChecker } = require('../utils/userHandling')
+const { userChecker, resizeImage } = require('../utils/userHandling')
 const { removeUser } = require('../services/userService')
 const logger = require('../utils/logger')
 const upload = require('../utils/multer')
 const jwt = require('jsonwebtoken')
+
 
 
 usersRouter.get('/', async (request, response) => {
@@ -64,9 +65,12 @@ usersRouter.put('/uploadImage/:id', upload.single('imageData'), async (req, res)
 
   console.log({ user })
 
+  const resizedImagePath = await resizeImage(file)
+
+
   const newImage = new Image({
     name: file.filename,
-    data: file.path
+    data: resizedImagePath
   })
 
   try {
