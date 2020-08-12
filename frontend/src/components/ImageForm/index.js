@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { uploadAvatar } from '../../reducers/userReducer'
 
 const ImageForm = () => {
   const [image, setImage] = useState(null)
-  const dateNow = Date.now()
   const dispatch = useDispatch()
 
   const handleChange = (event) => {
@@ -16,16 +16,24 @@ const ImageForm = () => {
   console.log({ image })
   const handleUpload = (event) => {
     event.preventDefault()
-    if (event.target.files[0]) {
-      dispatch(uploadImage(event.target.files[0]))
+
+    if (image) {
+      dispatch(uploadAvatar(image))
     }
   }
 
   return (
     <div>
       <h2>Upload image from here</h2>
-      <input type='file' onChange={handleUpload} />
+      <input type='file' onChange={handleChange} />
       <br />
+      <button onClick={handleUpload}>Upload</button>
+      <br />
+      {image ?
+        <img src={image} alt='shown' /> :
+        null
+      }
+
     </div>
   )
 }

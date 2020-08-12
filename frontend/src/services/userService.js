@@ -6,13 +6,22 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
-const uploadAvatar = (image, id) => {
+const uploadAvatar = (image) => {
   // const config = {
   //   headers: { Authorization: token }
   // }
 
-  const request = axios.put(`${baseUrl}/uploadImage/${id}`, image)
+  console.log('service', { image })
+  const id = '5f294ce5e5953a8730d56fe5'
+
+  const imageForm = new FormData()
+
+  imageForm.append('imageName', Date.now())
+  imageForm.append('imageData', image)
+
+  console.log({ imageForm })
+  const request = axios.put(`${baseUrl}/uploadImage/${id}`, imageForm)
   return request.then(response => response.data)
 }
 
-export default { getAll }
+export default { getAll, uploadAvatar }

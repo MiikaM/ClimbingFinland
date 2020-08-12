@@ -50,19 +50,23 @@ usersRouter.delete('/:id', async (request, response) => {
 })
 
 usersRouter.put('/uploadImage/:id', upload.single('imageData'), async (req, res) => {
-  console.log(req.body)
   const body = req.body
   const file = req.file
 
-  const decodedToken = jwt.verify(req.token, process.env.SECRET)
-  if (!req.token || !decodedToken.id) {
-    return res.status(401).json({ error: 'token missing or invalid' })
-  }
-  const user = await UserBase.findById(decodedToken.id)
+  console.log({ body })
+  console.log({ file })
+
+  // const decodedToken = jwt.verify(req.token, process.env.SECRET)
+  // if (!req.token || !decodedToken.id) {
+  //   return res.status(401).json({ error: 'token missing or invalid' })
+  // }
+  const user = await UserBase.findById(req.params.id)
+
+  console.log({ user })
 
   const newImage = new Image({
-    imageName: body.imageName,
-    imageData: file.path
+    name: file.filename,
+    data: file.path
   })
 
   try {
@@ -71,11 +75,11 @@ usersRouter.put('/uploadImage/:id', upload.single('imageData'), async (req, res)
     console.log({ imageSaved })
 
     user.avatar = imageSaved.id
+    const updatedUser = await user.save()
 
-    res.status(200).json({
-      success: true,
-      document: imageSaved
-    })
+    console.log({ updatedUser })
+
+    res.status(200).json(updatedUser.toJSON())
   } catch (e) {
     logger.error(e.message)
     res.status(400).json({ error: e.message })
