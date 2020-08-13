@@ -13,9 +13,6 @@ const ThirdPartyUser = UserBase.discriminator('ThirdPartyUser',
       required: true,
       unique: true
     },
-    avatar: {
-      type: String
-    },
     role: {
       type: String,
       default: 'EndUser'

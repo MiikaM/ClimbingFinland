@@ -1,11 +1,12 @@
 const usersRouter = require('express').Router()
 const UserBase = require('../models/userBase')
-const Image = require('../models/image')
 const { userChecker, resizeImage } = require('../utils/userHandling')
 const { removeUser } = require('../services/userService')
 const logger = require('../utils/logger')
 const upload = require('../utils/multer')
 const jwt = require('jsonwebtoken')
+const fs = require('fs')
+
 
 
 
@@ -68,17 +69,18 @@ usersRouter.put('/uploadImage/:id', upload.single('imageData'), async (req, res)
   const resizedImagePath = await resizeImage(file)
 
 
-  const newImage = new Image({
-    name: file.filename,
-    data: resizedImagePath
-  })
-
   try {
-    const imageSaved = await newImage.save()
 
-    console.log({ imageSaved })
+    if (user.avatar === null || user.avatar !== '') {
+      try {
+        fs.unlinkSync(user.avatar)
+      } catch (err) {
+        logger.error(err.message)
+      }
 
-    user.avatar = imageSaved.id
+    }
+
+    user.avatar = resizedImagePath
     const updatedUser = await user.save()
 
     console.log({ updatedUser })

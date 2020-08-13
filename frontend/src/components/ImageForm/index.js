@@ -41,7 +41,7 @@ const ImageForm = () => {
       <button onClick={handleUpload}>Upload</button>
       <br />
       {image ?
-        <img src={image} alt='shown' /> :
+        <img src={user.avatar} alt='shown' /> :
         null
       }
 

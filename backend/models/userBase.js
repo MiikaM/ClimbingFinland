@@ -17,8 +17,7 @@ const userBaseSchema = mongoose.Schema({
     default: false
   },
   avatar: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Image'
+    type: String
   },
   favouritePlaces: [
     {

@@ -91,7 +91,7 @@ const resizeImage = async (image) => {
   console.log({ image })
 
   try {
-    const resizePath = `${image.destination}resized/${image.filename}`
+    const resizePath = `${process.env.UPLOAD_FOLDER_RESIZED}${image.filename}`
     const resized = await sharp(image.path)
       .resize({
         fit: sharp.fit.contain,
@@ -101,7 +101,7 @@ const resizeImage = async (image) => {
       .toFile(
         path.resolve(resizePath)
       )
-    // console.log({ resized })
+    console.log({ resized })
     fs.unlinkSync(image.path)
 
     return resizePath
