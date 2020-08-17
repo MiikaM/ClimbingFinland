@@ -4,6 +4,12 @@ const uniqueValidator = require('mongoose-unique-validator')
 const options = { discriminatorKey: 'type', collection: 'users' }
 
 const userBaseSchema = mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    minlength: 6
+  },
   name: {
     type: String,
     minlength: 3,
@@ -11,6 +17,11 @@ const userBaseSchema = mongoose.Schema({
   role: {
     type: String,
     required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
   },
   verified: {
     type: Boolean,

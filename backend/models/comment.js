@@ -10,10 +10,10 @@ const commentSchema = mongoose.Schema({
     type: Date,
     required: true
   },
-  // user: {
-  //   type: String,
-  //   required: true
-  // }
+  user: {
+    type: String,
+    required: true
+  }
 })
 
 commentSchema.set('toJSON', {

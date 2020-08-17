@@ -2,6 +2,7 @@ const loginRouter = require('express').Router()
 const jwt = require('jsonwebtoken')
 const { validateGoogleUser, validateOnSiteUser } = require('../utils/loginHandling')
 const logger = require('../utils/logger')
+const { authenticate } = require('../utils/middleware')
 
 loginRouter.post('/', async (request, response) => {
   const body = request.body
@@ -38,7 +39,11 @@ loginRouter.post('/', async (request, response) => {
   const token = jwt.sign(userForToken, process.env.SECRET)
 
 
-  response.status(200).send({ token, name: userForToken.name, id: userForToken.id })
+  response.status(200).cookie('token', token, { httpOnly: true })
+})
+
+loginRouter.get('/check', authenticate, (req, res) => {
+  res.status(200).send({ email: req.email, name: req.name })
 })
 
 module.exports = loginRouter

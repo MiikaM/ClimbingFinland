@@ -2,10 +2,11 @@ const commentsRouter = require('express').Router()
 const Comment = require('../models/comment')
 const { checkComment } = require('../utils/parse')
 const { addComment, removeComment } = require('../services/commentService')
+const { authenticate } = require('../utils/middleware')
 
 
 commentsRouter.get('/', async (req, res) => {
-  const comments = await Comment.find({})
+  const comments = await Comment.find({}).populate('user', { name: 1, avatar: 1 })
   res.json(comments.map(place => place.toJSON()))
 })
 
@@ -14,7 +15,7 @@ commentsRouter.get('/:id', async (req, res) => {
   res.json(comment.toJSON())
 })
 
-commentsRouter.post('/', async (req, res) => {
+commentsRouter.post('/', authenticate, async (req, res) => {
 
   try {
     const newComment = checkComment(req.body)

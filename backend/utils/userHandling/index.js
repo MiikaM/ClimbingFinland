@@ -6,6 +6,7 @@ const sharp = require('sharp')
 const fs = require('fs')
 const path = require('path')
 const logger = require('../logger')
+const UserBase = require('../../models/userBase')
 
 
 const userChecker = async (user_data) => {
@@ -53,6 +54,7 @@ const createThirdParty = (thirdParty_data) => {
   console.log({ thirdParty_data })
 
   const thirdParty = new ThirdPartyUser({
+    username: hashUsername(thirdParty_data.name),
     idSub: thirdParty_data.sub,
     name: thirdParty_data.name,
     verified: thirdParty_data.email_verified,
@@ -61,6 +63,30 @@ const createThirdParty = (thirdParty_data) => {
   })
 
   return thirdParty
+}
+
+const rndInteger = (min, max) => {
+  return Math.floor(Math.random() * (max - min)) + min
+}
+
+const hashUsername = async (name) => {
+
+  const nameSplitted = name.split(' ')
+  let boolean = true
+  let usernameJoined = ''
+  let i = 1
+  while (boolean) {
+    const username = nameSplitted.map(namePart => namePart.substring(0, rndInteger(0, namePart.length)))
+    usernameJoined = username.join('').toLowerCase()
+    const user = await UserBase.find({ username: username })
+    if (user) {
+      continue
+    }
+    boolean = false
+  }
+
+  return usernameJoined
+
 }
 
 const createAdmin = (admin_data, passwordHash) => {

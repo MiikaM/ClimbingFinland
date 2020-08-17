@@ -4,10 +4,7 @@ const { userChecker, resizeImage } = require('../utils/userHandling')
 const { removeUser } = require('../services/userService')
 const logger = require('../utils/logger')
 const upload = require('../utils/multer')
-const jwt = require('jsonwebtoken')
 const fs = require('fs')
-
-
 
 
 usersRouter.get('/', async (request, response) => {

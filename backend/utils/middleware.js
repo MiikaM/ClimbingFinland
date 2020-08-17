@@ -1,5 +1,6 @@
 const morgan = require('morgan')
 const logger = require('./logger')
+const jwt = require('jsonwebtoken')
 
 morgan.token('contents', function (req) {
   return JSON.stringify(req.body)
@@ -15,7 +16,7 @@ const unknownEndpoint = (request, response) => {
 const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id'})
+    return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
   } else if (error.name === 'MongoError') {
@@ -31,6 +32,24 @@ const errorHandler = (error, request, response, next) => {
   next(error)
 }
 
+const authenticate = (req, res, next) => {
+  const token = req.cookies.token
+
+  try {
+    if (!token) {
+      res.status(401).send('Unauthorized: No token provided')
+    } else {
+      const decodedToken = jwt.verify(token, process.env.SECRET)
+      req.email = decodedToken.email
+      req.name = decodedToken.name
+      next()
+    }
+  } catch (err) {
+    res.status(401).send('Unauthorized: Invalid token')
+  }
+
+}
+
 const tokenExtractor = (request, response, next) => {
   const authorization = request.get('authorization')
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
@@ -43,5 +62,6 @@ module.exports = {
   morg,
   unknownEndpoint,
   errorHandler,
+  authenticate,
   tokenExtractor
 }
