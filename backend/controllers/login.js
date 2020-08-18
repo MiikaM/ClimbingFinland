@@ -36,6 +36,10 @@ loginRouter.post('/', async (request, response) => {
     })
   }
 
+  // if(!userForToken.verified) {
+  //   throw new Error('Please confirm your email to login.')
+  // }
+
   const token = jwt.sign(userForToken, process.env.SECRET)
 
 

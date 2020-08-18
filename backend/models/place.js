@@ -1,9 +1,11 @@
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 
 const placeSchema = mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   description: {
     type: String
@@ -27,9 +29,11 @@ const placeSchema = mongoose.Schema({
   },
   city: {
     type: String
-    
   }
 })
+
+placeSchema.plugin(uniqueValidator)
+
 
 placeSchema.set('toJSON', {
   transform: (document, returnedObject) => {

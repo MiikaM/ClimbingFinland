@@ -16,7 +16,7 @@ const userChecker = async (user_data) => {
     throw new Error('Password minimun length is 3')
   }
 
-  const saltRounds = 11
+  const saltRounds = parseInt(process.env.SALT_WORK_FACTOR)
   const passwordHash = await bcrypt.hash(user_data.password, saltRounds)
 
   if (user_data.adminVerification && user_data.adminVerification === process.env.ADMINSECRET) {

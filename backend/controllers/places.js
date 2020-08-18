@@ -3,14 +3,14 @@ const Place = require('../models/place')
 const { checkPlace } = require('../utils/parse')
 const { addPlace, updatePlace, removePlace } = require('../services/placeService')
 const logger = require('../utils/logger')
-
+const { authenticate } = require('../utils/middleware')
 
 placesRouter.get('/', async (req, res) => {
   const places = await Place.find({})
   res.json(places.map(place => place.toJSON()))
 })
 
-placesRouter.post('/', async (req, res) => {
+placesRouter.post('/', authenticate, async (req, res) => {
 
   try {
     const newPlace = checkPlace(req.body)
@@ -21,7 +21,7 @@ placesRouter.post('/', async (req, res) => {
   }
 })
 
-placesRouter.put('/:id', async (req, res) => {
+placesRouter.put('/:id', authenticate, async (req, res) => {
 
   try {
     const place = checkPlace(req.body)
@@ -33,7 +33,7 @@ placesRouter.put('/:id', async (req, res) => {
   }
 })
 
-placesRouter.delete('/:id', async (req, res) => {
+placesRouter.delete('/:id', authenticate, async (req, res) => {
   try {
     removePlace(req.params.id)
     res.json(204).end()

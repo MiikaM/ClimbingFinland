@@ -28,7 +28,8 @@ const userBaseSchema = mongoose.Schema({
     default: false
   },
   avatar: {
-    type: String
+    type: String,
+    default: ''
   },
   favouritePlaces: [
     {

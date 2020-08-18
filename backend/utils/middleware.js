@@ -40,8 +40,7 @@ const authenticate = (req, res, next) => {
       res.status(401).send('Unauthorized: No token provided')
     } else {
       const decodedToken = jwt.verify(token, process.env.SECRET)
-      req.email = decodedToken.email
-      req.name = decodedToken.name
+      req.id = decodedToken.id
       next()
     }
   } catch (err) {

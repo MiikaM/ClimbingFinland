@@ -1,6 +1,6 @@
 const commentsRouter = require('express').Router()
 const Comment = require('../models/comment')
-const { checkComment } = require('../utils/parse')
+const { checkComment } = require('../utils/commentHandling')
 const { addComment, removeComment } = require('../services/commentService')
 const { authenticate } = require('../utils/middleware')
 
@@ -10,15 +10,20 @@ commentsRouter.get('/', async (req, res) => {
   res.json(comments.map(place => place.toJSON()))
 })
 
-commentsRouter.get('/:id', async (req, res) => {
-  const comment = await Comment.findById(req.params.id)
-  res.json(comment.toJSON())
+// commentsRouter.get('/:id', async (req, res) => {
+//   const comments = await Comment.find({ place: req.params.id })
+//   res.json(comments.toJSON())
+// })
+
+commentsRouter.get('/:place_id', async (req, res) => {
+  const comments = await Comment.find({ place: req.params.place_id })
+  res.json(comments.toJSON())
 })
 
-commentsRouter.post('/', authenticate, async (req, res) => {
-
+commentsRouter.post('/:place', authenticate, async (req, res) => {
+  req
   try {
-    const newComment = checkComment(req.body)
+    const newComment = checkComment(req.body, req.params.place, req.id)
     const addedComment = await addComment(newComment)
     res.status(201).json(addedComment.toJSON())
   } catch (e) {
@@ -38,7 +43,7 @@ commentsRouter.post('/', authenticate, async (req, res) => {
 //   }
 // })
 
-commentsRouter.delete('/:id', async (req, res) => {
+commentsRouter.delete('/:id', authenticate, async (req, res) => {
   try {
     removeComment(req.params.id)
     res.json(204).end()

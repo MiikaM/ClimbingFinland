@@ -27,7 +27,7 @@ mongoose.connect(mongoUrl, { useCreateIndex: true, useFindAndModify: false, useN
     logger.error('Error occured connecting to MongoDB', error.message)
   })
 
-app.use(express.static(path.join(__dirname, 'build')))
+// app.use(express.static(path.join(__dirname, 'build')))
 
 
 app.use(cors())

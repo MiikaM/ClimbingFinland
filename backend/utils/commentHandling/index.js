@@ -1,9 +1,12 @@
-const {parseComment, parseDate} = require('../parse')
+const { parseComment, parseDate } = require('../parse')
 
-const checkComment = (object) => {
+//TODO parse User ja place
+const checkComment = (object, place, user) => {
   const date = new Date()
   const checkedPlace = {
     comment: parseComment(object.comment),
+    user: user,
+    place: place,
     date: parseDate(date),
   }
 

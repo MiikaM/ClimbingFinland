@@ -10,8 +10,14 @@ const commentSchema = mongoose.Schema({
     type: Date,
     required: true
   },
+  place: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Place',
+    required: true
+  },
   user: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   }
 })
