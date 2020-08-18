@@ -16,4 +16,4 @@ const checkPlace = (object) => {
   return checkedPlace
 }
 
-module.exports = checkPlace
+module.exports = {checkPlace}

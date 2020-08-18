@@ -1,4 +1,5 @@
 const Comment = require('../models/comment')
+const UserBase = require('../models/userBase')
 
 const addComment = async (comment) => {
   const newComment = new Comment({
@@ -9,13 +10,20 @@ const addComment = async (comment) => {
   return savedComment
 }
 
-const removeComment = async (id) => {
-  const commentToRemove = await Comment.findByIdAndDelete(id)
+const removeComment = async (id, user_id) => {
+  const user = await UserBase.findById(user_id)
+  const commentToRemove = await Comment.findById(id)
 
   if (!commentToRemove) {
     throw new Error('Couldn\'t find Comment a with this id')
   }
 
+  if (commentToRemove.user.toString() !== user.id.toString()) {
+    throw new Error('You are not allowed to remove another users comments.')
+  }
+
+  await commentToRemove.deleteOne()
+  
   return commentToRemove
 }
 

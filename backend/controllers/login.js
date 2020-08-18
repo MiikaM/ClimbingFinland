@@ -22,6 +22,7 @@ loginRouter.post('/', async (request, response) => {
   if (body.type === 'onSite') {
     try {
       validatedUser = await validateOnSiteUser(body.user)
+      console.log({ validatedUser })
     } catch (e) {
       logger.error(e.message)
       return response.status(401).json({ error: e.message })
@@ -42,12 +43,13 @@ loginRouter.post('/', async (request, response) => {
 
   const token = jwt.sign(userForToken, process.env.SECRET)
 
+  console.log({ token })
 
-  response.status(200).cookie('token', token, { httpOnly: true })
+  response.status(200).cookie('token', token, { httpOnly: true }).end()
 })
 
 loginRouter.get('/check', authenticate, (req, res) => {
-  res.status(200).send({ email: req.email, name: req.name })
+  res.status(200).send({ email: req.email, name: req.username })
 })
 
 module.exports = loginRouter

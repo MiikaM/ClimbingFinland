@@ -1,13 +1,12 @@
 const usersRouter = require('express').Router()
 const UserBase = require('../models/userBase')
 const { userChecker, resizeImage } = require('../utils/userHandling')
-const { removeUser, sendVerificationEmail } = require('../services/userService')
+const { removeUser, sendVerificationEmail, updateUser } = require('../services/userService')
 const logger = require('../utils/logger')
 const upload = require('../utils/multer')
 const fs = require('fs')
 const { authenticate } = require('../utils/middleware')
-const jwt = require('jsonwebtoken')
-const mailer = require('../utils/nodemailer')
+
 
 usersRouter.get('/', async (request, response) => {
   const users = await UserBase.find({}).populate('favouritePlaces', { name: 1, description: 1 })
@@ -45,10 +44,10 @@ usersRouter.post('/', async (request, response) => {
   }
 })
 
-usersRouter.delete('/:id', async (request, response) => {
+usersRouter.delete('/:id', authenticate, async (request, response) => {
 
   try {
-    await removeUser(request.params.id)
+    await removeUser(request.params.id, request.username)
     response.json(204).end()
   } catch (e) {
     logger.error(e)
@@ -56,7 +55,21 @@ usersRouter.delete('/:id', async (request, response) => {
   }
 })
 
-usersRouter.put('/uploadImage/:id', upload.single('imageData'), async (req, res) => {
+
+//TODO: Jatka tästä
+usersRouter.put('/:username', authenticate, async (req, res) => {
+  const body = req.body
+  try {
+
+    const updated = await updateUser(req.params.username, req.id, body)
+    res.json(updated.toJSON()).status(204).end()
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
+})
+
+
+usersRouter.put('/uploadImage', authenticate, upload.single('imageData'), async (req, res) => {
   const body = req.body
   const file = req.file
 
@@ -64,7 +77,7 @@ usersRouter.put('/uploadImage/:id', upload.single('imageData'), async (req, res)
   console.log({ file })
 
 
-  const user = await UserBase.findById(req.params.id)
+  const user = await UserBase.findById(req.id)
 
   console.log({ user })
 

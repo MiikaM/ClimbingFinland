@@ -5,26 +5,19 @@ const { transporter } = require('../utils/nodemailer')
 const logger = require('../utils/logger')
 
 
-const removeUser = async (id) => {
+const removeUser = async (id, username) => {
   const userToRemove = await UserBase.findById(id)
+  const userRemoving = await UserBase.findOne({ username: username })
 
   if (!userToRemove) {
     throw new Error('User doesn\'t exist or has already been removed')
   }
 
+  if (userToRemove !== userRemoving) {
+    throw new Error('You are not authorized to remove this user')
+  }
+
   console.log({ userToRemove })
-
-  // const decodedToken = jwt.verify(token, process.env.SECRET)
-  // console.log({decodedToken})
-  // if (!token || !decodedToken.id) {
-  //   throw new Error('token missing or invalid')
-  // }
-
-  // const userRemoving = await UserBase.findById(decodedToken.id)
-
-  // if (userRemoving._id.toString() !== userToRemove._id.toString()) {
-  //   throw new Error('You are not authorized to remove this user.')
-  // }
 
   const userComments = await Comment.find({ user: userToRemove._id })
 
@@ -35,6 +28,29 @@ const removeUser = async (id) => {
   })
 
   Promise.all(removeComments)
+
+}
+
+
+const updateUser = async (userToUpdate_username, userUpdating_id, newUser) => {
+
+  const userInDb = await UserBase.findOne({ username: userToUpdate_username })
+
+  if (userInDb.id.toString() !== userUpdating_id.toString()) {
+    throw new Error('Only logged in user can update their information.')
+  }
+
+  try {
+    const userToUpdate = {...userInDb, ...newUser}
+
+    console.log({userToUpdate})
+    await userInDb.update(userToUpdate, { new: true })
+
+    return userToUpdate
+
+  } catch (err) {
+    throw new Error(err.message)
+  }
 
 }
 
@@ -57,5 +73,6 @@ const sendVerificationEmail = (user) => {
 
 module.exports = {
   removeUser,
-  sendVerificationEmail
+  sendVerificationEmail,
+  updateUser
 }

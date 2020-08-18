@@ -21,6 +21,7 @@ const updatePlace = async (id, place) => {
 
 const removePlace = async (id) => {
   const placeToRemove = await Place.findByIdAndDelete(id)
+  console.log({ placeToRemove })
 
   if (!placeToRemove) {
     throw new Error('Couldn\'t find place a with this id')

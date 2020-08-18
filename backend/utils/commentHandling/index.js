@@ -1,8 +1,15 @@
 const { parseComment, parseDate } = require('../parse')
+const Place = require('../../models/place')
 
 //TODO parse User ja place
-const checkComment = (object, place, user) => {
+const checkComment = async (object, place, user) => {
   const date = new Date()
+  const placeInDb = await Place.findById(place)
+
+  if (!placeInDb) {
+    throw new Error('This place does not exist.')
+  }
+
   const checkedPlace = {
     comment: parseComment(object.comment),
     user: user,
@@ -13,4 +20,4 @@ const checkComment = (object, place, user) => {
   return checkedPlace
 }
 
-module.exports = checkComment
+module.exports = { checkComment }

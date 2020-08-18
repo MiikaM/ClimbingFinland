@@ -52,7 +52,9 @@ const checkIatExp = (iat, exp) => {
 
 const createThirdParty = (thirdParty_data) => {
   console.log({ thirdParty_data })
-
+  if (!thirdParty_data.email_verified) {
+    throw new Error('In order to use a Google account to sign in, you must have your google account verified.')
+  }
   const thirdParty = new ThirdPartyUser({
     username: hashUsername(thirdParty_data.name),
     idSub: thirdParty_data.sub,
@@ -74,7 +76,6 @@ const hashUsername = async (name) => {
   const nameSplitted = name.split(' ')
   let boolean = true
   let usernameJoined = ''
-  let i = 1
   while (boolean) {
     const username = nameSplitted.map(namePart => namePart.substring(0, rndInteger(0, namePart.length)))
     usernameJoined = username.join('').toLowerCase()

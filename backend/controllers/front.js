@@ -7,9 +7,7 @@ const logger = require('../utils/logger')
 frontRouter.get('/verification/:token', async (req, res) => {
   try {
     const { user: id } = jwt.verify(req.params.token, process.env.EMAIL_SECRET)
-    console.log({ id })
-    const user1 = await UserBase.findByIdAndUpdate(id, { verified: true })
-    console.log({ user1 })
+    await UserBase.findByIdAndUpdate(id, { verified: true })
   } catch (err) {
     logger.error(err.message)
   }

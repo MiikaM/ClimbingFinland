@@ -1,9 +1,9 @@
 const placesRouter = require('express').Router()
 const Place = require('../models/place')
-const { checkPlace } = require('../utils/parse')
+const { checkPlace } = require('../utils/placeHandling')
 const { addPlace, updatePlace, removePlace } = require('../services/placeService')
-const logger = require('../utils/logger')
 const { authenticate } = require('../utils/middleware')
+const { checkAdmin } = require('../utils/loginHandling')
 
 placesRouter.get('/', async (req, res) => {
   const places = await Place.find({})
@@ -13,6 +13,8 @@ placesRouter.get('/', async (req, res) => {
 placesRouter.post('/', authenticate, async (req, res) => {
 
   try {
+    await checkAdmin(req.id)
+
     const newPlace = checkPlace(req.body)
     const addedPlace = await addPlace(newPlace)
     res.status(201).json(addedPlace.toJSON())
@@ -24,8 +26,9 @@ placesRouter.post('/', authenticate, async (req, res) => {
 placesRouter.put('/:id', authenticate, async (req, res) => {
 
   try {
-    const place = checkPlace(req.body)
+    await checkAdmin(req.id)
 
+    const place = checkPlace(req.body)
     const updated = await updatePlace(req.params.id, place)
     res.json(updated.toJSON()).status(204).end()
   } catch (e) {
@@ -34,11 +37,14 @@ placesRouter.put('/:id', authenticate, async (req, res) => {
 })
 
 placesRouter.delete('/:id', authenticate, async (req, res) => {
+
   try {
-    removePlace(req.params.id)
+    await checkAdmin(req.id)
+
+    await removePlace(req.params.id)
     res.json(204).end()
   } catch (e) {
-    res.status(401).json()
+    res.status(401).send(e.message)
   }
 })
 
