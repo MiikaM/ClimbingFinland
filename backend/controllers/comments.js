@@ -23,10 +23,8 @@ commentsRouter.get('/:place_id', async (req, res) => {
 commentsRouter.post('/:place_id', authenticate, async (req, res) => {
 
   try {
-    if (!req.id) {
-      res.status(401).send({ error: 'You must be logged in before commenting.' })
-    }
-    const newComment = await checkComment(req.body, req.params.place_id, req.id)
+
+    const newComment = await checkComment(req.body, req.params.place_id, req.user.id)
     console.log({ newComment })
     const addedComment = await addComment(newComment)
     res.status(201).json(addedComment.toJSON())
@@ -49,7 +47,7 @@ commentsRouter.post('/:place_id', authenticate, async (req, res) => {
 
 commentsRouter.delete('/:id', authenticate, async (req, res) => {
   try {
-    await removeComment(req.params.id, req.id)
+    await removeComment(req.params.id, req.user.id)
     res.json(204).end()
   } catch (e) {
     res.status(401).json({ error: e.message })

@@ -32,22 +32,21 @@ const removeUser = async (id, username) => {
 }
 
 
-const updateUser = async (userToUpdate_username, userUpdating_id, newUser) => {
-
-  const userInDb = await UserBase.findOne({ username: userToUpdate_username })
-
-  if (userInDb.id.toString() !== userUpdating_id.toString()) {
-    throw new Error('Only logged in user can update their information.')
-  }
-
+const updateUser = async (userToUpdate_username, userUpdating, newUser) => {
   try {
-    const userToUpdate = {...userInDb, ...newUser}
+
+    if (userToUpdate_username !== userUpdating.username) {
+      throw new Error('Only logged in user can update their information.')
+    }
+    const userToUpdate = { ...newUser, verified: userUpdating.verified }
 
     console.log({userToUpdate})
-    await userInDb.update(userToUpdate, { new: true })
 
-    return userToUpdate
+    const userUpdated = await UserBase.findByIdAndUpdate(userUpdating.id, userToUpdate, { runValidators: true, new: true, context: 'query' })
 
+    console.log({ userUpdated })
+
+    return userUpdated
   } catch (err) {
     throw new Error(err.message)
   }

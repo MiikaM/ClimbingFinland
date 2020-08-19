@@ -6,10 +6,13 @@ const logger = require('../utils/logger')
 const upload = require('../utils/multer')
 const fs = require('fs')
 const { authenticate } = require('../utils/middleware')
+const { checkVerified } = require('../utils/loginHandling')
+const jwt = require('jsonwebtoken')
 
 
 usersRouter.get('/', async (request, response) => {
-  const users = await UserBase.find({}).populate('favouritePlaces', { name: 1, description: 1 })
+  const users = await UserBase.find({}).populate('favouritePlaces', {name: 1, description: 1})
+  console.log({users})
   // try {
   //   const mailIt = mailer()
   // } catch (e) {
@@ -61,8 +64,29 @@ usersRouter.put('/:username', authenticate, async (req, res) => {
   const body = req.body
   try {
 
-    const updated = await updateUser(req.params.username, req.id, body)
-    res.json(updated.toJSON()).status(204).end()
+    checkVerified(req.user.verified)
+    const updatedUser = await updateUser(req.params.username, req.user, body)
+
+    console.log('controller ', { updatedUser })
+    const userForToken = {
+      username: updatedUser.username,
+      id: updatedUser.id,
+      verified: updatedUser.verified
+    }
+    const token = jwt.sign(userForToken, process.env.SECRET, {expiresIn: '15m'})
+
+    console.log({ token })
+
+    res.status(200).cookie('token', token, { httpOnly: true})
+      .send({
+        username: updatedUser.username,
+        name: updatedUser.name,
+        favouritePlaces: updatedUser.favouritePlaces,
+        role: updatedUser.role,
+        email: updatedUser.email,
+        verified: updatedUser.verified,
+        avatar: updatedUser.avatar
+      })
   } catch (e) {
     res.status(400).send(e.message)
   }
@@ -72,19 +96,17 @@ usersRouter.put('/:username', authenticate, async (req, res) => {
 usersRouter.put('/uploadImage', authenticate, upload.single('imageData'), async (req, res) => {
   const body = req.body
   const file = req.file
-
   console.log({ body })
   console.log({ file })
 
-
-  const user = await UserBase.findById(req.id)
-
-  console.log({ user })
-
-  const resizedImagePath = await resizeImage(file)
-
-
   try {
+    checkVerified(req.user.verified)
+
+    const user = await UserBase.findById(req.user.id)
+
+    console.log({ user })
+
+    const resizedImagePath = await resizeImage(file)
 
     if (user.avatar === null || user.avatar !== '') {
       try {

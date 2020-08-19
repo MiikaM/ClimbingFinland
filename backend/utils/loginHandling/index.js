@@ -21,15 +21,8 @@ const validateGoogleUser = async (token) => {
     }
   }
 
-  const userForToken = {
-    username: userInDb.username,
-    name: userInDb.name,
-    email: userInDb.email,
-    avatar: userInDb.avatar,
-    id: userInDb.id
-  }
 
-  return userForToken
+  return userInDb
 
 }
 
@@ -44,17 +37,8 @@ const validateOnSiteUser = async (user) => {
     throw Error('invalid username or password')
   }
 
-  console.log({ userInDb })
 
-  const userForToken = {
-    username: userInDb.username,
-    email: userInDb.email,
-    avatar: userInDb.avatar,
-    name: userInDb.name,
-    id: userInDb.id
-  }
-
-  return userForToken
+  return userInDb
 }
 
 const checkTicket = async (token) => {
@@ -74,16 +58,22 @@ const checkAdmin = async (id) => {
     throw new Error('User doesn\'t exist.')
   }
 
-  const boolean = ( user.type === 'AdminUser' && user.role === 'Admin')
+  const boolean = (user.type === 'AdminUser' && user.role === 'Admin')
 
   if (!boolean) {
     throw new Error('You are not authorized to add a new place.')
   }
+}
 
+const checkVerified = (verified) => {
+  if (!verified) {
+    throw new Error('You have to verify your account first.')
+  }
 }
 
 module.exports = {
   validateGoogleUser,
   validateOnSiteUser,
-  checkAdmin
+  checkAdmin,
+  checkVerified
 }
