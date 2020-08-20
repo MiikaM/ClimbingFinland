@@ -9,8 +9,8 @@ import userReducer from './reducers/userReducer.js'
 const reducer = combineReducers({
   places: placeReducer,
   comments: commentReducer,
-  // login: loginReducer,
-   users: userReducer
+  // session: loginReducer,
+  //  users: userReducer
 })
 
 const store = createStore(
