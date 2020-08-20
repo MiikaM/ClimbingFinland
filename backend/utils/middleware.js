@@ -37,7 +37,7 @@ const authenticate = (req, res, next) => {
 
   try {
     if (!token) {
-      res.status(401).send('Unauthorized: No token provided')
+      res.status(401).send('Unauthorized: No token provided').end()
     } else {
       const decodedToken = jwt.verify(token, process.env.SECRET)
       req.user = {
@@ -50,7 +50,27 @@ const authenticate = (req, res, next) => {
       next()
     }
   } catch (err) {
-    res.status(401).send('Unauthorized: Invalid token')
+    res.status(401).send('Unauthorized: Invalid token').end()
+  }
+
+}
+
+const resetAuthentication = (req, res, next) => {
+  const token = req.cookies.token
+
+  try {
+    if (!token) {
+      res.status(404).send('Page was not found').end()
+    } else {
+      const decodedToken = jwt.verify(token, process.env.RESET_SECRET)
+      if (!decodedToken) {
+        res.status(404).send('Page was not found').end()
+      }
+      req.id = decodedToken.id
+      next()
+    }
+  } catch (err) {
+    res.status(401).send('Unauthorized: Invalid token').end()
   }
 
 }
@@ -68,5 +88,6 @@ module.exports = {
   unknownEndpoint,
   errorHandler,
   authenticate,
+  resetAuthentication,
   tokenExtractor
 }

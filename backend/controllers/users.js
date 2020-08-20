@@ -1,7 +1,7 @@
 const usersRouter = require('express').Router()
 const UserBase = require('../models/userBase')
 const { userChecker, resizeImage } = require('../utils/userHandling')
-const { removeUser, sendVerificationEmail, updateUser } = require('../services/userService')
+const { removeUser, sendVerificationEmail, updateUser, changePassword } = require('../services/userService')
 const logger = require('../utils/logger')
 const upload = require('../utils/multer')
 const fs = require('fs')
@@ -11,8 +11,8 @@ const jwt = require('jsonwebtoken')
 
 
 usersRouter.get('/', async (request, response) => {
-  const users = await UserBase.find({}).populate('favouritePlaces', {name: 1, description: 1})
-  console.log({users})
+  const users = await UserBase.find({}).populate('favouritePlaces', { name: 1, description: 1 })
+  console.log({ users })
   // try {
   //   const mailIt = mailer()
   // } catch (e) {
@@ -73,11 +73,11 @@ usersRouter.put('/:username', authenticate, async (req, res) => {
       id: updatedUser.id,
       verified: updatedUser.verified
     }
-    const token = jwt.sign(userForToken, process.env.SECRET, {expiresIn: '15m'})
+    const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '15m' })
 
     console.log({ token })
 
-    res.status(200).cookie('token', token, { httpOnly: true})
+    res.status(200).cookie('token', token, { httpOnly: true })
       .send({
         username: updatedUser.username,
         name: updatedUser.name,
@@ -90,6 +90,18 @@ usersRouter.put('/:username', authenticate, async (req, res) => {
   } catch (e) {
     res.status(400).send(e.message)
   }
+})
+
+usersRouter.put('/changePassword/:username', authenticate, async (req, res) => {
+  const body = req.body
+
+  try {
+    await changePassword(body, req.user)
+    res.status(204).end()
+  } catch (err) {
+    res.status(401).send(err.message)
+  }
+
 })
 
 

@@ -12,8 +12,8 @@ const UserBase = require('../../models/userBase')
 const userChecker = async (user_data) => {
   console.log({ user_data })
 
-  if (!user_data.password || user_data.password.length < 3) {
-    throw new Error('Password minimun length is 3')
+  if (!user_data.password || user_data.password.length < 8) {
+    throw new Error('Password minimun length is 8')
   }
 
   const saltRounds = parseInt(process.env.SALT_WORK_FACTOR)
