@@ -1,0 +1,126 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #162840;
+  color: #d9d9d9;
+  font-family: "Montserrat";
+}
+
+a {
+  color: #d9d9d9;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-wrapper {
+  background: url(../images/HomepageTopBG.jpg);
+  background-size: cover;
+  background-position: 50% 45%;
+}
+
+.wrapper {
+  padding: 1.5em;
+  display: -ms-grid;
+  display: grid;
+  max-width: 1366px;
+  height: 65vh;
+  margin: 0 auto;
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  max-height: 30%;
+}
+
+.header ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.header ul li a {
+  padding: 0 0.6em;
+}
+
+.hero-content {
+  display: -ms-grid;
+  display: grid;
+  max-height: 50%;
+  max-width: 80%;
+  -ms-grid-columns: (minmax(350px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 2em 0 8em 4em;
+}
+
+.top-logo {
+  margin: 1em 0 0 0;
+}
+
+.search-container {
+  max-width: 80%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+}
+
+.search-icon {
+  margin: 0.5rem;
+  position: absolute;
+  cursor: pointer;
+  opacity: 40%;
+}
+
+.search-bar {
+  font-family: "Montserrat";
+  border: 0;
+  border-radius: 30px;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  width: 80%;
+  padding-left: 11%;
+}
+
+.place-window-wrapper {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  max-width: 1366px;
+  margin: 4em 0 0 5em;
+}
+
+.place-list-wrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(300px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.place-list-wrapper li {
+  margin-bottom: 2em;
+}
+/*# sourceMappingURL=index.css.map */
