@@ -6,15 +6,63 @@ $main_colors: (
   descriptions: #142742,
 );
 
+$main_fonts: (
+  headers: "Montserrat",
+  body: "Roboto",
+);
+
+$main_weights: (
+  headers: bold,
+  medium: 500,
+  semibold: 600,
+);
+
+$main_font-size: (
+  body: 1em,
+  secondary_header: 1.5em,
+);
+
 * {
   box-sizing: border-box;
+}
+
+p {
+  font-family: map-get($main_fonts, body);
+  font-weight: map-get($main_weights, headers);
+  color: map-get($main_colors, headers);
+  font-size: 1em;
+}
+
+blockquote {
+  font-family: map-get($main_fonts, body);
+  font-weight: map-get($main_weights, body);
+  // color: map-get($main_colors, descriptions );
+  font-size: 1em;
+}
+
+.submit, button {
+  font-family: map-get($main_fonts, body);
+  font-weight: map-get($main_weights, medium);
+  border-radius: 30px;
+  padding: 3px 10px 3px 10px;
+  background-color: map-get($main_colors, white_text);
+  color: map-get($main_colors, headers);
+  border-color: map-get($main_colors, primary);
+  border-width: 1px;
+}
+
+h2 {
+  font-family: map-get($main_fonts, headers);
+  font-weight: map-get($main_weights, headers);
+  font-size: map-get($main_font-size, secondary_header);
+  color: map-get($main_colors, headers);
 }
 
 body {
   margin: 0;
   background: map-get($main_colors, primary);
   color: map-get($main_colors, white_text);
-  font-family: "Montserrat";
+  font-family: "Montserrat", "Roboto";
 }
 
 a {
@@ -60,14 +108,16 @@ ul {
   display: grid;
   max-height: 50%;
   max-width: 80%;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   align-items: center;
   justify-content: center;
-  margin: 2em 0 8em 4em;
+  margin: 2em 0 8em 2em;
 }
 
 .top-logo {
-  margin: 1em 0 0 0;
+  margin: 1em 0 0.5em 0;
+  border-bottom-width: 3px;
+  border-bottom-color: violet;
 }
 
 .search-container {
@@ -78,6 +128,7 @@ ul {
 
 .search-icon {
   margin: 0.5rem;
+  margin-left: 3.7rem;
   position: absolute;
   cursor: pointer;
   opacity: 40%;
@@ -85,6 +136,7 @@ ul {
 
 .search-bar {
   font-family: "Montserrat";
+  margin: 0 0 0 4em;
   border: 0;
   border-radius: 30px;
   padding: 0.5rem 0.5rem 0.5rem 0;
@@ -92,28 +144,104 @@ ul {
   padding-left: 11%;
 }
 
-// .search-tip {
-//   color: map-get($main_colors, white_text);
-//   text-transform: uppercase;
-//   font-size: 0.8em;
-//   text-align: left;
-//   margin-left: 50px;
-//   visibility: hidden;
-// }
-
 .place-window-wrapper {
-  align-items: center;
-  justify-content: center;
+  padding: 1.5em;
+  display: grid;
   max-width: 1366px;
-  margin: 4em 0 0 5em;
+  margin: 0 auto;
 }
 
 .place-list-wrapper {
+  padding-top: 4em;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   justify-content: space-around;
 
-  li {
-    margin-bottom: 2em;
+}
+
+.card {
+  height: 440px;
+  width: 310px;
+  margin: 2em 0 10em 2em;
+  align-items: center;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 292px;
   }
+}
+
+.place-text-wrapper {
+  text-align: center;
+
+  h2 {
+    margin: 1em 2em 1em 2em;
+  }
+
+  .readmore-button {
+    margin: 1em 0 1em 0;
+  }
+}
+
+.footer-bg {
+  background: url(../images/footerBG.jpg);
+  background-size: cover;
+  background-position: 5% 100%;
+}
+
+.footer-wrapper {
+  padding: 1.5em;
+  display: grid;
+  align-items: center;
+  // max-width: 1366px;
+  margin: 0 auto;
+}
+
+.footer-upper-wrapper {
+  text-align: center;
+  button {
+    margin-left: 9em;
+  }
+}
+
+.footer-headers {
+  margin: 0 0 2em 0;
+  text-align: center;
+}
+
+.footer-form-wrapper {
+  margin: 2em 0 2em 0;
+
+  .footer-form {
+    
+  }
+
+  label {
+    font-family: map-get($main_fonts, body);
+    font-weight: map-get($main_weights, headers);
+    color: map-get($main_colors, headers);
+    font-size: 1em;
+  }
+
+  input,
+  textarea {
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: map-get($main_colors, secondary);
+    margin: 0.5em 0 1em 0;
+    padding: 0.5em;
+    font-family: map-get($main_fonts, secondary);
+  }
+
+  textarea {
+    font-family: map-get($main_fonts, secondary);
+    resize: none;
+  }
+}
+
+.footer-lower-wrapper {
+  display: flex;
+  justify-content: space-between;
+  max-height: 30%;
 }
