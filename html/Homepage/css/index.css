@@ -12,10 +12,12 @@ p {
 
 blockquote {
   font-family: "Roboto";
+  color: #142742;
   font-size: 1em;
 }
 
-.submit, button {
+.submit,
+button {
   font-family: "Roboto";
   font-weight: 500;
   border-radius: 30px;
@@ -35,7 +37,6 @@ h2 {
 
 body {
   margin: 0;
-  background: #162840;
   color: #d9d9d9;
   font-family: "Montserrat", "Roboto";
 }
@@ -55,12 +56,12 @@ ul {
   background: url(../images/HomepageTopBG.jpg);
   background-size: cover;
   background-position: 50% 45%;
+  border-radius: 10px;
+  opacity: 90%;
 }
 
 .wrapper {
   padding: 1.5em;
-  display: -ms-grid;
-  display: grid;
   max-width: 1366px;
   height: 65vh;
   margin: 0 auto;
@@ -80,6 +81,13 @@ ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.header ul li {
+  font-weight: 600;
 }
 
 .header ul li a {
@@ -89,27 +97,24 @@ ul {
 .hero-content {
   display: -ms-grid;
   display: grid;
-  max-height: 50%;
-  max-width: 80%;
-  -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  max-height: 70%;
+  -ms-grid-columns: (minmax(280px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: 2em 0 8em 2em;
+  margin: 4em 0 4em 2em;
 }
 
 .top-logo {
-  margin: 1em 0 0.5em 0;
-  border-bottom-width: 3px;
-  border-bottom-color: violet;
+  margin: 1em 1em 0.5em 1em;
 }
 
 .search-container {
-  max-width: 80%;
+  margin: 0 20% 0 0;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -118,7 +123,7 @@ ul {
 
 .search-icon {
   margin: 0.5rem;
-  margin-left: 3.7rem;
+  margin-left: 2.2rem;
   position: absolute;
   cursor: pointer;
   opacity: 40%;
@@ -126,18 +131,22 @@ ul {
 
 .search-bar {
   font-family: "Montserrat";
-  margin: 0 0 0 4em;
-  border: 0;
+  margin: 0 0 0 2em;
+  border: 1px;
+  border-style: solid;
+  border-color: #2d333b;
   border-radius: 30px;
   padding: 0.5rem 0.5rem 0.5rem 0;
   width: 80%;
-  padding-left: 11%;
+  padding-left: 12%;
 }
 
 .place-window-wrapper {
   padding: 1.5em;
   display: -ms-grid;
   display: grid;
+  -ms-flex-line-pack: center;
+      align-content: center;
   max-width: 1366px;
   margin: 0 auto;
 }
@@ -146,26 +155,44 @@ ul {
   padding-top: 4em;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(300px, 1fr))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  -ms-grid-columns: (minmax(340px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   -ms-flex-pack: distribute;
       justify-content: space-around;
 }
 
+.place-wrapper {
+  margin: 2em 0 4em 1.5em;
+}
+
 .card {
-  height: 440px;
+  height: 600px;
   width: 310px;
-  margin: 2em 0 10em 2em;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-shadow: 2px 3px 10px #2d333b;
+          box-shadow: 2px 3px 10px #2d333b;
+  border-radius: 10px;
+  -webkit-transition-duration: 350ms;
+          transition-duration: 350ms;
+  -webkit-transition-property: width, height;
+  transition-property: width, height;
 }
 
 .card img {
+  -webkit-box-shadow: 0 1px 2px #2d333b;
+          box-shadow: 0 1px 2px #2d333b;
+  border-radius: 10px;
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
   height: 292px;
+}
+
+.card:hover {
+  width: 320px;
+  height: 610px;
 }
 
 .place-text-wrapper {
@@ -183,25 +210,27 @@ ul {
 .footer-bg {
   background: url(../images/footerBG.jpg);
   background-size: cover;
-  background-position: 5% 100%;
+  background-position: 35% 60%;
+  z-index: 99999;
+  width: 100%;
+  position: absolute;
+  opacity: 90%;
 }
 
 .footer-wrapper {
-  padding: 1.5em;
   display: -ms-grid;
   display: grid;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   margin: 0 auto;
+  z-index: 2;
 }
 
 .footer-upper-wrapper {
   text-align: center;
-}
-
-.footer-upper-wrapper button {
-  margin-left: 9em;
+  z-index: 3;
+  max-width: 1366px;
 }
 
 .footer-headers {
@@ -233,13 +262,67 @@ ul {
   resize: none;
 }
 
+.footer-form-wrapper .submit {
+  border-radius: 30px;
+  padding: 5px 10px 5px 10px;
+}
+
 .footer-lower-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  max-height: 30%;
+  height: 40vh;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(100px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 4em 0 0 2em;
+  z-index: 3;
+  background-color: #162840;
+  -webkit-clip-path: polygon(0 37%, 100% 0, 100% 100%, 0% 100%);
+          clip-path: polygon(0 37%, 100% 0, 100% 100%, 0% 100%);
+}
+
+.footer-list {
+  -webkit-box-align: right;
+      -ms-flex-align: right;
+          align-items: right;
+  margin-left: 2em;
+}
+
+.footer-list .footer-logo {
+  padding: 2em;
+}
+
+.footer-list li {
+  width: 33%;
+  margin: 0 0 1em 0;
+}
+
+/* Media Queries */
+@media (min-width: 660px) {
+  .top-logo {
+    border-bottom-width: 2px;
+    border-bottom-color: #2d333b;
+    border-bottom-style: solid;
+    padding-bottom: 1em;
+  }
+  .footer-lower-wrapper {
+    -webkit-columns: 4;
+            columns: 4;
+    -ms-grid-columns: (25em)[auto] 1fr 1fr;
+        grid-template-columns: repeat(auto, 25em) 1fr 1fr;
+  }
+  .footer-list {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 2;
+    grid-column: 2/4;
+  }
 }
 /*# sourceMappingURL=index.css.map */
