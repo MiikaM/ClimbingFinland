@@ -39,6 +39,7 @@ body {
   margin: 0;
   color: #d9d9d9;
   font-family: "Montserrat", "Roboto";
+  background-color: #162840;
 }
 
 a {
@@ -57,13 +58,12 @@ ul {
   background-size: cover;
   background-position: 50% 45%;
   border-radius: 10px;
-  opacity: 90%;
+  opacity: 85%;
 }
 
 .wrapper {
   padding: 1.5em;
   max-width: 1366px;
-  height: 65vh;
   margin: 0 auto;
 }
 
@@ -95,9 +95,6 @@ ul {
 }
 
 .hero-content {
-  display: -ms-grid;
-  display: grid;
-  max-height: 70%;
   -ms-grid-columns: (minmax(280px, 1fr))[auto-fit];
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   -webkit-box-align: center;
@@ -114,10 +111,6 @@ ul {
 }
 
 .search-container {
-  margin: 0 20% 0 0;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   text-align: center;
 }
 
@@ -138,31 +131,25 @@ ul {
   border-radius: 30px;
   padding: 0.5rem 0.5rem 0.5rem 0;
   width: 80%;
-  padding-left: 12%;
+  padding-left: 7%;
+  max-width: 400px;
 }
 
 .place-window-wrapper {
-  padding: 1.5em;
-  display: -ms-grid;
-  display: grid;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  max-width: 1366px;
-  margin: 0 auto;
+  background-color: white;
 }
 
-.place-list-wrapper {
-  padding-top: 4em;
+.place-list {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (minmax(340px, 1fr))[auto-fill];
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  -ms-grid-columns: (minmax(325px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
   -ms-flex-pack: distribute;
       justify-content: space-around;
 }
 
 .place-wrapper {
-  margin: 2em 0 4em 1.5em;
+  margin: 2em 0 4em 0;
 }
 
 .card {
@@ -211,10 +198,10 @@ ul {
   background: url(../images/footerBG.jpg);
   background-size: cover;
   background-position: 35% 60%;
-  z-index: 99999;
   width: 100%;
-  position: absolute;
   opacity: 90%;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 81%, 0% 100%);
+          clip-path: polygon(0 0, 100% 0, 100% 81%, 0% 100%);
 }
 
 .footer-wrapper {
@@ -223,7 +210,6 @@ ul {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 0 auto;
   z-index: 2;
 }
 
@@ -231,6 +217,7 @@ ul {
   text-align: center;
   z-index: 3;
   max-width: 1366px;
+  margin: 0 auto;
 }
 
 .footer-headers {
@@ -268,61 +255,49 @@ ul {
 }
 
 .footer-lower-wrapper {
-  height: 40vh;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (minmax(100px, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  margin-top: -4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 4em 0 0 2em;
-  z-index: 3;
-  background-color: #162840;
-  -webkit-clip-path: polygon(0 37%, 100% 0, 100% 100%, 0% 100%);
-          clip-path: polygon(0 37%, 100% 0, 100% 100%, 0% 100%);
 }
 
 .footer-list {
-  -webkit-box-align: right;
-      -ms-flex-align: right;
-          align-items: right;
   margin-left: 2em;
 }
 
-.footer-list .footer-logo {
-  padding: 2em;
-}
-
 .footer-list li {
-  width: 33%;
-  margin: 0 0 1em 0;
+  text-align: center;
+  margin: 1em 1em 1em;
+  font-weight: 600;
+  font-size: 1em;
 }
 
 /* Media Queries */
-@media (min-width: 660px) {
-  .top-logo {
-    border-bottom-width: 2px;
-    border-bottom-color: #2d333b;
-    border-bottom-style: solid;
-    padding-bottom: 1em;
-  }
+@media (min-width: 630px) {
   .footer-lower-wrapper {
-    -webkit-columns: 4;
-            columns: 4;
-    -ms-grid-columns: (25em)[auto] 1fr 1fr;
-        grid-template-columns: repeat(auto, 25em) 1fr 1fr;
+    margin-top: 0;
+  }
+  .footer-logo {
+    padding-right: 1%;
   }
   .footer-list {
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
-    -ms-grid-column: 2;
-    -ms-grid-column-span: 2;
-    grid-column: 2/4;
+    margin-left: 2.5em;
+    margin-top: 1em;
+  }
+  .footer-list li {
+    border-right: 1px solid #d9d9d9;
+    margin: 0 0.4em 0 0.5em;
+    padding-right: 3%;
+    max-height: 25px;
+  }
+  .footer-list li:last-child {
+    border: 0;
   }
 }
 /*# sourceMappingURL=index.css.map */
