@@ -1,7 +1,7 @@
 $main_colors: (
   primary: #162840,
   secondary: #2d333b,
-  white_text: #d9d9d9,
+  white_accent: #f8f8f8,
   headers: #101c26,
   descriptions: #142742,
 );
@@ -15,11 +15,14 @@ $main_weights: (
   headers: bold,
   medium: 500,
   semibold: 600,
+  body: normal,
 );
 
 $main_font-size: (
   body: 1em,
   secondary_header: 1.5em,
+  header: 2em,
+  big_header: 2.5em,
 );
 
 * {
@@ -46,7 +49,7 @@ button {
   font-weight: map-get($main_weights, medium);
   border-radius: 30px;
   padding: 3px 10px 3px 10px;
-  background-color: map-get($main_colors, white_text);
+  background-color: map-get($main_colors, white_accent);
   color: map-get($main_colors, headers);
   border-color: map-get($main_colors, primary);
   border-width: 1px;
@@ -61,13 +64,13 @@ h2 {
 
 body {
   margin: 0;
-  color: map-get($main_colors, white_text);
+  color: map-get($main_colors, white_accent);
   font-family: "Montserrat", "Roboto";
   background-color: map-get($main_colors, primary);
 }
 
 a {
-  color: map-get($main_colors, white_text);
+  color: map-get($main_colors, white_accent);
   text-decoration: none;
 }
 
@@ -83,6 +86,7 @@ ul {
   background-position: 50% 45%;
   border-radius: 10px;
   opacity: 85%;
+
 }
 
 .wrapper {
@@ -105,6 +109,7 @@ ul {
       font-family: map-get($main_fonts, primary);
       font-weight: map-get($main_weights, semibold);
       font-size: map-get($main_font-size, headers);
+      color: map-get($main_colors, white_accent);
     }
 
     li a {
@@ -114,14 +119,24 @@ ul {
 }
 
 .hero-content {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  align-items: center;
-  justify-content: center;
+  align-items: left;
   margin: 4em 0 4em 2em;
-}
 
-.top-logo {
-  margin: 1em 1em 0.5em 1em;
+  .subtitle {
+    font-family: map-get($main_fonts, primary);
+    font-size: map-get($main_font-size, header);
+    color: map-get($main_colors, white_accent);
+    font-weight: 500;
+    font-style: italic;
+    margin: 0.5em 1em 0em 1em;
+    border: solid 1px map-get($main_colors, white_accent);
+    padding: 0.5em;
+    max-width: 300px;
+  }
+
+  .top-logo {
+    margin: 2em 1em 0.5em 2em;
+  }
 }
 
 .search-container {
@@ -150,7 +165,7 @@ ul {
 }
 
 .place-window-wrapper {
-  background-color: white;
+  background-color: map-get($main_colors, white_accent);
 }
 
 .place-list {
@@ -219,9 +234,6 @@ ul {
 
 .footer-upper-wrapper {
   text-align: center;
-  z-index: 3;
-  max-width: 1366px;
-  margin: 0 auto;
 }
 
 .footer-headers {
@@ -241,16 +253,16 @@ ul {
 
   input,
   textarea {
-    border-radius: 3px;
+    border-radius: 10px;
     border-width: 1px;
     border-color: map-get($main_colors, secondary);
     margin: 0.5em 0 1em 0;
     padding: 0.5em;
-    font-family: map-get($main_fonts, secondary);
+    font-family: map-get($main_fonts, primary);
   }
 
   textarea {
-    font-family: map-get($main_fonts, secondary);
+    font-family: map-get($main_fonts, primary);
     resize: none;
   }
 
@@ -294,7 +306,7 @@ ul {
     margin-top: 1em;
 
     li {
-      border-right: 1px solid map-get($main_colors, white_text);
+      border-right: 1px solid map-get($main_colors, white_accent);
       margin: 0 0.4em 0 0.5em;
       padding-right: 3%;
       max-height: 25px;
@@ -303,5 +315,46 @@ ul {
         border: 0;
       }
     }
+  }
+}
+
+@media (min-width: 880px) {
+  .footer-upper-wrapper {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
+  }
+
+  .footer-headers {
+    margin-top: 1em;
+
+    h2 {
+      margin-top: 0;
+      padding: 1em 0 0;
+    }
+  }
+
+  .footer-form-wrapper {
+    margin-top: 1.5em;
+  }
+
+  .footer-bg {
+    clip-path: polygon(100% 0%, 100% 20%, 100% 90%, 83% 95%, 73% 88%, 57% 96%, 44% 90%, 40% 96%, 29% 93%, 26% 97%, 10% 93%, 6% 98%, 0 95%, 0 0);
+  }
+
+  .footer {
+    .wrapper {
+      padding-top: 0em;
+    }
+  }
+
+  .footer-lower-wrapper {
+    justify-content: left;
+    padding-left: 10%;
+  }
+
+  .footer-logo {
+    padding-right: 3%;
   }
 }
