@@ -1,0 +1,182 @@
+/* Maps */
+/* Functions */
+/* Globals */
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+p {
+  font-family: "Roboto";
+  font-weight: normal;
+  color: #101c26;
+  font-size: 1em;
+}
+
+strong {
+  font-family: "Montserrat";
+  font-size: 1.5em;
+  font-weight: 500;
+  color: #162840;
+}
+
+blockquote {
+  font-size: 1em;
+  color: #2d333b;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.submit,
+button {
+  font-family: "Roboto";
+  font-weight: 500;
+  border-radius: 30px;
+  padding: 3px 10px 3px 10px;
+  background-color: #f8f8f8;
+  color: #101c26;
+  border-color: #162840;
+  border-width: 1px;
+}
+
+h1 {
+  margin-top: 0;
+  color: #162840;
+}
+
+h2 {
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #101c26;
+}
+
+body {
+  margin: 0;
+  color: #f8f8f8;
+  font-family: "Montserrat", "Roboto";
+}
+
+a {
+  color: #f8f8f8;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  height: 414px;
+  width: 310px;
+  text-align: center;
+  -webkit-box-shadow: 2px 3px 10px #2d333b;
+          box-shadow: 2px 3px 10px #2d333b;
+  border-radius: 10px;
+  padding-top: 0.1em;
+  margin: 2em 0;
+  background-color: #f8f8f8;
+}
+
+form {
+  margin: 2em 0 2em 0;
+}
+
+form label {
+  font-family: "Roboto";
+  font-weight: bold;
+  color: #101c26;
+  font-size: 1em;
+}
+
+form input {
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #2d333b;
+  margin: 0.5em 0 1em 0;
+  padding: 0.5em;
+}
+
+form .submit {
+  border-radius: 30px;
+  padding: 12.5px 10px 12.5px 10px;
+  background-color: #162840;
+  color: #f8f8f8;
+}
+
+.wrapper {
+  padding: 1.5em;
+  max-width: 1366px;
+  margin: 0 auto;
+}
+
+/* Content */
+.register-wrapper {
+  margin: 0 auto;
+  text-align: center;
+  -webkit-box-shadow: 0 1px 5px #2d333b;
+          box-shadow: 0 1px 5px #2d333b;
+  border-radius: 10px;
+  max-width: 50%;
+  padding: 1em;
+}
+
+.register-wrapper h2 {
+  margin: 0 auto;
+  width: 162.5px;
+}
+
+.wrapper1 h2 {
+  position: relative;
+}
+
+.wrapper1 h2::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 30px;
+  position: absolute;
+  top: 32px;
+  left: 70px;
+  background-color: #162840;
+}
+
+.wrapper1 h2::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 60px;
+  border: 0.01px solid #162840;
+  position: absolute;
+  top: 32px;
+  right: 70px;
+}
+
+.wrapper2 h2 {
+  position: relative;
+}
+
+.wrapper2 h2::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 30px;
+  position: absolute;
+  top: 32px;
+  left: 70px;
+  border: 0.01px solid #162840;
+}
+
+.wrapper2 h2::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 60px;
+  background-color: #162840;
+  position: absolute;
+  top: 32px;
+  right: 70px;
+}
+/*# sourceMappingURL=registeration.css.map */

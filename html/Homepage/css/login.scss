@@ -1,0 +1,235 @@
+/* Maps */
+
+$main_colors: (
+  primary: #162840,
+  secondary: #2d333b,
+  white_accent: #f8f8f8,
+  headers: #101c26,
+  descriptions: #142742,
+);
+
+$main_fonts: (
+  headers: "Montserrat",
+  body: "Roboto",
+);
+
+$main_weights: (
+  headers: bold,
+  medium: 500,
+  semibold: 600,
+  body: normal,
+);
+
+$main_font-size: (
+  body: 1em,
+  secondary_header: 1.5em,
+  header: 2em,
+  big_header: 2.5em,
+);
+
+$tag_colors: (
+  first: #de325b,
+  second: #326bde,
+  third: #32de6b,
+  fourth: #399c9f,
+  fifth: #e9be11,
+  sixth: #ca20d6,
+  seventh: #d62020,
+  eight: #6639d1,
+  nineth: #e56e1f,
+  tenth: #1fe5ca,
+);
+
+/* Functions */
+
+@function color($color) {
+  @return map-get($main_colors, $color);
+}
+
+@function font($font) {
+  @return map-get($main_fonts, $font);
+}
+
+@function weight($weight) {
+  @return map-get($main_weights, $weight);
+}
+
+@function size($size) {
+  @return map-get($main_font-size, $size);
+}
+
+@function tag($tag) {
+  @return map-get($tag_colors, $tag);
+}
+
+/* Globals */
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  font-family: map-get($main_fonts, body);
+  font-weight: map-get($main_weights, body);
+  color: map-get($main_colors, headers);
+  font-size: 1em;
+}
+
+strong {
+  font-family: font(headers);
+  font-size: size(secondary_header);
+  font-weight: weight(medium);
+  color: color(primary);
+}
+
+blockquote {
+  font-family: map-get($main_fonts, secondary);
+  font-size: map-get($main_font-size, body);
+  color: map-get($main_colors, secondary);
+  font-weight: 500;
+  font-style: italic;
+}
+
+.submit,
+button {
+  font-family: map-get($main_fonts, body);
+  font-weight: map-get($main_weights, medium);
+  border-radius: 30px;
+  padding: 3px 10px 3px 10px;
+  background-color: map-get($main_colors, white_accent);
+  color: map-get($main_colors, headers);
+  border-color: map-get($main_colors, primary);
+  border-width: 1px;
+}
+
+h1 {
+  margin-top: 0;
+  color: color(primary);
+}
+
+h2 {
+  font-family: map-get($main_fonts, headers);
+  font-weight: map-get($main_weights, headers);
+  font-size: map-get($main_font-size, secondary_header);
+  color: map-get($main_colors, headers);
+}
+
+body {
+  margin: 0;
+  color: map-get($main_colors, white_accent);
+  font-family: "Montserrat", "Roboto";
+  // background-color: color(primary);
+}
+
+a {
+  color: map-get($main_colors, white_accent);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  height: 414px;
+  width: 310px;
+  text-align: center;
+  box-shadow: 2px 3px 10px map-get($main_colors, secondary);
+  border-radius: 10px;
+  padding-top: 0.1em;
+  margin: 2em 0;
+  background-color: color(white_accent);
+}
+
+form {
+  margin: 2em 0 2em 0;
+
+  label {
+    font-family: map-get($main_fonts, body);
+    font-weight: map-get($main_weights, headers);
+    color: map-get($main_colors, headers);
+    font-size: 1em;
+  }
+
+  input {
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: map-get($main_colors, secondary);
+    margin: 0.5em 0 1em 0;
+    padding: 0.5em;
+    font-family: map-get($main_fonts, primary);
+  }
+
+  .submit {
+    border-radius: 30px;
+    padding: 15px 10px 15px 10px;
+    background-color: color(primary);
+    color: color(white_accent);
+    width: 200px;
+  }
+
+  
+}
+
+.wrapper {
+  padding: 1.5em;
+  max-width: 1366px;
+  margin: 0 auto;
+}
+
+/* Content */
+
+.login {
+  max-height: 350px;
+  max-width: 80%;
+
+  display: grid;
+  grid-template-columns: 350px auto;
+}
+
+.login-image {
+  // border: 1px solid black;
+  // border-right: none;
+  border-radius: 10px 0 0 10px;
+  img {
+    box-shadow: 0 1px 5px map-get($main_colors, secondary);
+    border-radius: 10px 0 0 10px;
+
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.login-container {
+  text-align: center;
+  max-height: 100%;
+  position: relative;
+  box-shadow: 0 1px 5px map-get($main_colors, secondary);
+  border-radius: 0 10px 10px 0;
+
+
+
+  // border: 1px solid black;
+  // border-left: none;
+}
+
+.login-header {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  h2 {
+  }
+
+  img {
+    flex-shrink: 0;
+    flex-grow: 0;
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+  }
+}

@@ -1,0 +1,169 @@
+/* Maps */
+/* Functions */
+/* Globals */
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+p {
+  font-family: "Roboto";
+  font-weight: normal;
+  color: #101c26;
+  font-size: 1em;
+}
+
+strong {
+  font-family: "Montserrat";
+  font-size: 1.5em;
+  font-weight: 500;
+  color: #162840;
+}
+
+blockquote {
+  font-size: 1em;
+  color: #2d333b;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.submit,
+button {
+  font-family: "Roboto";
+  font-weight: 500;
+  border-radius: 30px;
+  padding: 3px 10px 3px 10px;
+  background-color: #f8f8f8;
+  color: #101c26;
+  border-color: #162840;
+  border-width: 1px;
+}
+
+h1 {
+  margin-top: 0;
+  color: #162840;
+}
+
+h2 {
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #101c26;
+}
+
+body {
+  margin: 0;
+  color: #f8f8f8;
+  font-family: "Montserrat", "Roboto";
+}
+
+a {
+  color: #f8f8f8;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  height: 414px;
+  width: 310px;
+  text-align: center;
+  -webkit-box-shadow: 2px 3px 10px #2d333b;
+          box-shadow: 2px 3px 10px #2d333b;
+  border-radius: 10px;
+  padding-top: 0.1em;
+  margin: 2em 0;
+  background-color: #f8f8f8;
+}
+
+form {
+  margin: 2em 0 2em 0;
+}
+
+form label {
+  font-family: "Roboto";
+  font-weight: bold;
+  color: #101c26;
+  font-size: 1em;
+}
+
+form input {
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #2d333b;
+  margin: 0.5em 0 1em 0;
+  padding: 0.5em;
+}
+
+form .submit {
+  border-radius: 30px;
+  padding: 15px 10px 15px 10px;
+  background-color: #162840;
+  color: #f8f8f8;
+  width: 200px;
+}
+
+.wrapper {
+  padding: 1.5em;
+  max-width: 1366px;
+  margin: 0 auto;
+}
+
+/* Content */
+.login {
+  max-height: 350px;
+  max-width: 80%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 350px auto;
+      grid-template-columns: 350px auto;
+}
+
+.login-image {
+  border-radius: 10px 0 0 10px;
+}
+
+.login-image img {
+  -webkit-box-shadow: 0 1px 5px #2d333b;
+          box-shadow: 0 1px 5px #2d333b;
+  border-radius: 10px 0 0 10px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.login-container {
+  text-align: center;
+  max-height: 100%;
+  position: relative;
+  -webkit-box-shadow: 0 1px 5px #2d333b;
+          box-shadow: 0 1px 5px #2d333b;
+  border-radius: 0 10px 10px 0;
+}
+
+.login-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+}
+
+.login-header img {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+/*# sourceMappingURL=login.css.map */
