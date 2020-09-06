@@ -1,0 +1,41 @@
+$main_colors: (
+  primary: #162840,
+  secondary: #2d333b,
+  white_accent: #f8f8f8,
+  headers: #101c26,
+  descriptions: #142742,
+);
+
+$main_fonts: (
+  headers: "Montserrat",
+  body: "Roboto",
+);
+
+$main_weights: (
+  headers: bold,
+  medium: 500,
+  semibold: 600,
+  body: normal,
+);
+
+$main_font-size: (
+  body: 1em,
+  secondary_header: 1.5em,
+  header: 2em,
+  big_header: 2.5em,
+);
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: map-get($main_colors, white_accent);
+  font-family: "Montserrat", "Roboto";
+  background-color: map-get($main_colors, primary);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
