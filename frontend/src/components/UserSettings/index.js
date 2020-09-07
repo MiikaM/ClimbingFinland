@@ -12,97 +12,125 @@ const UserSettings = () => {
     <div>
       <NavHeader />
 
+      <section className="hero-wrapper">
+        <div className="wrapper">
+          <div className="hero-content">
+            <img src={Person1} alt="" />
+            <div className="user-text">
+              <h2>John Doe</h2>
 
-
-      <section class="content-wrapper-settings">
-        <div class="wrapper">
-          <div class="settings">
-            <div class="user-settings">
-              <h2>User Settings</h2>
-              <ul>
-                <li>
-                  General
-            </li>
-
-                <li>
-                  Change Password
-            </li>
-              </ul>
+              <p className="subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis iusto dolorem non alias
+              consequuntur saepe
+              reprehenderit nesciunt repellat dolore obcaecati, error, sequi deserunt reiciendis voluptatum quisquam
+              facilis
+              nemo itaque incidunt.
+          </p>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div class="account-settings">
-              <h2>Account</h2>
 
-              <form action="" class="account-settings-form form">
+      <section className="content-wrapper-settings">
+        <div className="wrapper">
+          <div className="settings">
 
-                <label for="username">Username</label><br />
-                <input type="text" /><br />
+            <div className="user-settings wrap">
+              <div className="align " >
 
-                <div class="name">
-                  <label for="first-name">First name</label><br />
-                  <input type="text" /><br />
-                  <label for="last-name">Last name</label><br />
-                  <input type="text" /><br />
-                </div>
+                <h2>User Settings</h2>
+                <ul>
+                  <li>
+                    General
+            </li>
 
-                <label for="email">Email</label><br />
-                <input type="text" /><br />
-
-                <label for="city">City</label><br />
-                <input type="text" /><br />
-
-                <div class="likes">
-                  <label for="likes">Likes</label><br />
-                  <input type="button" value="+" /><br />
-                </div>
-                <ul class="like-list">
-
-                  <li class="tag-item first">
-                    <p>
-                      Boulder
-                </p>
-                  </li>
-
-                  <li class="tag-item second">
-                    <p>
-                      Lead
-                </p>
-                  </li>
-
-                  <li class="tag-item third">
-                    <p>
-                      Kuntosali
-                </p>
-                  </li>
-
-                  <li class="tag-item fourth">
-                    <p>
-                      Kuntosali
-                </p>
-                  </li>
+                  <li>
+                    Change Password
+            </li>
                 </ul>
-
-                <input type="submit" class="submit" value="Save" />
-              </form>
+              </div>
             </div>
 
-            <div class="change-password">
-              <h2>Change password</h2>
 
-              <form action="" class="form">
-                <label for="old-password">Old password</label><br />
-                <input type="password" /><br />
+            <div className="account-settings wrap ">
+              <div className="align " >
 
-                <label for="new-password">New password</label><br />
-                <input type="password" /><br />
+                <h2>Account</h2>
 
-                <label for="new-password-again">New password again</label><br />
-                <input type="password" /> <br />
+                <form action="" className="account-settings-form form">
 
-                <input type="submit" class="submit" value="Change password" />
+                  <label for="username">Username</label><br />
+                  <input type="text" /><br />
 
-              </form>
+                  <div className="name">
+                    <label for="first-name">First name</label><br />
+                    <input type="text" /><br />
+                    <label for="last-name">Last name</label><br />
+                    <input type="text" /><br />
+                  </div>
+
+                  <label for="email">Email</label><br />
+                  <input type="text" /><br />
+
+                  <label for="city">City</label><br />
+                  <input type="text" /><br />
+
+                  <div className="likes">
+                    <label for="likes">Likes</label><br />
+                    <input type="button" value="+" /><br />
+                  </div>
+                  <ul className="like-list">
+
+                    <li className="tag-item first">
+                      <p>
+                        Boulder
+                </p>
+                    </li>
+
+                    <li className="tag-item second">
+                      <p>
+                        Lead
+                </p>
+                    </li>
+
+                    <li className="tag-item third">
+                      <p>
+                        Kuntosali
+                </p>
+                    </li>
+
+                    <li className="tag-item fourth">
+                      <p>
+                        Kuntosali
+                </p>
+                    </li>
+                  </ul>
+
+                  <input type="submit" className="submit" value="Save" />
+                </form>
+              </div>
             </div>
+
+            {/* <div className="change-password wrap">
+              <div className="align " >
+
+                <h2>Change password</h2>
+
+                <form action="" className="form">
+                  <label for="old-password">Old password</label><br />
+                  <input type="password" /><br />
+
+                  <label for="new-password">New password</label><br />
+                  <input type="password" /><br />
+
+                  <label for="new-password-again">New password again</label><br />
+                  <input type="password" /> <br />
+
+                  <input type="submit" className="submit" value="Change password" />
+
+                </form>
+              </div>
+            </div> */}
           </div>
         </div>
       </section>

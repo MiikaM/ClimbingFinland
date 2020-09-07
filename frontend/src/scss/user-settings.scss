@@ -70,23 +70,33 @@
 
 /* Content */
 
-.content-wrapper-settings {
+
+.wrap {
+  display: flex;
+  border: 1px solid color(primary);
+  border-radius: 30px;
+}
+
+.align {
+  margin: 0 auto;
 }
 
 .settings {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 }
 
 .user-settings {
   background-color: color(white_accent);
-  max-width: 350px;
+  max-width: 450px;
   max-height: 300px;
   border-radius: 10px;
   text-align: center;
   color: color(primary);
 
-  margin: 2em 0;
+  margin:  0 auto;
+  margin: 1em 2em;
+  
 
   h2 {
     margin: 1em 0;
@@ -100,10 +110,10 @@
 .account-settings {
   background-color: color(white_accent);
   text-align: center;
-  max-width: 450px;
   border-radius: 10px;
   // visibility: hidden;
-  margin: 2em 0;
+  margin: 0 auto;
+  margin: 1em 4em 1em 2em;
 
   .likes {
     label {
@@ -131,7 +141,7 @@
 
   .form {
     max-width: 350px;
-    margin: 0 auto;
+    margin: auto;
     text-align: left;
     padding: 1em 1em 0;
     input {
@@ -188,12 +198,13 @@
   background-color: color(white_accent);
   border-radius: 10px;
   text-align: center;
-  max-width: 350px;
   padding: 1em;
+  margin: 0 auto;
+  margin: 1em 4em 1em 2em;
+
 
   .form {
     max-width: 60%;
-    margin: 0 auto;
     text-align: left;
     padding-top: 1em;
     input {
@@ -210,6 +221,15 @@
 
 /* Media Queries */
 
+
+
+@media (max-width: 490px) {
+  .hero-content {
+    .subtitle {
+      font-size: 0.8em;
+    }
+  }
+}
 @media (max-height: 550px) {
   .hero-wrapper {
     height: 65vh;
@@ -220,10 +240,11 @@
   }
 }
 
-@media (max-width: 490px) {
+@media (max-width: 550px) {
   .hero-content {
-    .subtitle {
-      font-size: 0.8em;
+    img {
+      width: 125px;
+      height: 125px;
     }
   }
 }
@@ -238,11 +259,14 @@
   }
 }
 
-@media (max-width: 550px) {
-  .hero-content {
-    img {
-      width: 125px;
-      height: 125px;
+
+
+@media (max-width: 870px) {
+  .change-password {
+    .form {
+      input {
+        width: 200px;
+      }
     }
   }
 }

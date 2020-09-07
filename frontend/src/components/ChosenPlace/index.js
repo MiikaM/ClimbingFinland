@@ -64,9 +64,9 @@ const ChosenPlace = () => {
 
       <section className="hero-wrapper">
         <div className="wrapper">
-          <div className="hero-content">
+          <div className="hero-content-place">
             <h1>Boulderpaja</h1>
-            <p className="subtitle">
+            <p className="subtitle-place">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quibusdam, est ex in maiores itaque
               repellendus similique enim, dolorum nemo non modi, vel laborum assumenda natus mollitia quae et quod!
         </p>
@@ -76,65 +76,67 @@ const ChosenPlace = () => {
       </section>
 
       <section className="content-wrapper">
-        <div className="wrapper content-grid">
+        <div className="wrapper" >
+          <div className="content-grid">
 
-          <div className="card opening-wrapper">
-            <h2>Aukioloajat</h2>
-            <ul className="opening-list">
-              <li className="open">
-                <strong>Mon</strong>
-                <p>14:00-20:00</p>
-              </li>
-              <li className="open">
-                <strong>Tue</strong>
-                <p>14:00-20:00</p>
-              </li>
-              <li className="open">
-                <strong>Wed</strong>
-                <p>14:00-20:00</p>
-              </li>
-              <li className="open">
-                <strong>Thu</strong>
-                <p>14:00-20:00</p>
-              </li>
-              <li className="open">
-                <strong>Fri</strong>
-                <p>14:00-20:00</p>
-              </li>
-              <li className="open">
-                <strong>Sat</strong>
-                <p>14:00-20:00</p>
-              </li>
-              <li className="open">
-                <strong>Sun</strong>
-                <p>14:00-20:00</p>
-              </li>
-            </ul>
-          </div>
+            <div className="card opening-wrapper margin-left">
+              <h2>Aukioloajat</h2>
+              <ul className="opening-list">
+                <li className="open">
+                  <strong>Mon</strong>
+                  <p>14:00-20:00</p>
+                </li>
+                <li className="open">
+                  <strong>Tue</strong>
+                  <p>14:00-20:00</p>
+                </li>
+                <li className="open">
+                  <strong>Wed</strong>
+                  <p>14:00-20:00</p>
+                </li>
+                <li className="open">
+                  <strong>Thu</strong>
+                  <p>14:00-20:00</p>
+                </li>
+                <li className="open">
+                  <strong>Fri</strong>
+                  <p>14:00-20:00</p>
+                </li>
+                <li className="open">
+                  <strong>Sat</strong>
+                  <p>14:00-20:00</p>
+                </li>
+                <li className="open">
+                  <strong>Sun</strong>
+                  <p>14:00-20:00</p>
+                </li>
+              </ul>
+            </div>
 
-          <div className="card">
-            <h2>Info</h2>
-            <ul className="info-list">
-              <li>
-                <img src={MailLogo} alt="" />
-                <p>boulderpaja@gmail.com</p>
-              </li>
+            <div className="card margin-right">
+              <h2>Info</h2>
+              <ul className="info-list">
+                <li>
+                  <img src={MailLogo} alt="" />
+                  <p className="place-info">boulderpaja@gmail.com</p>
+                </li>
 
-              <li>
-                <img src={WorldLogo} alt="" />
-                <p>boulderpaja.fi</p>
-              </li>
+                <li>
+                  <img src={WorldLogo} alt="" />
+                  <p className="place-info">boulderpaja.fi</p>
+                </li>
 
-              <li>
-                <img src={PlaceLogo} alt="" />
-                <p>Ahjokatu 23 , 40100 Jyväskylä</p>
-              </li>
+                <li>
+                  <img src={PlaceLogo} alt="" />
+                  <p className="place-info">Ahjokatu 23 , 40100 Jyväskylä</p>
+                </li>
 
-              <li>
-                <img src={PhoneLogo} alt="" />
-                <p>049859345</p>
-              </li>
-            </ul>
+                <li>
+                  <img src={PhoneLogo} alt="" />
+                  <p className="place-info">049859345</p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -215,70 +217,8 @@ const ChosenPlace = () => {
       </section>
 
 
-      <section className="comments-wrapper">
-        <div className="wrapper">
-          <h2>Kommentit</h2>
-
-          <ul className="comment-list-wrapper">
-            <li className='card'>
-              <div className="comment">
-                <div className="comment-meta">
-                  <img src="./images/profile_testit/colton-sturgeon-odKeTFsBDgE-unsplash.jpg" alt="" className="comment-avatar" />
-                </div>
-                <div className="comment-meta-meta">
-                  <strong>John Doe</strong>
-                  <p className="timestamp">23-05-2020</p>
-                </div>
-
-                <div className="comment-body">
-                  <blockquote>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel suscipit explicabo adipisci ad, veniam
-                    ducimus
-                    perspiciatis impedit porro voluptates, dolorem itaque. Quis, harum? Minus debitis ratione similique, eum
-                    qui
-                    velit?
-              </blockquote>
-                </div>
-
-              </div>
-            </li>
-
-            <li className='card'>
-              <div className="comment">
-                <div className="comment-meta">
-                  <img src="./images/profile_testit/chad-madden-8mCMQSq41gQ-unsplash.jpg" alt="" className="comment-avatar" />
-                </div>
-                <div className="comment-meta-meta">
-                  <strong>John Doe</strong>
-                  <p className="timestamp">23-05-2020</p>
-                </div>
-
-                <div className="comment-body">
-                  <blockquote>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel suscipit explicabo adipisci ad, veniam
-                    ducimus
-                    perspiciatis impedit porro voluptates, dolorem itaque. Quis, harum? Minus debitis ratione similique, eum
-                    qui
-                    velit?
-              </blockquote>
-                </div>
-              </div>
-            </li>
-          </ul>
-
-          {/* <div className="comment-form">
-        <label for="comment">
-          Your comment
-        </label>
-        <form action="" className='cmform' >
-
-          <textarea name="comment" id="" cols="60" rows="2"></textarea>
-          <input type="submit" className="submit" value="Comment" />
-        </form>
-      </div>  */}
-
-        </div>
-      </section>
+      <CommentSection header="Updates" />
+      <CommentForm />
 
       <Footer />
     </div >
