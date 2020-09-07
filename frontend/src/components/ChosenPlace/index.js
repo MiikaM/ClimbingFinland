@@ -71,7 +71,6 @@ const ChosenPlace = () => {
               repellendus similique enim, dolorum nemo non modi, vel laborum assumenda natus mollitia quae et quod!
         </p>
 
-            {/* <img src="./images/layout_testit/pexels-pixabay-434400.jpg" alt="place " /> */}
           </div>
         </div>
       </section>
@@ -79,7 +78,7 @@ const ChosenPlace = () => {
       <section className="content-wrapper">
         <div className="wrapper content-grid">
 
-          <div className="card">
+          <div className="card opening-wrapper">
             <h2>Aukioloajat</h2>
             <ul className="opening-list">
               <li className="open">

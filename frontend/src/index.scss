@@ -1,29 +1,4 @@
-$main_colors: (
-  primary: #162840,
-  secondary: #2d333b,
-  white_accent: #f8f8f8,
-  headers: #101c26,
-  descriptions: #142742,
-);
-
-$main_fonts: (
-  headers: "Montserrat",
-  body: "Roboto",
-);
-
-$main_weights: (
-  headers: bold,
-  medium: 500,
-  semibold: 600,
-  body: normal,
-);
-
-$main_font-size: (
-  body: 1em,
-  secondary_header: 1.5em,
-  header: 2em,
-  big_header: 2.5em,
-);
+@import "./scss/functions.scss";
 
 * {
   box-sizing: border-box;
@@ -33,9 +8,110 @@ body {
   margin: 0;
   color: map-get($main_colors, white_accent);
   font-family: "Montserrat", "Roboto";
-  background-color: map-get($main_colors, primary);
+  background-color: color(white_accent);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+p {
+  font-family: map-get($main_fonts, body);
+  font-weight: map-get($main_weights, body);
+  color: map-get($main_colors, headers);
+  font-size: 1em;
+}
+
+strong {
+  font-family: font(headers);
+  font-size: size(secondary_header);
+  font-weight: weight(medium);
+  color: color(primary);
+}
+
+blockquote {
+  font-family: map-get($main_fonts, secondary);
+  font-size: map-get($main_font-size, body);
+  color: map-get($main_colors, secondary);
+  font-weight: 500;
+  font-style: italic;
+}
+
+.submit,
+button {
+  font-family: map-get($main_fonts, body);
+  font-weight: map-get($main_weights, medium);
+  border-radius: 30px;
+  padding: 3px 10px 3px 10px;
+  background-color: map-get($main_colors, white_accent);
+  color: map-get($main_colors, headers);
+  border-color: map-get($main_colors, primary);
+  border-width: 1px;
+}
+
+h1 {
+  margin-top: 0;
+  color: color(primary);
+}
+
+h2 {
+  font-family: map-get($main_fonts, headers);
+  font-weight: map-get($main_weights, headers);
+  font-size: map-get($main_font-size, secondary_header);
+  color: map-get($main_colors, headers);
+}
+
+a {
+  color: map-get($main_colors, white_accent);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  height: 414px;
+  width: 310px;
+  text-align: center;
+  box-shadow: 2px 3px 10px map-get($main_colors, secondary);
+  border-radius: 10px;
+  padding-top: 0.1em;
+  margin: 2em 0;
+  background-color: color(white_accent);
+}
+
+.wrapper {
+  padding: 1.5em;
+  max-width: 1366px;
+  margin: 0 auto;
+}
+
+form {
+  margin: 2em 0 2em 0;
+
+  label {
+    font-family: map-get($main_fonts, body);
+    font-weight: map-get($main_weights, headers);
+    color: map-get($main_colors, headers);
+    font-size: 1em;
+  }
+
+  input {
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: map-get($main_colors, secondary);
+    margin: 0.5em 0 1em 0;
+    padding: 0.5em;
+    font-family: map-get($main_fonts, primary);
+  }
+
+  .submit {
+    border-radius: 30px;
+    padding: 12.5px 10px 12.5px 10px;
+    background-color: color(primary);
+    color: color(white_accent);
+  }
 }

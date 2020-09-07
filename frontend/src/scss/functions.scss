@@ -1,0 +1,63 @@
+/* Maps */
+
+$main_colors: (
+  primary: #162840,
+  secondary: #2d333b,
+  white_accent: #f8f8f8,
+  headers: #101c26,
+  descriptions: #142742,
+);
+
+$main_fonts: (
+  headers: "Montserrat",
+  body: "Roboto",
+);
+
+$main_weights: (
+  headers: bold,
+  medium: 500,
+  semibold: 600,
+  body: normal,
+);
+
+$main_font-size: (
+  body: 1em,
+  secondary_header: 1.5em,
+  header: 2em,
+  big_header: 2.5em,
+);
+
+$tag_colors: (
+  first: #de325b,
+  second: #326bde,
+  third: #32de6b,
+  fourth: #399c9f,
+  fifth: #e9be11,
+  sixth: #ca20d6,
+  seventh: #d62020,
+  eight: #6639d1,
+  nineth: #e56e1f,
+  tenth: #1fe5ca,
+);
+
+/* Functions */
+
+@function color($color) {
+  @return map-get($main_colors, $color);
+}
+
+@function font($font) {
+  @return map-get($main_fonts, $font);
+}
+
+@function weight($weight) {
+  @return map-get($main_weights, $weight);
+}
+
+@function size($size) {
+  @return map-get($main_font-size, $size);
+}
+
+@function tag($tag) {
+  @return map-get($tag_colors, $tag);
+}

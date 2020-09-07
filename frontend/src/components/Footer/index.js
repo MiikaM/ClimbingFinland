@@ -23,8 +23,8 @@ const Footer = () =>  {
               <input type="text" /><br />
 
               <label for="name">Message</label><br />
-              <textarea type="text" rows="3"></textarea> <br />
-              <input type="submit" className="submit" value="Send" />
+              <textarea type="text" rows="3" col="70"></textarea> <br />
+              <input type="submit" className="contact-submit" value="Send" />
             </form>
 
           </div>
