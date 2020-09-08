@@ -18,7 +18,8 @@ const placeSchema = mongoose.Schema({
     type: String
   },
   openingHours: {
-    type: Object
+    type: Object,
+    required: true
   },
   prices: {
     type: Object
@@ -28,6 +29,17 @@ const placeSchema = mongoose.Schema({
     of: String
   },
   city: {
+    type: String
+  },
+  address: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: String,
+    required: true
+  },
+  email: {
     type: String
   }
 })

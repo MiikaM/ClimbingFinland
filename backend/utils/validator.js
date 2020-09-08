@@ -1,6 +1,7 @@
 const logger = require('./logger')
 const validator = require('validator')
 const cities = require('../data/cities.json')
+const _ = require('lodash')
 
 const timeReg = /\d\d:\d\d/
 const pictReg = /\.(gif|jpg|jpeg|tiff|png)/
@@ -159,6 +160,37 @@ const hasHourMinutes = (time) => {
   return (hour && minutes && correctReg)
 }
 
+const isPhonenumber = (phonenumber) => {
+  let numberArray = phonenumber.split()
+
+  switch (numberArray[0]) {
+    case '0':
+      if (numberArray.length !== 10) {
+        return false
+      }
+      break
+    case '+':
+      if (numberArray.length !== 13) {
+        return false
+      }
+      numberArray = _.drop(numberArray)
+      break
+    default:
+      return false
+  }
+
+
+  for (let i = 0; i < numberArray.length; i++) {
+    const num = parseInt(numberArray[i])
+
+    if (isNaN(num)) {
+      return false
+    }
+  }
+
+  return true
+}
+
 module.exports = {
   isString,
   isStringArray,
@@ -171,5 +203,6 @@ module.exports = {
   isPrice,
   hasDays,
   hasHourMinutes,
-  hasOpenClose
+  hasOpenClose,
+  isPhonenumber
 }

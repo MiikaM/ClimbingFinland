@@ -1,4 +1,4 @@
-const { parseName, parseCity, parseDescription, parseOpenHours, parseTags, parseImage, parsePrices, parseUrl
+const { parsePhoneNumber ,parseAddress, parseName, parseCity, parseDescription, parseOpenHours, parseTags, parseImage, parsePrices, parseUrl, parseEmail
 } = require('../parse')
 
 const checkPlace = (object) => {
@@ -10,7 +10,10 @@ const checkPlace = (object) => {
     prices: parsePrices(object.prices),
     image: parseImage(object.image),
     tags: parseTags(object.tags),
-    city: parseCity(object.city)
+    city: parseCity(object.city),
+    address: parseAddress(object.address),
+    phone: parsePhoneNumber(object.phone),
+    email: parseEmail(object.email)
   }
 
   return checkedPlace

@@ -47,61 +47,20 @@ const Info = ({ place }) => {
   }
 
   return (
-    <div >
-      <h2>{place.name}</h2>
-      <Link href={`/places/${place.id}`}>
-        <img src={place.image} href='#' alt='From this place' />
-      </Link>
-      <List
-        width={100}
-        component='nav'
-        aria-labelledby='nested-list-subheader'
-        subheader={
-          <ListSubheader component='h2' id='nested-list-subheader'>
-            Info
-        </ListSubheader>
-        }>
-        {open ?
-          <ListItem button>
-            <ListItemText primary='Open' />
-            <ListItemIcon>
-              <CheckCircleOutlineOutlined style={{ color: '#32cd32' }} />
-            </ListItemIcon>
-          </ListItem> :
-          <ListItem button>
-            <ListItemText primary='Closed' />
-            <ListItemIcon>
-              <HighlightOffOutlined style={{ color: '#cd3232' }} />
-            </ListItemIcon>
-          </ListItem>
-        }
-        <ListItem button onClick={handleOpenHoursClick}>
-          <ListItemText primary='Opening hours' />
-          {showOpenHours ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={showOpenHours} timeout='auto' unmountOnExit>
-          <OpenHours show={showOpenHours} open_hours={open_hours} />
-        </Collapse>
-        <ListItem button onClick={handlePricingClick}>
-          <ListItemText primary='Pricing' />
-          {showPrices ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={showPrices} timeout='auto' unmountOnExit>
-          <Prices show={showPrices} prices={pricing} />
-        </Collapse>
-        <ListItem button component='a' href={place.url}>
-          <ListItemText primary={place.url} />
-        </ListItem>
-        <ListItem button>
-          <ListItemText primary={place.city} />
-        </ListItem>
-        <ListItem button width={50}>
-          {place.tags.map(tag => (
-            <ListItemText key={tag} primary={tag} />
-          ))}
-        </ListItem>
-      </List>
-    </div >
+    <li className="place-wrapper">
+      <div className="place-card">
+        <a href={`/gym/${place.name} `}>
+          <img src={place.image} alt={`${place.name} sali`} className="place" />
+        </a>
+        <div className="place-text-wrapper">
+          <h2 className="place-header">{place.name}</h2>
+          <blockquote className="place-description">
+            {place.description}
+          </blockquote>
+          <button className="readmore-button" ><a href={`/gym/${place.name} `}> Read more</a></button>
+        </div>
+      </div>
+    </li>
   )
 }
 

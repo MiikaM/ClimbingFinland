@@ -17,14 +17,15 @@ import PhoneLogo from '../../images/phone.svg'
 import '../../scss/place.scss'
 import Footer from '../Footer'
 import NavHeader from '../NavHeader'
+import PriceCategory from '../PriceCategory'
 
 
 const ChosenPlace = () => {
   const dispatch = useDispatch()
   const places = useSelector(state => state.places)
-  const match = useRouteMatch('/places/:id')
+  const match = useRouteMatch('/gym/:place_name')
   const place = match
-    ? places.find(place => place.id === match.params.id)
+    ? places.find(place => place.name === match.params.place_name)
     : null
 
 
@@ -65,11 +66,10 @@ const ChosenPlace = () => {
       <section className="hero-wrapper">
         <div className="wrapper">
           <div className="hero-content-place">
-            <h1>Boulderpaja</h1>
+            <h1>{place.name}</h1>
             <p className="subtitle-place">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quibusdam, est ex in maiores itaque
-              repellendus similique enim, dolorum nemo non modi, vel laborum assumenda natus mollitia quae et quod!
-        </p>
+              {place.description}
+            </p>
 
           </div>
         </div>
@@ -84,31 +84,31 @@ const ChosenPlace = () => {
               <ul className="opening-list">
                 <li className="open">
                   <strong>Mon</strong>
-                  <p>14:00-20:00</p>
+                  <p>{place.openingHours.mon}</p>
                 </li>
                 <li className="open">
                   <strong>Tue</strong>
-                  <p>14:00-20:00</p>
+                  <p>{place.openingHours.tue}</p>
                 </li>
                 <li className="open">
                   <strong>Wed</strong>
-                  <p>14:00-20:00</p>
+                  <p>{place.openingHours.wed}</p>
                 </li>
                 <li className="open">
                   <strong>Thu</strong>
-                  <p>14:00-20:00</p>
+                  <p>{place.openingHours.thu}</p>
                 </li>
                 <li className="open">
                   <strong>Fri</strong>
-                  <p>14:00-20:00</p>
+                  <p>{place.openingHours.fri}</p>
                 </li>
                 <li className="open">
                   <strong>Sat</strong>
-                  <p>14:00-20:00</p>
+                  <p>{place.openingHours.sat}</p>
                 </li>
                 <li className="open">
                   <strong>Sun</strong>
-                  <p>14:00-20:00</p>
+                  <p>{place.openingHours.sun}</p>
                 </li>
               </ul>
             </div>
@@ -118,22 +118,22 @@ const ChosenPlace = () => {
               <ul className="info-list">
                 <li>
                   <img src={MailLogo} alt="" />
-                  <p className="place-info">boulderpaja@gmail.com</p>
+                  <p className="place-info">{place.email}</p>
                 </li>
 
                 <li>
                   <img src={WorldLogo} alt="" />
-                  <p className="place-info">boulderpaja.fi</p>
+                  <p className="place-info">{place.url}</p>
                 </li>
 
                 <li>
                   <img src={PlaceLogo} alt="" />
-                  <p className="place-info">Ahjokatu 23 , 40100 Jyväskylä</p>
+                  <p className="place-info">{place.address}</p>
                 </li>
 
                 <li>
                   <img src={PhoneLogo} alt="" />
-                  <p className="place-info">049859345</p>
+                  <p className="place-info">{place.phone}</p>
                 </li>
               </ul>
             </div>
@@ -151,66 +151,9 @@ const ChosenPlace = () => {
 
           <div className="price-wrapper">
             <ul className="price-list">
-              <li>
-                <div className="card">
-                  <div className="upper-category">
-                    <h2>Aikuiset</h2>
-                    <div className="text-wrapper">
-                      <div className="text">
-                        <strong>10€<br />/kerta</strong>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="lower-category">
-
-                    <p>90€<br />/10x-kertaa</p>
-                    <p>75€<br />/kuukausi</p>
-
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <div className="card">
-                  <div className="upper-category">
-                    <h2>Aikuiset</h2>
-                    <div className="text-wrapper">
-                      <div className="text">
-                        <strong>10€<br />/kerta</strong>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div className="lower-category">
-                    <p>10x-kertaa</p>
-                    <p>90€</p>
-                    <p>kuukausikortti</p>
-                    <p>75€</p>
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <div className="card">
-                  <div className="upper-category">
-                    <h2>Aikuiset</h2>
-                    <div className="text-wrapper">
-                      <div className="text">
-                        <strong>10€<br />/kerta</strong>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="lower-category">
-                    <p>10x-kertaa</p>
-                    <p>90€</p>
-                    <p>kuukausikortti</p>
-                    <p>75€</p>
-                  </div>
-                </div>
-              </li>
+              {Object.values(place.prices).map(price => (
+                <PriceCategory key={price} price={place} />
+              ))}
             </ul>
           </div>
         </div>

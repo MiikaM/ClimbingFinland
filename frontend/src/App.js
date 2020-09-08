@@ -85,7 +85,7 @@ const App = () => {
         <Route exact path='/upload'>
           <ImageForm />
         </Route>
-        <Route path='/place'>
+        <Route path='/gym/:place_name'>
           <ChosenPlace />
         </Route>
         <Route path='/comments'>

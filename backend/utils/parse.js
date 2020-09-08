@@ -1,5 +1,5 @@
 
-const { hasDays, isString, isUrl, isStringArray, isCity, isPicture, hasPrices } = require('./validator')
+const { hasDays, isString, isUrl, isStringArray, isCity, isPicture, hasPrices, isPhonenumber } = require('./validator')
 const { isDate } = require('lodash')
 
 
@@ -86,6 +86,30 @@ const parseDate = (date) => {
   return date
 }
 
+const parseAddress = (address) => {
+  if (!address || !isString(address)) {
+    throw new Error('Incorrect or missing address: ' + address)
+  }
+
+  return address
+}
+
+const parsePhoneNumber = (phonenumber) => {
+  if (!phonenumber || !isString(phonenumber) || !isPhonenumber(phonenumber)) {
+    throw new Error('Incorrect or missing phone number: ' + phonenumber)
+  }
+
+  return phonenumber
+}
+
+const parseEmail = (email) => {
+  if (!email || !isString(email)) {
+    throw new Error('Incorrect or missing email: ' + email)
+  }
+
+  return email
+}
+
 module.exports = {
   parseName,
   parseCity,
@@ -96,5 +120,8 @@ module.exports = {
   parseOpenHours,
   parsePrices,
   parseTags,
-  parseUrl
+  parseUrl,
+  parseAddress,
+  parsePhoneNumber,
+  parseEmail
 }

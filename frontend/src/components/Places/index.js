@@ -9,17 +9,12 @@ const Places = () => {
 
 
   return (
-    <div>
-      <h1> Climbing places</h1>
+    <ul className="place-list">
+      {sortedPlaces.map(place => (
+        <Info place={place} />
+      ))}
+    </ul>
 
-      <div>
-        {sortedPlaces.map(place => (
-          <Paper key={place.id} elevationn={3}>
-            <Info place={place} />
-          </Paper>
-        ))}
-      </div>
-    </div>
   )
 }
 

@@ -1,5 +1,4 @@
 const frontRouter = require('express').Router()
-const path = require('path')
 const jwt = require('jsonwebtoken')
 const UserBase = require('../models/userBase')
 const logger = require('../utils/logger')
@@ -25,10 +24,9 @@ frontRouter.post('/forgot', async (req, res) => {
     res.status(400).send({ error: 'User doesn\'t exist' }).end()
   }
 
-  sendResetPasswordEmail({ email: user.email, id: user.id })
+  // sendResetPasswordEmail({ email: user.email, id: user.id })
 
   res.status(204).end()
-}
 })
 
 frontRouter.get('/passwordReset/:token', async (req, res) => {
@@ -62,6 +60,9 @@ frontRouter.post('/passwordReset', resetAuthentication, async (req, res) => {
     await user.save()
 
     res.status(204).redirect('http://localhost:3001/')
+  }
+  catch (err) {
+    logger.error(err.message)
   }
 })
 
