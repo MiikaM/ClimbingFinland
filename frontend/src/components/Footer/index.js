@@ -1,6 +1,7 @@
 import React from 'react'
 import '../../scss/footer.scss'
 import LogoFooter from '../../images/logo-white.svg'
+import ContactForm from '../ContactForm'
 
 
 const Footer = () =>  {
@@ -15,18 +16,7 @@ const Footer = () =>  {
             <h2>Let us know!</h2>
           </div>
           <div className="footer-form-wrapper">
-            <form action="" className="footer-form">
-              <label for="name">Name</label><br />
-              <input type="text" /><br />
-
-              <label for="email">Email</label><br />
-              <input type="text" /><br />
-
-              <label for="name">Message</label><br />
-              <textarea type="text" rows="3" col="70"></textarea> <br />
-              <input type="submit" className="contact-submit" value="Send" />
-            </form>
-
+            <ContactForm />
           </div>
 
         </div>

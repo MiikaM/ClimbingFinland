@@ -6,14 +6,14 @@ import "../../scss/nav.scss"
 
 const NavHeader = () => {
   return (
-    <section class="nav-header">
-      <div class="wrapper">
-        <div class="nav-wrapper">
-          <div class="search">
+    <section className="nav-header">
+      <div className="wrapper">
+        <div className="nav-wrapper">
+          <div className="search">
 
-            <img src={NavLogo} alt="" class="header-logo" />
-            <img src={SearchSVG} class="search-icon" alt="search-icon" />
-            <input type="text" class='search-bar' placeholder="Search..." />
+            <img src={NavLogo} alt="" className="header-logo" />
+            <img src={SearchSVG} className="search-icon" alt="search-icon" />
+            <input type="text" className='search-bar' placeholder="Search..." />
           </div>
 
           <nav>

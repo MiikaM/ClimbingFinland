@@ -7,11 +7,11 @@ const ForgotPassword = () => {
   return (
     <div>
       <NavHeader />
-      <section class="wrapper">
+      <section className="wrapper">
 
-        <div class="reset-wrapper">
+        <div className="reset-wrapper">
           <h2>Forgot your password?</h2>
-          <p class="login-small">
+          <p className="login-small">
             Enter your email address to reset your password. If you can't see the messages check your spam folder
       </p>
 
@@ -19,7 +19,7 @@ const ForgotPassword = () => {
             <label for="email">Email</label><br />
             <input type="text" /><br />
 
-            <input type="submit" class="submit" value="Send verification" />
+            <input type="submit" className="submit" value="Send verification" />
 
 
           </form>

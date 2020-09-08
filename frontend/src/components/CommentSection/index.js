@@ -9,7 +9,7 @@ const CommentSection = ({place, header}) => {
   const list = [2, 2]
 
   return (
-    <section className="comments-wrapper">
+    <section className="comments-wrapper" >
       <div className="wrapper">
         <h2>{header}</h2>
         <ul className="comment-list-wrapper">

@@ -11,7 +11,7 @@ const CommentForm = () => {
     >
       {({ values, handleChange, handleBlur, handleSubmit }) => (
         <form onSubmit={handleSubmit} className='cmform'>
-          <Field component="textarea" name='comment' type='input' placeholder='your comment' multiline rows={3} />
+          <Field component="textarea" name='comment' type='input' placeholder='your comment' multiline='true' rows={3} />
           <div>
             <button type='submit' className="submit" > Comment</button>
           </div>
@@ -19,16 +19,16 @@ const CommentForm = () => {
         </form>
       )}</Formik>
 
-      //      {/* <div className="comment-form">
-      //   <label for="comment">
-      //     Your comment
-      //   </label>
-      //   <form action="" className='cmform' >
+    //      {/* <div className="comment-form">
+    //   <label for="comment">
+    //     Your comment
+    //   </label>
+    //   <form action="" className='cmform' >
 
-      //     <textarea name="comment" id="" cols="60" rows="2"></textarea>
-      //     <input type="submit" className="submit" value="Comment" />
-      //   </form>
-      // </div>  */}
+    //     <textarea name="comment" id="" cols="60" rows="2"></textarea>
+    //     <input type="submit" className="submit" value="Comment" />
+    //   </form>
+    // </div>  */}
   )
 }
 

@@ -1,4 +1,4 @@
-@import './functions.scss';
+@import "./functions.scss";
 
 /* Globals */
 
@@ -70,7 +70,6 @@
 
 /* Content */
 
-
 .wrap {
   display: flex;
   border: 1px solid color(primary);
@@ -94,9 +93,8 @@
   text-align: center;
   color: color(primary);
 
-  margin:  0 auto;
+  margin: 0 auto;
   margin: 1em 2em;
-  
 
   h2 {
     margin: 1em 0;
@@ -104,6 +102,14 @@
 
   ul li {
     margin: 0.5em;
+  }
+
+  li {
+    cursor: pointer;
+  }
+
+  li:hover {
+    font-weight: weight(semibold);
   }
 }
 
@@ -130,6 +136,14 @@
       color: color(white_accent);
       background-color: color(primary);
     }
+
+    button {
+      width: 20px;
+      height: 20px;
+      border-radius: 60px;
+      font-size: 0.5em;
+      text-align: center;
+    }
   }
 
   .like-list {
@@ -152,8 +166,6 @@
       margin: 1.5em 0;
       width: 140px;
     }
-
-    
   }
 
   li.tag-item {
@@ -194,6 +206,18 @@
   background-color: tag(fourth);
 }
 
+.fifth {
+  background-color: tag(fifth);
+}
+
+.sixth {
+  background-color: tag(sixth);
+}
+
+.seventh {
+  background-color: tag(seventh);
+}
+
 .change-password {
   background-color: color(white_accent);
   border-radius: 10px;
@@ -201,7 +225,6 @@
   padding: 1em;
   margin: 0 auto;
   margin: 1em 4em 1em 2em;
-
 
   .form {
     max-width: 60%;
@@ -218,10 +241,7 @@
   }
 }
 
-
 /* Media Queries */
-
-
 
 @media (max-width: 490px) {
   .hero-content {
@@ -258,8 +278,6 @@
     }
   }
 }
-
-
 
 @media (max-width: 870px) {
   .change-password {
