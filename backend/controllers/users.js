@@ -13,11 +13,6 @@ const jwt = require('jsonwebtoken')
 usersRouter.get('/', async (request, response) => {
   const users = await UserBase.find({}).populate('favouritePlaces', { name: 1, description: 1 })
   console.log({ users })
-  // try {
-  //   const mailIt = mailer()
-  // } catch (e) {
-  //   logger.error(e.message)
-  // }
   response.json(users.map(u => u.toJSON()))
 })
 
@@ -41,7 +36,7 @@ usersRouter.post('/', async (request, response) => {
     console.log({ userToSave })
     const savedUser = await userToSave.save()
     sendVerificationEmail(savedUser)
-    response.json(savedUser)
+    response.status(204).end()
   } catch (e) {
     response.status(401).json({ error: e.message })
   }
@@ -73,7 +68,7 @@ usersRouter.put('/:username', authenticate, async (req, res) => {
       id: updatedUser.id,
       verified: updatedUser.verified
     }
-    const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '15m' })
+    const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '1h' })
 
     console.log({ token })
 

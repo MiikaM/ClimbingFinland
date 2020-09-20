@@ -62,7 +62,7 @@ h2 {
 }
 
 a {
-  color: map-get($main_colors, white_accent);
+  // color: map-get($main_colors, white_accent);
   text-decoration: none;
 }
 
@@ -114,4 +114,10 @@ form {
     background-color: color(primary);
     color: color(white_accent);
   }
+}
+
+.form-error-message {
+  color: red;
+  font-size: 0.5em;
+  margin: 0 0 0.8em 0;
 }

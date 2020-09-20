@@ -13,7 +13,7 @@ const validateGoogleUser = async (token) => {
 
   if (!userInDb) {
     try {
-      const userToSave = userCheckerThirdParty(ticket)
+      const userToSave = await userCheckerThirdParty(ticket)
       userInDb = await userToSave.save()
     } catch (e) {
       logger.error(e.message)
@@ -29,9 +29,18 @@ const validateGoogleUser = async (token) => {
 const validateOnSiteUser = async (user) => {
 
   const userInDb = await UserBase.findOne({ username: user.username })
+
+  if(!userInDb) {
+    throw Error('No such user in the database.')
+  }
+  
+  console.log({ userInDb })
+
   const passwordCorrect = user === null
     ? false
     : await bcrypt.compare(user.password, userInDb.password)
+
+  console.log({passwordCorrect})
 
   if (!(user && passwordCorrect)) {
     throw Error('invalid username or password')

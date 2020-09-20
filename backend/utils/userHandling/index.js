@@ -7,17 +7,17 @@ const fs = require('fs')
 const path = require('path')
 const logger = require('../logger')
 const UserBase = require('../../models/userBase')
+const { hashPassword } = require('../../services/userService')
 
 
 const userChecker = async (user_data) => {
   console.log({ user_data })
 
-  if (!user_data.password || user_data.password.length < 8) {
-    throw new Error('Password minimun length is 8')
+  if (!user_data.password) {
+    throw new Error('Password is invalid')
   }
-
-  const saltRounds = parseInt(process.env.SALT_WORK_FACTOR)
-  const passwordHash = await bcrypt.hash(user_data.password, saltRounds)
+  const passwords = { newPassword: user_data.password, newPasswordAgain: user_data.passwordagain }
+  const passwordHash = await hashPassword(passwords)
 
   if (user_data.adminVerification && user_data.adminVerification === process.env.ADMINSECRET) {
     return createAdmin(user_data, passwordHash)
@@ -26,14 +26,14 @@ const userChecker = async (user_data) => {
   return createOnSite(user_data, passwordHash)
 }
 
-const userCheckerThirdParty = (user_data) => {
+const userCheckerThirdParty = async (user_data) => {
   console.log({ user_data })
 
   if (user_data.iss !== process.env.PROJECT_ISS || user_data.aud !== process.env.PROJECT_ID || !checkIatExp(user_data.iat, user_data.exp)) {
     throw new Error('User token is not authenticated by google.')
   }
 
-  const user = createThirdParty(user_data)
+  const user = await createThirdParty(user_data)
 
   console.log({ user })
 
@@ -50,19 +50,21 @@ const checkIatExp = (iat, exp) => {
   return (iatCorrect && expCorrect)
 }
 
-const createThirdParty = (thirdParty_data) => {
+const createThirdParty = async (thirdParty_data) => {
   console.log({ thirdParty_data })
   if (!thirdParty_data.email_verified) {
     throw new Error('In order to use a Google account to sign in, you must have your google account verified.')
   }
   const thirdParty = new ThirdPartyUser({
-    username: hashUsername(thirdParty_data.name),
+    username: await hashUsername(thirdParty_data.name),
     idSub: thirdParty_data.sub,
     name: thirdParty_data.name,
     verified: thirdParty_data.email_verified,
     email: thirdParty_data.email,
     avatar: thirdParty_data.picture
   })
+
+  console.log({thirdParty})
 
   return thirdParty
 }
@@ -72,6 +74,7 @@ const rndInteger = (min, max) => {
 }
 
 const hashUsername = async (name) => {
+  console.log({name})
 
   const nameSplitted = name.split(' ')
   let boolean = true
@@ -80,11 +83,16 @@ const hashUsername = async (name) => {
     const username = nameSplitted.map(namePart => namePart.substring(0, rndInteger(0, namePart.length)))
     usernameJoined = username.join('').toLowerCase()
     const user = await UserBase.find({ username: username })
-    if (user) {
+
+    if (user.length > 0) {
       continue
     }
+
+    if (usernameJoined.length < 6) continue
     boolean = false
   }
+
+  console.log({usernameJoined})
 
   return usernameJoined
 
@@ -108,7 +116,9 @@ const createOnSite = (onSite_data, passwordHash) => {
     name: onSite_data.username,
     username: onSite_data.username,
     email: onSite_data.email,
-    password: passwordHash
+    password: passwordHash,
+    city: onSite_data.city,
+
   })
 
   return onSite

@@ -1,54 +1,80 @@
 import React from 'react'
 import { Formik, Field, Form, FieldArray } from 'formik'
 import TagItem from '../TagItem'
+import { useDispatch } from 'react-redux'
+import { useHistory, useRouteMatch } from 'react-router-dom'
+import { updateUserInfo } from '../../reducers/userReducer'
+import * as yup from 'yup'
 
 const SettingsForm = () => {
-
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const match = useRouteMatch('/:username/settings')
   const tagArray = ['Boulder', 'Lead', 'Gym', 'Picnic']
+
+  const handleSubmit = (data) => {
+    console.log({ data })
+
+    // dispatch(updateUserInfo('MIquli', data))
+  }
+
+  const validationSchema = yup.object({
+    name: yup.string()
+      .required('Name is required.'),
+    username: yup.string()
+      .required('Username required')
+      .min(6, 'Minimum length is 6 characters'),
+    email: yup.string()
+      .email('Must be a valid email')
+      .required('Email required'),
+    city: yup.string().required('Where do you live?'),
+  })
 
   return (
     <Formik
-      initialValues={{ firstname: '', tags: [ ...tagArray ] }}
+      validateOnChange={true}
+      validationSchema={validationSchema}
+      initialValues={{ username: '', name: '', email: '', city: '', tags: [...tagArray] }}
       onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true)
-        console.log({ data })
+        handleSubmit(data)
         setSubmitting(false)
         resetForm()
+        history.go(0)
       }}
     >
-      {({errors, values, isSubmitting }) => (
+      {({ errors, values, isSubmitting }) => (
         <Form action="" className="account-settings-form form">
 
-          <label for="username">Username</label><br />
+          <label htmlFor="username">Username</label><br />
           <div>
             <Field name='username' value={values.username} type='input' />
           </div>
+          {errors.username ? <div className='form-error-message'>{errors.username}</div> : null}
 
-          <div className="name">
-            <label for="firstname">First name</label><br />
-            <div>
-              <Field name='firstname' value={values.firstname} type='input' />
-            </div>
-            <label for="lastname">Last name</label><br />
-            <div>
-              <Field name='lastname' value={values.lastname} type='input' />
-            </div>
+          <label htmlFor="name">Name</label><br />
+          <div>
+            <Field name='name' value={values.name} type='input' />
           </div>
+          {errors.name ? <div className='form-error-message'>{errors.name}</div> : null}
 
-          <label for="email">Email</label><br />
+          <label htmlFor="email">Email</label><br />
           <div>
             <Field name='email' value={values.email} type='input' />
           </div>
+          {errors.email ? <div className='form-error-message'>{errors.email}</div> : null}
 
-          <label for="city">City</label><br />
+          <label htmlFor="city">City</label><br />
           <div>
             <Field name='city' value={values.city} type='input' />
           </div>
+          {errors.city ? <div className='form-error-message'>{errors.city}</div> : null}
 
-          <div className="likes">
-            <label for="likes">Likes</label><br />
+          {/* <div className="likes">
+            <label htmlFor="likes">Likes</label><br />
             <button type="button">+</button>
           </div>
+
           <FieldArray name="tags">
             {arrayHelpers => (
               <div>
@@ -59,7 +85,7 @@ const SettingsForm = () => {
                 </ul>
               </div>
             )}
-          </FieldArray>
+          </FieldArray> */}
           <button disabled={isSubmitting} type="submit" className="submit" >Save</button>
           <pre style={{ color: 'blue' }}>{JSON.stringify(values, null, 2)}</pre>
           <pre style={{ color: 'blue' }}>{JSON.stringify(errors, null, 2)}</pre>

@@ -31,6 +31,10 @@ const userBaseSchema = mongoose.Schema({
     type: String,
     default: ''
   },
+  city: {
+    type: String,
+    default: ''
+  },
   favouritePlaces: [
     {
       type: mongoose.Schema.Types.ObjectId,

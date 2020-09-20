@@ -1,6 +1,5 @@
 @import "./functions.scss";
 
-
 /* Content */
 
 .register-wrapper {
@@ -18,6 +17,17 @@
 
     width: 162.5px;
   }
+}
+
+button {
+  font-family: map-get($main_fonts, body);
+  font-weight: map-get($main_weights, medium);
+  border-radius: 30px;
+  padding: 3px 10px 3px 10px;
+  background-color: map-get($main_colors, white_accent);
+  color: map-get($main_colors, headers);
+  border-color: map-get($main_colors, primary);
+  border-width: 1px;
 }
 
 .wrapper1 {

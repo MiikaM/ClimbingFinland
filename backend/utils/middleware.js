@@ -33,6 +33,7 @@ const errorHandler = (error, request, response, next) => {
 }
 
 const authenticate = (req, res, next) => {
+
   const token = req.cookies.token
 
   try {
@@ -56,17 +57,19 @@ const authenticate = (req, res, next) => {
 }
 
 const resetAuthentication = (req, res, next) => {
-  const token = req.cookies.token
+  console.log('cookies: ', req.cookies)
+  const token = req.cookies.token_reset
 
   try {
     if (!token) {
       res.status(404).send('Page was not found').end()
     } else {
       const decodedToken = jwt.verify(token, process.env.RESET_SECRET)
+      console.log({decodedToken})
       if (!decodedToken) {
         res.status(404).send('Page was not found').end()
       }
-      req.id = decodedToken.id
+      req.id = decodedToken.user.id
       next()
     }
   } catch (err) {

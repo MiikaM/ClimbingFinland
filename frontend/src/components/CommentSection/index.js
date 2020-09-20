@@ -3,10 +3,25 @@ import { useSelector } from 'react-redux'
 import { List, ListSubheader } from '@material-ui/core'
 import ShowComment from './showComment'
 import { CropPortrait } from '@material-ui/icons'
+import '../../scss/comment.scss'
 
-const CommentSection = ({place, header}) => {
+const CommentSection = ({ place_id, header }) => {
   const comments = useSelector(state => state.comments)
+  const placeComments = comments ?
+    comments.filter(comment => comment.place === place_id) :
+    null
   const list = [2, 2]
+
+  console.log({ comments })
+  console.log({ placeComments })
+
+  if (comments.length < 1) {
+    return (
+      <div>
+        Loading...
+      </div>
+    )
+  }
 
   return (
     <section className="comments-wrapper" >
@@ -14,16 +29,16 @@ const CommentSection = ({place, header}) => {
         <h2>{header}</h2>
         <ul className="comment-list-wrapper">
           {
-            list.map(comment =>
-              <ShowComment key={comment} comment={comment} />
+            placeComments.map(comment =>
+              <ShowComment key={comment.id} comment={comment} />
             )
           }
         </ul>
 
-        
+
 
         {/* <div className="comment-form">
-        <label for="comment">
+        <label htmlFor="comment">
           Your comment
         </label>
         <form action="" className='cmform' >

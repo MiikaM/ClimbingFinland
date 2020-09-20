@@ -1,18 +1,35 @@
 import React from 'react'
 import { Formik, Field, Form } from 'formik'
+import { useDispatch } from 'react-redux'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import * as yup from 'yup'
 
-const ChangePasswordForm = () => {
+import { changePassword } from '../../reducers/userReducer'
 
-  
+const ChangePasswordForm = () => {
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const match = useRouteMatch('/:username/settings')
+
+  const handleSubmit = (data) => {
+    // dispatch(changePassword('MIquli', data))
+  }
+
+
   const validationSchema = yup.object({
-    oldppassword: yup.string().required().min(10),
-    newpassword: yup.string().required().min(10),
-    newpasswordagain: yup.string().required().min(10)
+    oldPassword: yup.string().required('Required'),
+    newPassword: yup.string()
+      .required('Password required')
+      .min(10, 'Password must be atleast 10 characters long'),
+    newPasswordAgain: yup.string()
+      .required('Password required')
+      .oneOf([yup.ref('newPassword')], 'Passwords must match'),
   })
+
   return (
     <Formik
-      initialValues={{ oldpassword: '', newpassword: '', newpasswordagain: '' }}
+      validateOnChange={true}
+      initialValues={{ oldPassword: '', newPassword: '', newPasswordAgain: '' }}
       validationSchema={validationSchema}
       // validate={values => {
       //   const errors = {}
@@ -22,29 +39,36 @@ const ChangePasswordForm = () => {
 
       //   return errors
       // }}
+      // validationSchema={validationSchema}
       onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true)
-        console.log({ data })
+        handleSubmit(data)
         setSubmitting(false)
         resetForm()
+        history.go(0)
+
       }}
     >
       {({ values, errors, isSubmitting }) => (
         <Form className="form">
-          <label for="oldpassword">Old password</label><br />
+          <label htmlFor="oldPassword">Old password</label><br />
           <div>
-            <Field name='oldpassword' value={values.oldpassword} type='password' />
+            <Field name='oldPassword' value={values.oldPassword} type='password' />
           </div>
+          {errors.oldPassword ? <div className='form-error-message'>{errors.oldPassword}</div> : null}
 
-          <label for="newpassword">New password</label><br />
+          <label htmlFor="newPassword">New password</label><br />
           <div>
-            <Field name='newpassword' value={values.newpassword} type='password' />
+            <Field name='newPassword' value={values.newPassword} type='password' />
           </div>
+          {errors.newPassword ? <div className='form-error-message'>{errors.newPassword}</div> : null}
 
-          <label for="newpasswordagain">New password again</label><br />
+          <label htmlFor="newPasswordAgain">New password again</label><br />
           <div>
-            <Field type="password" name='newpasswordagain' value={values.newpasswordagain} />
+            <Field type="password" name='newPasswordAgain' value={values.newPasswordAgain} />
           </div>
+          {errors.newPasswordAgain ? <div className='form-error-message'>{errors.newPasswordAgain}</div> : null}
+
           <button disabled={isSubmitting} type="submit" className="-submit" >Change password</button>
           <pre style={{ color: 'blue' }}>{JSON.stringify(values, null, 2)}</pre>
           <pre style={{ color: 'blue' }}>{JSON.stringify(errors, null, 2)}</pre>

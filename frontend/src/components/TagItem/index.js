@@ -2,7 +2,6 @@ import React from 'react'
 
 const TagItem = ({ tag, index }) => {
   let indexString = ''
-  console.log({ tag })
   switch (index) {
     case 0:
       indexString = 'first'

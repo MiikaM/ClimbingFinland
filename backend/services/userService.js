@@ -35,6 +35,8 @@ const removeUser = async (id, username) => {
 
 const updateUser = async (userToUpdate_username, userUpdating, newUser) => {
   try {
+    console.log({ userToUpdate_username })
+    console.log('Token username: ', userUpdating.username)
 
     if (userToUpdate_username !== userUpdating.username) {
       throw new Error('Only logged in user can update their information.')
@@ -69,7 +71,7 @@ const changePassword = async (passwords, user) => {
     throw new Error('Password minimun length is 8')
   }
 
-  const boolean = (passwords.newPassword === passwords.newPasswordRedo)
+  const boolean = (passwords.newPassword === passwords.newPasswordAgain)
 
   if (!boolean) {
     throw new Error('Passwords doesn\'t match')
@@ -96,7 +98,7 @@ const hashPassword = async (passwords) => {
     throw new Error('Password minimun length is 8')
   }
 
-  const boolean = (passwords.newPassword === passwords.newPasswordRedo)
+  const boolean = (passwords.newPassword === passwords.newPasswordAgain)
 
   if (!boolean) {
     throw new Error('Passwords don\'t match')
@@ -112,10 +114,14 @@ const hashPassword = async (passwords) => {
 }
 
 const sendVerificationEmail = (user) => {
+  console.log({ user })
   try {
     const token = jwt.sign({ user: user.id }, process.env.EMAIL_SECRET, { expiresIn: '1d' })
+    const url = `http://localhost:3001/api/verification/${token}`
 
-    const url = `http://localhost:3001/verification/${token}`
+    console.log({ token })
+    console.log({ url })
+    console.log('email: ', user.email)
 
     transporter.sendMail({
       to: user.email, // list of receivers
@@ -124,15 +130,18 @@ const sendVerificationEmail = (user) => {
     })
 
   } catch (err) {
-    logger.error(err.message)
+    logger.error('verfificaatio ', err.message)
   }
 }
 
 const sendResetPasswordEmail = (user) => {
   try {
+    console.log({ user })
     const token = jwt.sign({ user }, process.env.RESET_SECRET, { expiresIn: '1h' })
 
-    const url = `http://localhost:3001/passwordReset/${token}`
+    const url = `http://localhost:3001/api/passwordReset/${token}`
+
+    console.log('Email: ', user.email)
 
     transporter.sendMail({
       to: user.email,

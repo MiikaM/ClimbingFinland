@@ -1,12 +1,39 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { useState, useEffect } from 'react'
+import firebase from 'firebase'
 import '../../scss/homepage.scss'
 import LogoBlue from '../../images/logo-blue.svg'
 import Footer from '../Footer'
 import SearchBlue from '../../images/search-blue.svg'
 import Places from '../Places'
+import Login from '../Login'
+import Modal from '../Modal'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutUser } from '../../reducers/loginReducer'
 
 const HomePage = (params) => {
+  const dispatch = useDispatch()
+
+  const [isOpen, setIsOpen] = useState(false)
+  const loggedIn = useSelector(state => state.session)
+  useEffect(() => {
+    if (params.location.open) {
+      setIsOpen(params.location.open)
+    }
+
+  }, [])
+
+  const handleLogout = () => {
+    firebase.auth().signOut()
+    dispatch(logoutUser())
+  }
+
+
+  const handleLoginModal = (e) => {
+    e.preventDefault()
+    setIsOpen(true)
+
+    console.log({ isOpen })
+  }
 
   return (
     <div>
@@ -15,11 +42,13 @@ const HomePage = (params) => {
           <div className="header">
             <nav>
               <ul>
-                <li>Favourites</li>
-                <li><a href="logIn.html">Log in</a></li>
+                {/* <li>Favourites</li> */}
+                <li style={{ cursor: 'pointer' }} onClick={handleLoginModal}>Log in</li>
+                <li><button onClick={handleLogout} style={{ cursor: 'pointer' }}>Log Out</button></li>
               </ul>
             </nav>
           </div>
+
 
 
           <div className="hero-content-home">
@@ -31,6 +60,9 @@ const HomePage = (params) => {
           </div>
         </div>
       </section>
+      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+        <Login close={() => setIsOpen(false)} />
+      </Modal>
 
       <section className="place-window-wrapper">
         <div className="wrapper ">

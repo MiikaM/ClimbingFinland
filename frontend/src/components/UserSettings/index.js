@@ -7,10 +7,19 @@ import NavHeader from '../NavHeader'
 import Footer from '../Footer'
 import SettingsForm from '../SettingsForm'
 import ChangePasswordForm from '../ChangePasswordForm'
+import { useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 
 const UserSettings = () => {
   const [changePass, setChangePass] = useState(false)
+  const user = useSelector(state => state.session)
+
+  if (!user || user.length < 1) {
+    return (
+      <Redirect to='/' />
+    )
+  }
 
   return (
     <div>
@@ -45,11 +54,11 @@ const UserSettings = () => {
                 <h2>User Settings</h2>
                 <ul>
                   <li onClick={() => setChangePass(false)}>
-                      General
+                    General
                   </li>
 
                   <li onClick={() => setChangePass(true)}>
-                      Change Password
+                    Change Password
                   </li>
                 </ul>
               </div>
@@ -64,16 +73,16 @@ const UserSettings = () => {
                     <SettingsForm />
                   </div>
                 </div>
-                
+
                 )
-                : ( <div className="change-password wrap">
+                : (<div className="change-password wrap">
                   <div className="align " >
 
                     <h2>Change password</h2>
 
                     <ChangePasswordForm />
                   </div>
-                </div> )
+                </div>)
             }
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Switch, Route
 } from 'react-router-dom'
@@ -15,108 +15,75 @@ import CommentForm from './components/CommentForm'
 import { initializePlaces } from './reducers/placeReducer'
 import { initializeComments } from './reducers/commentReducer';
 import { initializeUsers } from './reducers/userReducer';
-import { googleLoginUser } from './reducers/loginReducer'
 import { firebaseConfig } from './firebase'
 import ImageForm from './components/ImageForm'
 import Login from './components/Login'
-import RegisterForm from './components/RegisterForm'
+import Register from './components/Register'
 import ResetPassword from './components/ResetPassword'
 import ForgotPassword from './components/ForgotPassword';
 import UserPage from './components/UserPage';
 import UserSettings from './components/UserSettings';
 import NavHeader from './components/NavHeader';
 import Footer from './components/Footer';
+import { googleLoginUser } from './reducers/loginReducer'
+
+import { getUser } from './reducers/loginReducer'
 
 
 const App = () => {
-  // const dispatch = useDispatch()
-  // const [isSignedIn, setIsSignedIn] = useState(false)
-  // const auth = {
-  //   signInFlow: 'popup',
-  //   signinOptions: [
-  //     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-  //     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-  //     firebase.auth.GithubAuthProvider.PROVIDER_ID,
-  //   ],
-  //   callbacks: {
-  //     signInSuccessWithAuthResult: () => false
-  //   }
-  // }
+  const dispatch = useDispatch()
+  // const loggedIn = useSelector(state => state.session
 
-  // if (!firebase.apps.length) {
-  //   console.log(process.env.AUTHID, process.env.CLIENTID)
-  //   firebase.initializeApp(firebaseConfig)
-  // }
 
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged(async user => {
-  //     if (user) {
-  //       const id_token = await firebase.auth().currentUser.getIdToken()
-  //       console.log({ id_token })
-  //       dispatch(googleLoginUser(id_token))
-  //       setIsSignedIn(!!user)
-  //     }
-  //   })
+  if (!firebase.apps.length) {
+    console.log(process.env.AUTHID, process.env.CLIENTID)
+    firebase.initializeApp(firebaseConfig)
+  }
 
-  // }, [])
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(async user => {
+      if (user) {
+        const id_token = await firebase.auth().currentUser.getIdToken()
+        console.log({ id_token })
+        if (!!id_token) {
+          dispatch(googleLoginUser(id_token))
+        }
+      }
+    })
 
-  // useEffect(() => {
-  //   dispatch(initializePlaces())
-  //   dispatch(initializeComments())
-  //   dispatch(initializeUsers())
+  }, [])
 
-  // }, [dispatch])
+
+  useEffect(() => {
+    dispatch(initializePlaces())
+    dispatch(initializeComments())
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(getUser())
+  }, [])
 
   return (
     <div>
-      {/* {isSignedIn ? (
-          <span>
-            <div>Signed In!</div>
-            <button onClick={() => firebase.auth().signOut()}>Sign Out</button> </span>) :
-          <StyledFirebaseAuth
-            uiConfig={auth}
-            firebaseAuth={firebase.auth()} />
-        } */}
-      {/* <NavBar /> */}
+
       <Switch>
-        <Route exact path='/'>
-          <HomePage />
-        </Route>
-        <Route exact path='/upload'>
-          <ImageForm />
-        </Route>
-        <Route path='/gym/:place_name'>
-          <ChosenPlace />
-        </Route>
-        <Route path='/comments'>
-          <CommentForm />
-        </Route>
-        <Route path='/login'>
-          <Login />
-        </Route>
-        <Route path='/register'>
-          <RegisterForm />
-        </Route>
-        <Route path='/reset-password'>
-          <ResetPassword />
-        </Route>
-        <Route path='/forgot'>
-          <ForgotPassword />
-        </Route>
-        <Route path='/user-page'>
-          <UserPage />
-        </Route>
-        <Route path='/user-settings'>
-          <UserSettings />
-        </Route>
-        <Route path='/nav'>
-          <NavHeader />
-        </Route>
-        <Route path='/footer'>
-          <Footer />
-        </Route>
+        <Route exact path='/' component={HomePage} />
+        <Route exact path='/upload' component={ImageForm} />
+        <Route exact path='/gym/:place_name' component={ChosenPlace} />
+        {/* <Route path='/comments' component={CommentForm} /> */}
+        {/* <Route path='/login' component={Login} /> */}
+        <Route exact path='/register' component={Register} />
+        <Route exact path='/reset_password' component={ResetPassword} />
+        <Route exact path='/forgot' component={ForgotPassword} />
+        <Route exact path='/:username/settings' component={UserSettings} />
+        <Route exact path='/:username' component={UserPage} />
+
+
+        {/* <Route path='/nav' component={NavHeader} />
+
+        <Route path='/footer' component={Footer} /> */}
+
       </Switch>
-      {/* <Footer /> */}
     </div>
   )
 }

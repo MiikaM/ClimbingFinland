@@ -2,16 +2,19 @@ import axios from 'axios'
 const baseUrl = '/api/comments'
 
 const getAll = () => {
-  const request = axios.get(baseUrl)
+  const request = axios.get(baseUrl, { withCredentials: true })
   return request.then(response => response.data)
 }
 
-const create = async (newObject) => {
+const addComment = async (data, place_id) => {
   // const config = {
   //   headers: { Authorization: token }
   // }
 
-  const response = await axios.post(baseUrl, newObject)
+  const newData = { ...data, id: place_id }
+  console.log({ newData })
+
+  const response = await axios.post(baseUrl, newData, { withCredentials: true })
   return response.data
 }
 
@@ -25,7 +28,7 @@ const deleteObject = (id) => {
   //   headers: { Authorization: token }
   // }
 
-  const request = axios.delete(`${baseUrl}/${id}`)
+  const request = axios.delete(`${baseUrl}/${id}`, { withCredentials: true })
   return request.then(response => response.data)
 }
-export default { getAll, create, deleteObject }
+export default { getAll, addComment, deleteObject }

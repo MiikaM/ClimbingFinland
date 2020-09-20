@@ -1,12 +1,12 @@
 import axios from 'axios'
-const baseUrl = '/api/users'
+const baseUrl = 'http://localhost:3001/api/users'
 
-const getAll = () => {
-  const request = axios.get(baseUrl)
+const getAll = async () => {
+  const request = await axios.get(baseUrl)
   return request.then(response => response.data)
 }
 
-const uploadAvatar = (image) => {
+const uploadAvatar = async (image) => {
   // const config = {
   //   headers: { Authorization: token }
   // }
@@ -20,8 +20,24 @@ const uploadAvatar = (image) => {
   imageForm.append('imageData', image)
 
   console.log({ imageForm })
-  const request = axios.put(`${baseUrl}/uploadImage/${id}`, imageForm)
-  return request.then(response => response.data)
+  const response = await axios.put(`${baseUrl}/uploadImage/${id}`, imageForm)
+  return response.then(response => response.data)
 }
 
-export default { getAll, uploadAvatar }
+const updateUserInfo = async (username, data) => {
+  console.log({ username }, { data })
+  const response = await axios.put(`${baseUrl}/${username}`, data,  { withCredentials: true })
+  return response.data
+}
+
+const changePassword = async (username, data) => {
+  const response = await axios.put(`${baseUrl}/changePassword/${username}`, data,  { withCredentials: true })
+  return response.data
+}
+
+const createUser = async (data) => {
+  const response = await axios.post(baseUrl, data)
+  return response.data
+}
+
+export default { getAll, uploadAvatar, updateUserInfo, changePassword, createUser }

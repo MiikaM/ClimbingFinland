@@ -12,7 +12,8 @@ const commentsRouter = require('./controllers/comments')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const path = require('path')
-const frontRouter = require('./controllers/front')
+const contactRouter = require('./controllers/contact')
+const frontendRouter = require('./controllers/frontend')
 
 
 const mongoUrl = config.MONGODB_URI
@@ -27,10 +28,15 @@ mongoose.connect(mongoUrl, { useCreateIndex: true, useFindAndModify: false, useN
     logger.error('Error occured connecting to MongoDB', error.message)
   })
 
-// app.use(express.static(path.join(__dirname, 'build')))
+app.use(express.static(path.join(__dirname, 'build')))
 
 
-app.use(cors())
+app.use(cors({
+  origin: ['http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT'],
+  credentials: true
+}))
+
 app.use(express.json())
 app.use(middleware.morg)
 app.use(cookieParser())
@@ -40,7 +46,8 @@ app.use('/api/login', loginRouter)
 app.use('/uploads', express.static('uploads'))
 app.use('/api/comments', commentsRouter)
 app.use('/api/places', placesRouter)
-app.use('/', frontRouter)
+app.use('/api', contactRouter)
+// app.use('/', frontendRouter)
 
 
 

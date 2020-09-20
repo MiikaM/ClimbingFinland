@@ -21,6 +21,8 @@ loginRouter.post('/', async (request, response) => {
 
   if (body.type === 'onSite') {
     try {
+
+      console.log({ body })
       validatedUser = await validateOnSiteUser(body.user)
       console.log({ validatedUser })
     } catch (e) {
@@ -28,6 +30,8 @@ loginRouter.post('/', async (request, response) => {
       return response.status(401).json({ error: e.message })
     }
   }
+
+  // response.status(204).end()
 
   const userForToken = {
     username: validatedUser.username,
@@ -42,15 +46,17 @@ loginRouter.post('/', async (request, response) => {
     })
   }
 
-  // if(!userForToken.verified) {
-  //   throw new Error('Please confirm your email to login.')
-  // }
+  if (!userForToken.verified) {
+    return response.status(401).json({ error: 'Please confirm your email to login.' }).end()
+  }
 
-  const token = jwt.sign(userForToken, process.env.SECRET, {expiresIn: '15m'})
+  console.log({ userForToken })
+
+  const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '1h' })
 
   console.log({ token })
 
-  response.status(200).cookie('token', token, { httpOnly: true})
+  response.status(200).cookie('token', token, { httpOnly: true })
     .send({
       username: validatedUser.username,
       name: validatedUser.name,
@@ -58,12 +64,17 @@ loginRouter.post('/', async (request, response) => {
       role: validatedUser.role,
       email: validatedUser.email,
       verified: validatedUser.verified,
-      avatar: validatedUser.avatar
+      avatar: validatedUser.avatar,
+      city: validatedUser.city
     })
 })
 
 loginRouter.get('/check', authenticate, (req, res) => {
-  res.status(200).send({ name: req.userusername })
+  res.status(200).send({ user: req.user })
+})
+
+loginRouter.get('/logout', (req, res) => {
+  res.clearCookie('token').status(204).end()
 })
 
 module.exports = loginRouter

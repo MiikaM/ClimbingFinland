@@ -2,6 +2,7 @@ import React from 'react'
 import '../../scss/reset-password.scss'
 import NavHeader from '../NavHeader'
 import Footer from '../Footer'
+import ForgotPasswordForm from '../ForgotPasswordForm'
 
 const ForgotPassword = () => {
   return (
@@ -15,14 +16,8 @@ const ForgotPassword = () => {
             Enter your email address to reset your password. If you can't see the messages check your spam folder
       </p>
 
-          <form action="">
-            <label for="email">Email</label><br />
-            <input type="text" /><br />
 
-            <input type="submit" className="submit" value="Send verification" />
-
-
-          </form>
+          <ForgotPasswordForm />
 
         </div>
       </section>

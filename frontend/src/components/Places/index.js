@@ -11,7 +11,7 @@ const Places = () => {
   return (
     <ul className="place-list">
       {sortedPlaces.map(place => (
-        <Info place={place} />
+        <Info key={place.id} place={place} />
       ))}
     </ul>
 

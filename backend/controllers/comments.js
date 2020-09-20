@@ -20,11 +20,11 @@ commentsRouter.get('/:place_id', async (req, res) => {
   res.status(200).json(comments.map(comment => comment.toJSON()))
 })
 
-commentsRouter.post('/:place_id', authenticate, async (req, res) => {
-
+commentsRouter.post('/', authenticate, async (req, res) => {
+  const body = req.body
   try {
 
-    const newComment = await checkComment(req.body, req.params.place_id, req.user.id)
+    const newComment = await checkComment(body, body.id, req.user.id)
     console.log({ newComment })
     const addedComment = await addComment(newComment)
     res.status(201).json(addedComment.toJSON())

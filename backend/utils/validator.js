@@ -76,7 +76,9 @@ const hasPriceCategories = (priceCategory) => {
     throw new Error('Incorrect input of price array: prices need to be defined for "onetime", "tentime" and "month"')
   }
 
-  Object.values(prices).map(price => {
+  const withoutName = {onetime: prices.onetime, tentime: prices.tentime, month: prices.month}
+
+  Object.values(withoutName).map(price => {
     if (!isPrice(price)) {
       throw new Error('Incorrect input of price')
     }
@@ -161,7 +163,10 @@ const hasHourMinutes = (time) => {
 }
 
 const isPhonenumber = (phonenumber) => {
-  let numberArray = phonenumber.split()
+
+  let numberArray = phonenumber.split(' ').join('').split('')
+
+  console.log({ numberArray }, { phonenumber })
 
   switch (numberArray[0]) {
     case '0':
@@ -170,6 +175,7 @@ const isPhonenumber = (phonenumber) => {
       }
       break
     case '+':
+
       if (numberArray.length !== 13) {
         return false
       }

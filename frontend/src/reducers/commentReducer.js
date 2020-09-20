@@ -14,14 +14,14 @@ export const initializeComments = () => {
   }
 }
 
-export const addComment = (comment) => {
+export const addComment = (comment, place_id) => {
   return async dispatch => {
     try {
-      const newComment = await commentService.addComment(comment)
-      dispatch({
-        type: 'ADD_COMMENT',
-        data: newComment
-      })
+      const newComment = await commentService.addComment(comment, place_id)
+      // dispatch({
+      //   type: 'ADD_COMMENT',
+      //   data: newComment
+      // })
     } catch (exception) {
       console.error('Error on addComment dispatch: ', exception.message)
     }

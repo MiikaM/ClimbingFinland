@@ -5,12 +5,14 @@ import thunk from 'redux-thunk'
 import placeReducer from './reducers/placeReducer.js'
 import commentReducer from './reducers/commentReducer.js'
 import userReducer from './reducers/userReducer.js'
+import loginReducer from './reducers/loginReducer.js'
+
 
 const reducer = combineReducers({
   places: placeReducer,
   comments: commentReducer,
-  // session: loginReducer,
-  //  users: userReducer
+  session: loginReducer,
+  //  user: userReducer
 })
 
 const store = createStore(
