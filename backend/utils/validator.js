@@ -146,8 +146,8 @@ const hasHourMinutes = (time) => {
   let hour = parseInt(time.substring(0, separator))
   let minutes = parseInt(time.substring(separator + 1, time.length))
 
-  // console.log({hour})
-  // console.log({minutes})
+  console.log({hour})
+  console.log({minutes})
 
   if (hour < 24 && hour >= 0) {
     hour = true

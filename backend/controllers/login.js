@@ -59,6 +59,7 @@ loginRouter.post('/', async (request, response) => {
   response.status(200).cookie('token', token, { httpOnly: true })
     .send({
       username: validatedUser.username,
+      description: validatedUser.description,
       name: validatedUser.name,
       favouritePlaces: validatedUser.favouritePlaces,
       role: validatedUser.role,
@@ -70,7 +71,7 @@ loginRouter.post('/', async (request, response) => {
 })
 
 loginRouter.get('/check', authenticate, (req, res) => {
-  res.status(200).send({ user: req.user })
+  res.status(200).send(req.user)
 })
 
 loginRouter.get('/logout', (req, res) => {

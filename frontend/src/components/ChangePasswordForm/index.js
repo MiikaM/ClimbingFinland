@@ -6,13 +6,22 @@ import * as yup from 'yup'
 
 import { changePassword } from '../../reducers/userReducer'
 
-const ChangePasswordForm = () => {
+const ChangePasswordForm = ({ user }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const match = useRouteMatch('/:username/settings')
 
   const handleSubmit = (data) => {
-    // dispatch(changePassword('MIquli', data))
+    if (user) {
+      dispatch(changePassword(user.username, data)).then(() => {
+        setTimeout(() => {
+          console.log('Juu')
+        }, 5000)
+        history.go(0)
+      }
+      )
+
+    }
   }
 
 
@@ -31,21 +40,11 @@ const ChangePasswordForm = () => {
       validateOnChange={true}
       initialValues={{ oldPassword: '', newPassword: '', newPasswordAgain: '' }}
       validationSchema={validationSchema}
-      // validate={values => {
-      //   const errors = {}
-      //   if (values.oldpassword === '' || values.newpassword === '' || values.newpasswordagain === '') {
-      //     errors.oldpassword = 'Password fields can\'t be empty'
-      //   }
-
-      //   return errors
-      // }}
-      // validationSchema={validationSchema}
       onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true)
         handleSubmit(data)
         setSubmitting(false)
         resetForm()
-        history.go(0)
 
       }}
     >

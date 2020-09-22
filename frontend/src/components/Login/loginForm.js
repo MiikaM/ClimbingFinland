@@ -13,8 +13,7 @@ const LoginForm = props => {
 
   const handleSubmit = (data) => {
     console.log({ data })
-    // dispatch(loginUser(data)).then(res => {
-    // })
+    dispatch(loginUser(data))
   }
 
   const validationSchema = yup.object({
@@ -23,7 +22,7 @@ const LoginForm = props => {
       .required('Password required')
   })
 
-
+  if (user) console.log({ user })
 
 
   return (
@@ -37,7 +36,7 @@ const LoginForm = props => {
         handleSubmit(data)
         setSubmitting(false)
         resetForm()
-        history.go(0)
+        // history.go(0)
       }}
     >
       {({ values, errors, isSubmitting }) => (

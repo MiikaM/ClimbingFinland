@@ -1,4 +1,5 @@
 import commentService from '../services/commentService'
+import { changeNotification } from './notificationReducer'
 
 export const initializeComments = () => {
   return async dispatch => {
@@ -8,7 +9,9 @@ export const initializeComments = () => {
         type: 'INIT_COMMENTS',
         data: comments
       })
-    } catch(exception) {
+
+    } catch (exception) {
+      dispatch(changeNotification('There was an error loading the database. Please try again in later.', 'error_message'))
       console.error('Error on initialize comments: ', exception.message)
     }
   }
@@ -22,7 +25,9 @@ export const addComment = (comment, place_id) => {
       //   type: 'ADD_COMMENT',
       //   data: newComment
       // })
+      dispatch('You commented! Nice!')
     } catch (exception) {
+      dispatch(`Sorry server didn't like that comment. Try again`, 'error_message')
       console.error('Error on addComment dispatch: ', exception.message)
     }
 

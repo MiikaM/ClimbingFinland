@@ -1,6 +1,6 @@
 import loginService from '../services/loginService'
-import Cookies from 'universal-cookie'
-import { useHistory, withRouter } from 'react-router-dom'
+import { changeNotification } from './notificationReducer'
+
 
 export const loginUser = (user) => {
   return async dispatch => {
@@ -11,7 +11,9 @@ export const loginUser = (user) => {
         type: 'LOGIN',
         data: loggedIn
       })
+      dispatch('Successfully logged in!')
     } catch (exception) {
+      dispatch(changeNotification(`Login failed ${exception.message}`, 'error_message'))
       console.error('Error on login: ', exception.message)
     }
   }
@@ -28,8 +30,9 @@ export const googleLoginUser = (user_token) => {
         type: 'LOGIN',
         data: loggedIn
       })
-
+      dispatch('Successfully logged in!')
     } catch (exception) {
+      dispatch(changeNotification(`Login failed ${exception.message}`, 'error_message'))
       console.error('Error on google login: ', exception.message)
     }
   }
@@ -39,39 +42,50 @@ export const googleLoginUser = (user_token) => {
 export const getUser = () => {
   return async dispatch => {
     try {
-      const loggedUserJSON = await loginService.getUser()
+      const loggedUserJSON = window.localStorage.getItem('login')
       console.log({ loggedUserJSON })
       if (loggedUserJSON) {
         dispatch({
-          type: 'LOGIN',
+          type: 'GET_USER',
           data: loggedUserJSON
         })
       }
     } catch (err) {
       console.log(err.message)
     }
-
   }
 }
 
 export const logoutUser = () => {
   return async dispatch => {
-    const logoutUser = await loginService.logoutUser()
-    console.log({ logoutUser })
-    dispatch({
-      type: 'LOGOUT',
-    })
+    try {
+      const logoutUser = await loginService.logoutUser()
+      console.log({ logoutUser })
+      dispatch({
+        type: 'LOGOUT'
+      })
+      dispatch(changeNotification('You have logged out!'))
+
+    } catch (err) {
+      dispatch(changeNotification(`Logout failed ${err.message}`, 'error_message'))
+
+      console.log(err.message)
+    }
   }
 }
 
 const reducer = (state = null, action) => {
   switch (action.type) {
     case 'LOGIN':
+      window.localStorage.setItem('login', JSON.stringify(action.data))
       return action.data
     case 'LOGOUT':
       window.localStorage.clear()
       window.location.reload(true)
-      return null
+      return { session: false }
+    case 'GET_USER':
+      const user = JSON.parse(action.data)
+      return user
     default:
       return state
   }

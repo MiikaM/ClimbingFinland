@@ -6,13 +6,16 @@ import placeReducer from './reducers/placeReducer.js'
 import commentReducer from './reducers/commentReducer.js'
 import userReducer from './reducers/userReducer.js'
 import loginReducer from './reducers/loginReducer.js'
+import notificationReducer from './reducers/notificationReducer.js'
+
 
 
 const reducer = combineReducers({
   places: placeReducer,
   comments: commentReducer,
   session: loginReducer,
-  //  user: userReducer
+  notification: notificationReducer,
+  user: userReducer
 })
 
 const store = createStore(

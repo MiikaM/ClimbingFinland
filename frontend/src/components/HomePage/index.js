@@ -8,24 +8,26 @@ import Places from '../Places'
 import Login from '../Login'
 import Modal from '../Modal'
 import { useDispatch, useSelector } from 'react-redux'
-import { logoutUser } from '../../reducers/loginReducer'
+import DropDownMenu from '../NavHeader/dropDownMenu'
+import '../../scss/dropdown.scss'
+
+import AvatarSVG from '../../images/avatar.svg'
+import { getUser } from '../../reducers/loginReducer'
+
+
 
 const HomePage = (params) => {
   const dispatch = useDispatch()
-
+  const [dropdown, setDropdown] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const loggedIn = useSelector(state => state.session)
+  const user = useSelector(state => state.session)
+
   useEffect(() => {
     if (params.location.open) {
       setIsOpen(params.location.open)
     }
-
+    dispatch(getUser())
   }, [])
-
-  const handleLogout = () => {
-    firebase.auth().signOut()
-    dispatch(logoutUser())
-  }
 
 
   const handleLoginModal = (e) => {
@@ -33,7 +35,10 @@ const HomePage = (params) => {
     setIsOpen(true)
 
     console.log({ isOpen })
+
   }
+
+  console.log({ user })
 
   return (
     <div>
@@ -42,9 +47,19 @@ const HomePage = (params) => {
           <div className="header">
             <nav>
               <ul>
-                {/* <li>Favourites</li> */}
-                <li style={{ cursor: 'pointer' }} onClick={handleLoginModal}>Log in</li>
-                <li><button onClick={handleLogout} style={{ cursor: 'pointer' }}>Log Out</button></li>
+                {
+                  !user ?
+                    <li style={{ cursor: 'pointer' }} onClick={handleLoginModal}>Log in</li> :
+                    <li>
+                      <img src={AvatarSVG} className='nav-icon' alt='user' onClick={() => setDropdown(!dropdown)} />
+                      {
+                        dropdown ?
+                          <DropDownMenu user={user} /> :
+                          null
+                      }
+                    </li>
+
+                }
               </ul>
             </nav>
           </div>

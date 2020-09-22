@@ -15,13 +15,8 @@ import { useSelector, useDispatch } from 'react-redux'
 const Login = ({ close }) => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const user = useSelector(state => state.session)
 
-  if (user.length > 0) {
-    return null
-  }
-
-
+ 
   return (
     <section>
       <div className="wrapper">

@@ -104,7 +104,9 @@ const createAdmin = (admin_data, passwordHash) => {
     name: admin_data.username,
     username: admin_data.username,
     email: admin_data.email,
-    password: passwordHash
+    password: passwordHash,
+    city: admin_data.city,
+    description: admin_data.description
   })
 
   return admin
@@ -118,7 +120,7 @@ const createOnSite = (onSite_data, passwordHash) => {
     email: onSite_data.email,
     password: passwordHash,
     city: onSite_data.city,
-
+    description: onSite_data.description
   })
 
   return onSite

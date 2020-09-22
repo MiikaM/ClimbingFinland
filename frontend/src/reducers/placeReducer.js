@@ -1,4 +1,5 @@
 import placeService from '../services/placeService'
+import { changeNotification } from './notificationReducer'
 
 export const initializePlaces = () => {
   return async dispatch => {
@@ -9,9 +10,10 @@ export const initializePlaces = () => {
         data: places
       })
     } catch (exception) {
+      dispatch(changeNotification('There was an error loading the database. Please try again in later.', 'error_message'))
       console.error('Error on initplaces: ', exception.message)
     }
-    
+
   }
 }
 
@@ -24,6 +26,7 @@ export const createPlace = (place) => {
         data: newPlace
       })
     } catch (exception) {
+      dispatch(changeNotification(`Couldn\'t create a place: ${exception.message}`, 'error_message'))
       console.error('Error on createPlace: ', exception.message)
     }
   }

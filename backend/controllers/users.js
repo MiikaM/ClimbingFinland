@@ -17,8 +17,8 @@ usersRouter.get('/', async (request, response) => {
 })
 
 //TODO: Muuta Haettavaksi usernamella
-usersRouter.get('/:id', async (request, response) => {
-  const user = await UserBase.findById(request.params.id)
+usersRouter.get('/:username', async (request, response) => {
+  const user = await UserBase.findOne({ username: request.params.username })
   if (user) {
     response.json(user.toJSON())
   } else {
@@ -75,12 +75,15 @@ usersRouter.put('/:username', authenticate, async (req, res) => {
     res.status(200).cookie('token', token, { httpOnly: true })
       .send({
         username: updatedUser.username,
+        description: updatedUser.description,
         name: updatedUser.name,
         favouritePlaces: updatedUser.favouritePlaces,
         role: updatedUser.role,
         email: updatedUser.email,
         verified: updatedUser.verified,
-        avatar: updatedUser.avatar
+        avatar: updatedUser.avatar,
+        city: updatedUser.city
+
       })
   } catch (e) {
     res.status(400).send(e.message)
@@ -100,7 +103,7 @@ usersRouter.put('/changePassword/:username', authenticate, async (req, res) => {
 })
 
 
-usersRouter.put('/uploadImage', authenticate, upload.single('imageData'), async (req, res) => {
+usersRouter.put('/update/uploadImage', authenticate, upload.single('imageData'), async (req, res) => {
   const body = req.body
   const file = req.file
   console.log({ body })

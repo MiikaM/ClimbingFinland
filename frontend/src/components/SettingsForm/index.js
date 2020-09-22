@@ -1,21 +1,25 @@
 import React from 'react'
 import { Formik, Field, Form, FieldArray } from 'formik'
 import TagItem from '../TagItem'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useRouteMatch } from 'react-router-dom'
 import { updateUserInfo } from '../../reducers/userReducer'
 import * as yup from 'yup'
 
-const SettingsForm = () => {
+const SettingsForm = ({ user }) => {
   const history = useHistory()
   const dispatch = useDispatch()
   const match = useRouteMatch('/:username/settings')
   const tagArray = ['Boulder', 'Lead', 'Gym', 'Picnic']
 
-  const handleSubmit = (data) => {
+  const handleSubmit = async (data) => {
     console.log({ data })
+    if (user) {
 
-    // dispatch(updateUserInfo('MIquli', data))
+      dispatch(updateUserInfo(user.username, data)).then(() => {
+        history.go(0)
+      })
+    }
   }
 
   const validationSchema = yup.object({
@@ -34,13 +38,14 @@ const SettingsForm = () => {
     <Formik
       validateOnChange={true}
       validationSchema={validationSchema}
-      initialValues={{ username: '', name: '', email: '', city: '', tags: [...tagArray] }}
+      initialValues={user}
+      enableReinitialize
       onSubmit={(data, { setSubmitting, resetForm }) => {
         setSubmitting(true)
         handleSubmit(data)
         setSubmitting(false)
         resetForm()
-        history.go(0)
+
       }}
     >
       {({ errors, values, isSubmitting }) => (
@@ -90,7 +95,7 @@ const SettingsForm = () => {
           <pre style={{ color: 'blue' }}>{JSON.stringify(values, null, 2)}</pre>
           <pre style={{ color: 'blue' }}>{JSON.stringify(errors, null, 2)}</pre>
         </Form>
-      )}</Formik>
+      )}</Formik >
   )
 }
 

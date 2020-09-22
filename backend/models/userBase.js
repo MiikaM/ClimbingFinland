@@ -29,9 +29,13 @@ const userBaseSchema = mongoose.Schema({
   },
   avatar: {
     type: String,
-    default: ''
+    default: 'uploads/avatar.svg'
   },
   city: {
+    type: String,
+    default: ''
+  },
+  description: {
     type: String,
     default: ''
   },

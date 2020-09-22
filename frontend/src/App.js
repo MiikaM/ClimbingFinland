@@ -28,6 +28,7 @@ import Footer from './components/Footer';
 import { googleLoginUser } from './reducers/loginReducer'
 
 import { getUser } from './reducers/loginReducer'
+import Modal from './components/Modal';
 
 
 const App = () => {
@@ -56,12 +57,13 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initializePlaces())
-    dispatch(initializeComments())
   }, [dispatch])
 
   useEffect(() => {
     dispatch(getUser())
   }, [])
+
+
 
   return (
     <div>
@@ -71,7 +73,7 @@ const App = () => {
         <Route exact path='/upload' component={ImageForm} />
         <Route exact path='/gym/:place_name' component={ChosenPlace} />
         {/* <Route path='/comments' component={CommentForm} /> */}
-        {/* <Route path='/login' component={Login} /> */}
+        <Route path='/login' component={Modal} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/reset_password' component={ResetPassword} />
         <Route exact path='/forgot' component={ForgotPassword} />

@@ -12,7 +12,6 @@ const uploadAvatar = async (image) => {
   // }
 
   console.log('service', { image })
-  const id = '5f294ce5e5953a8730d56fe5'
 
   const imageForm = new FormData()
 
@@ -20,7 +19,7 @@ const uploadAvatar = async (image) => {
   imageForm.append('imageData', image)
 
   console.log({ imageForm })
-  const response = await axios.put(`${baseUrl}/uploadImage/${id}`, imageForm)
+  const response = await axios.put(`${baseUrl}/update/uploadImage`, imageForm, { withCredentials: true })
   return response.then(response => response.data)
 }
 

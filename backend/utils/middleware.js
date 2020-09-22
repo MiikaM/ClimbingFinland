@@ -36,6 +36,8 @@ const authenticate = (req, res, next) => {
 
   const token = req.cookies.token
 
+  logger.info({token})
+
   try {
     if (!token) {
       res.status(401).send('Unauthorized: No token provided').end()
@@ -65,7 +67,7 @@ const resetAuthentication = (req, res, next) => {
       res.status(404).send('Page was not found').end()
     } else {
       const decodedToken = jwt.verify(token, process.env.RESET_SECRET)
-      console.log({decodedToken})
+      console.log({ decodedToken })
       if (!decodedToken) {
         res.status(404).send('Page was not found').end()
       }

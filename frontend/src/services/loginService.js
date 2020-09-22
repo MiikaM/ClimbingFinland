@@ -33,6 +33,7 @@ const googleLogin = async (user_token) => {
 
 const getUser = async () => {
   const response = await axios.get(`${baseUrl}/check`, { withCredentials: true })
+  console.log({response})
   return response.data
 }
 

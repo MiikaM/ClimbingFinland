@@ -1,44 +1,55 @@
 import userService from '../services/userService'
-
-export const initializeUsers = () => {
-  return async dispatch => {
-    const users = await userService.getAll()
-    dispatch({
-      type: 'INIT_USERS',
-      data: users
-    })
-  }
-}
+import { changeNotification } from './notificationReducer'
 
 export const uploadAvatar = (image) => {
   console.log('dispatch', { image })
   return async dispatch => {
-    const imageSave = await userService.uploadAvatar(image)
-    dispatch({
-      type: 'UPDATE_USER',
-      data: imageSave
-    })
+    try {
+      const imageSave = await userService.uploadAvatar(image)
+      dispatch({
+        type: 'UPDATE_USER',
+        data: imageSave
+      })
+    } catch (err) {
+      dispatch(changeNotification(`Error: ${err.message}`, 'error_message'))
+    }
+
   }
 }
 
 export const updateUserInfo = (username, user_data) => {
   return async dispatch => {
-    const newUserInfo = await userService.updateUserInfo(username, user_data)
-    console.log({ newUserInfo })
-    // dispatch({
-    //   type: 'UPDATE_USER',
-    //   data: newUserInfo
-    // })
+    try {
+      const newUserInfo = await userService.updateUserInfo(username, user_data)
+      console.log({ newUserInfo })
+      dispatch({
+        type: 'UPDATE_USER',
+        data: newUserInfo
+      })
+      dispatch(changeNotification('Your information has been updated'))
+
+    } catch (err) {
+      dispatch(changeNotification(`Error: ${err.message}`, 'error_message'))
+    }
+
   }
 }
 
 export const changePassword = (username, data) => {
   return async dispatch => {
-    const newUserInfo = await userService.changePassword(username, data)
-    // dispatch({
-    //   type: 'UPDATE_USER',
-    //   data: newUserInfo
-    // })
+    try {
+      const newUserInfo = await userService.changePassword(username, data)
+      dispatch({
+        type: 'CHANGE_PASSWORD',
+        data: newUserInfo
+      })
+
+      dispatch(changeNotification('Your password has been changed!'))
+    } catch (err) {
+      dispatch(changeNotification(`Error: ${err.message}`, 'error_message'))
+
+    }
+
   }
 }
 
@@ -58,18 +69,17 @@ export const createUser = (data) => {
   }
 }
 
-const reducer = (state = [], action) => {
+const reducer = (state = null, action) => {
 
   let id = null
   switch (action.type) {
-    case 'INIT_USERS':
-      return action.data
     case 'UPDATE_USER':
-      id = action.data.id
-      return state.map(user =>
-        user.id !== id ? user : action.data
-      )
+      console.log('action data: ', action.data)
+      window.localStorage.setItem('login', JSON.stringify(action.data))
+      return state
     case 'CREATE_USER':
+      return state
+    case 'CHANGE_PASSWORD':
       return state
     default:
       return state
