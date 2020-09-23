@@ -37,6 +37,7 @@ const placeSchema = mongoose.Schema({
   },
   phone: {
     type: String,
+    default: '-',
     required: true
   },
   email: {

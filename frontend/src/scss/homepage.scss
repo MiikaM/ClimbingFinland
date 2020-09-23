@@ -1,4 +1,4 @@
-@import './functions.scss';
+@import "./functions.scss";
 
 /* Header Nav */
 
@@ -8,7 +8,6 @@
   background-position: 50% 45%;
   border-radius: 0 0 10px 10px;
   opacity: 85%;
-
 }
 
 .wrapper {
@@ -20,7 +19,7 @@
 .header {
   display: flex;
   justify-content: right;
-  max-height: 30%;
+  max-height: 45%;
 
   ul {
     display: flex;
@@ -91,7 +90,7 @@
 
 .place-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(365px, 1fr));
   justify-content: space-around;
 }
 
@@ -100,8 +99,8 @@
 }
 
 .place-card {
-  height: 600px;
-  width: 310px;
+  height: 650px;
+  width: 350px;
   align-items: center;
   box-shadow: 2px 3px 10px map-get($main_colors, secondary);
   border-radius: 10px;
@@ -118,29 +117,30 @@
   }
 
   .place-description {
-    margin: 1em 1em 1em 1em;
+    margin: 1em 1em 0 1em;
   }
-
 }
 
 .place-card:hover {
-  width: 320px;
-  height: 610px;
+  width: 355px;
+  height: 660px;
 }
 
 .place-text-wrapper {
   text-align: center;
   height: 300px;
+  position: relative;
 
   h2 {
     margin: 1em 1.5em 0.5em 1.5em;
   }
 
   .readmore-button {
-    margin: 1em 0 2em 0;
+    position: absolute;
+    bottom: -2em;
+    right: 130px;
+    margin: 0.5em 0 0.5em 0;
   }
 }
-
-
 
 /* Media Queries */

@@ -1,7 +1,7 @@
 import React from 'react'
 
 const PriceCategory = ({ price, name }) => {
-  console.log({price})
+  console.log({ price })
   return (
     <li>
       <div className="card">
@@ -17,6 +17,7 @@ const PriceCategory = ({ price, name }) => {
         <div className="lower-category">
 
           <p>{price.tentime}€<br />/10x-kertaa</p>
+
           <p>{price.month}€<br />/kuukausi</p>
 
         </div>

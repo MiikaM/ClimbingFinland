@@ -61,6 +61,10 @@ h2 {
   color: map-get($main_colors, headers);
 }
 
+h3 {
+  color: color(secondary);
+}
+
 a {
   // color: map-get($main_colors, white_accent);
   text-decoration: none;
@@ -71,6 +75,8 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+
 
 .card {
   height: 414px;

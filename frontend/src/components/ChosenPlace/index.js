@@ -154,7 +154,7 @@ const ChosenPlace = () => {
         <h1>Hinnasto</h1>
         <blockquote>
           <strong>HUOM!</strong> Hinnat ovat suuntaa antavia. Hinnat eivät välttämättä pidä paikkaansa jos sivuja ei ole
-        ehditty päivittämään.
+        ehditty päivittämään. Hinnat eivät myöskään sisällä tarvike vuokria.
       </blockquote>
 
         <div className="price-wrapper">
@@ -168,7 +168,7 @@ const ChosenPlace = () => {
     </section>
 
 
-    <CommentSection header="Updates" place_id={place.id} />
+    <CommentSection header="Kommentit" place_id={place.id} />
     <CommentForm place_id={place.id} />
 
     <Footer />

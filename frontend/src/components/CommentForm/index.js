@@ -14,29 +14,33 @@ const CommentForm = ({ place_id }) => {
     dispatch(addComment(data, place_id))
   }
 
-  if (!user ) {
-    return (
-      <h2 className='placeholder'>
-        You must be logged in to comment!
-      </h2>
-    )
-  }
-
   return (
-    <Formik initialValues={{ comment: '' }} onSubmit={(data, { setSubmitting, resetForm }) => {
-      setSubmitting(true)
-      handleSubmit(data)
-      setSubmitting(false)
-      resetForm()
-    }}
-    >
-      {({ values, handleChange, handleBlur, handleSubmit }) => (
-        <form onSubmit={handleSubmit} className='cmform'>
-          <Field component="textarea" name='comment' type='input' placeholder='your comment' multiline='true' rows={3} />
-            <button type='submit' className="submit" > Comment</button>
-          <pre>{JSON.stringify(values, null, 2)}</pre>
-        </form>
-      )}</Formik>
+    <section className='cmform-wrapper' >
+      <div className='wrapper'>
+        {
+          !user ?
+            <h3 className='placeholder'>
+              You must be logged in to comment!
+      </h3> :
+            <Formik initialValues={{ comment: '' }} onSubmit={(data, { setSubmitting, resetForm }) => {
+              setSubmitting(true)
+              handleSubmit(data)
+              setSubmitting(false)
+              resetForm()
+            }}
+            >
+              {({ values, handleChange, handleBlur, handleSubmit }) => (
+                <form onSubmit={handleSubmit} className='cmform'>
+                  <Field component="textarea" name='comment' type='input' placeholder='your comment' multiline='true' rows={3} />
+                  <button type='submit' className="submit" > Comment</button>
+                  <pre>{JSON.stringify(values, null, 2)}</pre>
+                </form>
+              )}</Formik>
+        }
+
+
+      </div>
+    </section>
   )
 }
 

@@ -3,6 +3,10 @@
 .comments-wrapper {
   margin: auto;
 
+  .wrapper {
+    max-width: 1366px;
+  }
+
   li {
     text-align: left;
     border: 1.5px solid color(primary);
@@ -75,6 +79,15 @@
     strong {
       padding-top: 0.2em;
     }
+  }
+}
+
+.cmform {
+  max-width: 50%;
+
+  textarea {
+    width: 100%;
+
   }
 }
 

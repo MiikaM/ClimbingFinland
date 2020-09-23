@@ -6,6 +6,7 @@
   background-position: 50% 60%;
   border-radius: 0 0 10px 10px;
   opacity: 85%;
+  min-height: 450px; 
 }
 
 .hero-content-place {
@@ -30,9 +31,15 @@
   border: solid 1px map-get($main_colors, white_accent);
   padding: 0.5em;
 }
-
+.content-wrapper {
+  .wrapper {
+    width: 70vw;
+  }
+}
 .content-grid {
   display: grid;
+  margin: auto;
+  width: 60%;
   grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
   justify-content: space-around;
 }
@@ -109,12 +116,14 @@
     margin: 2em 0.5em;
     background-color: color(white_accent);
     margin: 0.5em 0.5em;
-    width: 175px;
+    width: 195px;
+    height: 350px;
 
     .card {
       width: 100%;
       height: 100%;
       margin: 0 auto;
+      position: relative;
     }
   }
 }
@@ -122,17 +131,20 @@
 .upper-category {
   background-color: color(descriptions);
   height: 150px;
+  position: relative;
   text-align: center;
   border-radius: 10px;
 }
 
 .text-wrapper {
+  position: absolute;
+  bottom: -60px;
+  left: 37px;
   background-color: color(primary);
   height: 120px;
   width: 120px;
   border: solid 5px color(white_accent);
   border-radius: 60px;
-  margin: 0 0 0 1.7em;
   .text {
     margin: 0 auto;
     padding-top: 1.3em;
@@ -144,7 +156,9 @@
 }
 
 .lower-category {
-  margin-top: 3em;
+  position: absolute;
+  bottom: 10px;
+  left: 50px;
 }
 
 
