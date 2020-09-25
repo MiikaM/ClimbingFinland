@@ -59,7 +59,7 @@
 }
 
 
-.info-list {
+.info-list-user {
   li {
     margin: 1em 0 0 1em;
     display: flex;
@@ -119,17 +119,19 @@ li.tag-item {
 
   li {
     text-align: left;
-    border: 1.5px solid color(primary);
+    border-bottom: 2px solid color(secondary);
     border-radius: 5px;
-    margin: 1em 0;
+    margin: auto;
     padding: 0 1em;
+    box-shadow: none;
+
 
     img {
       box-shadow: 0 1px 2px map-get($main_colors, secondary);
       border-radius: 60px;
       object-fit: cover;
-      width: 100px;
-      height: 100px;
+      width: 60px;
+      height: 60px;
 
       flex-shrink: 0;
       margin: 1em 0 1em;
@@ -147,7 +149,8 @@ li.tag-item {
   .comment {
     text-align: left;
     display: grid;
-    max-width: 100%;
+    width: 100%;
+    max-width: 500px;
     grid-template-columns: minmax(auto-fit, 150px) 65%;
     grid-template-rows: 60px auto;
     grid-template-areas:
@@ -184,7 +187,7 @@ li.tag-item {
     .comment-body {
       grid-area: body;
       text-align: left;
-      padding: 1em;
+      padding: 0.5em;
       blockquote {
         margin: 0;
       }

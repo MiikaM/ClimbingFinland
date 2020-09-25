@@ -7,6 +7,7 @@ import Modal from '../Modal'
 import "../../scss/nav.scss"
 import '../../scss/dropdown.scss'
 import AvatarSVG from '../../images/avatar.svg'
+import { useSpring, animated } from 'react-spring'
 import DropDownMenu from './dropDownMenu'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -15,6 +16,8 @@ import { getUser } from '../../reducers/loginReducer'
 
 const NavHeader = () => {
   const dispatch = useDispatch()
+  const props = useSpring({ opacity: 1, marginTop: 0, from: { opacity: 0, marginTop: -500 } })
+  const fadeIn = useSpring({ cursor: 'pointer', opacity: 1, from: { opacity: 0 }, config: { delay: 1000, duration: 1000 } })
   const [isOpen, setIsOpen] = useState(false)
   const [dropdown, setDropdown] = useState(false)
   const history = useHistory()
@@ -34,12 +37,12 @@ const NavHeader = () => {
 
 
   return (
-    <section className="nav-header">
+    <animated.section style={props} className="nav-header">
       <div className="wrapper">
         <div className="nav-wrapper">
           <div className="search">
 
-            <img src={NavLogo} alt="" className="header-logo" onClick={() => history.push('/')} />
+            <animated.img style={fadeIn} src={NavLogo} alt="" className="header-logo" onClick={() => history.push('/')} />
             <img src={SearchSVG} className="search-icon" alt="search-icon" />
             <input type="text" className='search-bar' placeholder="Search..." />
           </div>
@@ -50,9 +53,9 @@ const NavHeader = () => {
 
               {
                 (!user) ?
-                  <li style={{ cursor: 'pointer' }} onClick={handleLoginModal}>Log in</li> :
+                  <animated.li style={fadeIn} onClick={handleLoginModal}>Log in</animated.li> :
                   <li>
-                    <img src={AvatarSVG} className='nav-icon' alt='user' onClick={() => setDropdown(!dropdown)} />
+                    <animated.img style={fadeIn} src={AvatarSVG} className='nav-icon' alt='user' onClick={() => setDropdown(!dropdown)} />
                     {
                       dropdown ?
                         <DropDownMenu user={user} /> :
@@ -76,7 +79,7 @@ const NavHeader = () => {
         <Login close={() => setIsOpen(false)} />
       </Modal>
 
-    </section>
+    </animated.section >
   )
 }
 
