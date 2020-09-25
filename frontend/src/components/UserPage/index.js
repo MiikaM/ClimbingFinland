@@ -40,7 +40,7 @@ const UserPage = () => {
               
               <div className="card">
                 <h2>Info</h2>
-                <ul className="info-list">
+                <ul className="info-list-user">
                   <li>
                     <img src={MailSVG} alt="" />
                     <p className="info-list-item"> boulderpaja@gmail.com</p>

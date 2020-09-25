@@ -10,10 +10,6 @@ import Modal from '../Modal'
 import { useDispatch, useSelector } from 'react-redux'
 import DropDownMenu from '../NavHeader/dropDownMenu'
 import '../../scss/dropdown.scss'
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of 63604e8... Frontin tyylittämistä: React Spring
 import AvatarSVG from '../../images/avatar.svg'
 import { getUser } from '../../reducers/loginReducer'
 import { useSpring } from 'react-spring'

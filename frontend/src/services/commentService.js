@@ -6,6 +6,11 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
+const getComments = async (place_name) => {
+  const response = await axios.get(`${baseUrl}/${place_name}`, { withCredentials: true })
+  return response.data
+}
+
 const addComment = async (data, place_id) => {
   // const config = {
   //   headers: { Authorization: token }
@@ -31,4 +36,4 @@ const deleteObject = (id) => {
   const request = axios.delete(`${baseUrl}/${id}`, { withCredentials: true })
   return request.then(response => response.data)
 }
-export default { getAll, addComment, deleteObject }
+export default { getAll, getComments, addComment, deleteObject }

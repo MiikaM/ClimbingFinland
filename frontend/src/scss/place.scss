@@ -70,18 +70,23 @@
   text-align: left;
 
   li {
-    margin: 1em 2em;
+    margin: 2em 2em;
     display: flex;
+    color: color(primary);
 
     img {
       flex-shrink: 0;
       flex-grow: 0;
     }
 
-    p.place-info {
+    a.place-info, p.place-info {
+      font-family: font(body);
+      font-weight: weight(body);
+      font-size: 0.75em;
       text-align: left;
       margin-left: 2.5em;
       padding-right: 1em;
+      word-wrap: break-word;
     }
   }
 }
@@ -162,21 +167,6 @@
 }
 
 
-
-.cmform {
-  text-align: left;
-  padding: 1em;
-
-  label {
-    color: color(primary);
-    font-weight: weight(medium);
-    padding-bottom: 1.5em;
-  }
-
-  textarea {
-    resize: none;
-  }
-}
 
 /* Media Queries */
 
