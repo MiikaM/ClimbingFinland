@@ -7,10 +7,13 @@ import '../../scss/comment.scss'
 
 const CommentSection = ({ place_id, header }) => {
   const comments = useSelector(state => state.comments)
-
+  const placeComments = comments ?
+    comments.filter(comment => comment.place === place_id) :
+    null
   const list = [2, 2]
 
   console.log({ comments })
+  console.log({ placeComments })
 
   return (
     <section className="comments-wrapper" >
@@ -23,7 +26,7 @@ const CommentSection = ({ place_id, header }) => {
       </h3> :
             <ul className="comment-list-wrapper">
               {
-                comments.map(comment =>
+                placeComments.map(comment =>
                   <ShowComment key={comment.id} comment={comment} />
                 )
               }

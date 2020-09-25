@@ -53,7 +53,7 @@ const authenticate = (req, res, next) => {
       next()
     }
   } catch (err) {
-    res.clearCookie('token').status(401).send('Unauthorized: Invalid token').end()
+    res.status(401).send('Unauthorized: Invalid token').end()
   }
 
 }
