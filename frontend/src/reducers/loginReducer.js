@@ -30,7 +30,7 @@ export const googleLoginUser = (user_token) => {
         type: 'LOGIN',
         data: loggedIn
       })
-      dispatch(changeNotification('Successfully logged in!'))
+      dispatch('Successfully logged in!')
     } catch (exception) {
       dispatch(changeNotification(`Login failed ${exception.message}`, 'error_message'))
       console.error('Error on google login: ', exception.message)
@@ -42,7 +42,6 @@ export const googleLoginUser = (user_token) => {
 export const getUser = () => {
   return async dispatch => {
     try {
-      const check = await loginService.getUser()
       const loggedUserJSON = window.localStorage.getItem('login')
       console.log({ loggedUserJSON })
       if (loggedUserJSON) {
@@ -52,10 +51,7 @@ export const getUser = () => {
         })
       }
     } catch (err) {
-      console.log(err.response.status)
-      if (err.response.status === 401) {
-        window.localStorage.clear()
-      }
+      console.log(err.message)
     }
   }
 }

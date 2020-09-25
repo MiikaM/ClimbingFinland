@@ -1,5 +1,4 @@
 import React from 'react'
-import ProfilePic from '../../images/profile_testit/chad-madden-8mCMQSq41gQ-unsplash.jpg'
 
 const ShowComment = ({ comment }) => {
 
@@ -17,7 +16,7 @@ const ShowComment = ({ comment }) => {
     <li className='card'>
       <div className="comment">
         <div className="comment-meta">
-          <img src={ProfilePic} alt="" className="comment-avatar" />
+          <img src={comment.user.avatar} alt="" className="comment-avatar" />
         </div>
         <div className="comment-meta-meta">
           <strong> <a href={`/${user.username}`}> {user.name} </a></strong>
