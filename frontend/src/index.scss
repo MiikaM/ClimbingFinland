@@ -42,7 +42,6 @@ button {
   font-family: map-get($main_fonts, body);
   font-weight: map-get($main_weights, medium);
   border-radius: 30px;
-  padding: 3px 10px 3px 10px;
   background-color: map-get($main_colors, white_accent);
   color: map-get($main_colors, headers);
   border-color: map-get($main_colors, primary);
@@ -66,8 +65,9 @@ h3 {
 }
 
 a {
-  // color: map-get($main_colors, white_accent);
+  color: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 
 ul {
@@ -75,8 +75,6 @@ ul {
   margin: 0;
   padding: 0;
 }
-
-
 
 .card {
   height: 414px;
@@ -114,12 +112,12 @@ form {
     font-family: map-get($main_fonts, primary);
   }
 
-  .submit {
-    border-radius: 30px;
-    padding: 12.5px 10px 12.5px 10px;
-    background-color: color(primary);
-    color: color(white_accent);
-  }
+  // .submit {
+  //   border-radius: 30px;
+  //   padding: 12.5px 10px 12.5px 10px;
+  //   background-color: color(primary);
+  //   color: color(white_accent);
+  // }
 }
 
 .form-error-message {

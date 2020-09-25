@@ -1,13 +1,19 @@
 const Comment = require('../models/comment')
 const UserBase = require('../models/userBase')
+const logger = require('../utils/logger')
 
 const addComment = async (comment) => {
   const newComment = new Comment({
     ...comment
   })
 
+
   const savedComment = await newComment.save()
-  return savedComment
+
+  const populatedComment = await savedComment.populate('user', { name: 1, avatar: 1, username: 1 })
+
+
+  return populatedComment
 }
 
 const removeComment = async (id, user_id) => {
@@ -23,7 +29,7 @@ const removeComment = async (id, user_id) => {
   }
 
   await commentToRemove.deleteOne()
-  
+
   return commentToRemove
 }
 

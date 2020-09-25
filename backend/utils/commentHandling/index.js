@@ -7,7 +7,7 @@ const checkComment = async (object, place, user) => {
   const placeInDb = await Place.findById(place)
 
   if (!placeInDb) {
-    throw new Error('This place does not exist.')
+    throw new Error('We couln\'t find the place you were looking for.')
   }
 
   const checkedPlace = {

@@ -10,7 +10,7 @@ import Modal from '../Modal'
 import { useDispatch, useSelector } from 'react-redux'
 import DropDownMenu from '../NavHeader/dropDownMenu'
 import '../../scss/dropdown.scss'
-
+import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
 import AvatarSVG from '../../images/avatar.svg'
 import { getUser } from '../../reducers/loginReducer'
 
@@ -41,6 +41,8 @@ const HomePage = (params) => {
   console.log({ user })
 
   return (
+    
+
     <div>
       <section className="hero-home">
         <div className="wrapper">
