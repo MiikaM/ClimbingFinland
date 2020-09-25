@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { Paper } from '@material-ui/core'
 import Info from './info'
 
 const Places = () => {
@@ -9,12 +8,17 @@ const Places = () => {
 
 
   return (
-    <ul className="place-list">
-      {sortedPlaces.map(place => (
-        <Info key={place.id} place={place} />
-      ))}
-    </ul>
 
+      <ul className="place-list">
+        {
+          sortedPlaces.map(place =>
+            (
+
+              <Info key={place.id} place={place}  />
+            )
+
+          )}
+      </ul>
   )
 }
 

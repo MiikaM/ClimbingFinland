@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import firebase from 'firebase'
 import '../../scss/homepage.scss'
 import LogoBlue from '../../images/logo-blue.svg'
@@ -10,14 +10,15 @@ import Modal from '../Modal'
 import { useDispatch, useSelector } from 'react-redux'
 import DropDownMenu from '../NavHeader/dropDownMenu'
 import '../../scss/dropdown.scss'
-import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
 import AvatarSVG from '../../images/avatar.svg'
 import { getUser } from '../../reducers/loginReducer'
+import { useSpring } from 'react-spring'
 
 
 
 const HomePage = (params) => {
   const dispatch = useDispatch()
+  // const fadeIn = useSpring()
   const [dropdown, setDropdown] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const user = useSelector(state => state.session)
@@ -41,8 +42,6 @@ const HomePage = (params) => {
   console.log({ user })
 
   return (
-    
-
     <div>
       <section className="hero-home">
         <div className="wrapper">
@@ -65,9 +64,6 @@ const HomePage = (params) => {
               </ul>
             </nav>
           </div>
-
-
-
           <div className="hero-content-home">
 
             <img src={LogoBlue} alt='Top logo' className='top-logo' />
@@ -77,6 +73,7 @@ const HomePage = (params) => {
           </div>
         </div>
       </section>
+
       <Modal open={isOpen} onClose={() => setIsOpen(false)}>
         <Login close={() => setIsOpen(false)} />
       </Modal>
@@ -91,7 +88,6 @@ const HomePage = (params) => {
           <Places />
         </div>
       </section>
-
 
       <Footer />
     </div>
