@@ -16,7 +16,7 @@ const contactRouter = require('./controllers/contact')
 const frontendRouter = require('./controllers/frontend')
 
 
-const mongoUrl = config.MONGODB_URI
+const mongoUrl = process.env.MONGODB_URI
 mongoose.set('runValidators', true)
 logger.info('Connecting to ', mongoUrl)
 
@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'build')))
 
 
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: ['https://climbing-finland-v2.herokuapp.com/'],
   methods: ['GET', 'POST', 'PUT'],
   credentials: true
 }))
@@ -47,7 +47,7 @@ app.use('/uploads', express.static('uploads'))
 app.use('/api/comments', commentsRouter)
 app.use('/api/places', placesRouter)
 app.use('/api', contactRouter)
-// app.use('/', frontendRouter)
+app.use('/', frontendRouter)
 
 
 

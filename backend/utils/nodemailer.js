@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 
-// async..await is not allowed in global scope, must use a wrapper
+//Usess an transporter to use for sending emails. 
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {

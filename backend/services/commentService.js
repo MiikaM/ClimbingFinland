@@ -2,20 +2,27 @@ const Comment = require('../models/comment')
 const UserBase = require('../models/userBase')
 const logger = require('../utils/logger')
 
+/**
+ * 
+ * @param {*} comment 
+ * @returns 
+ */
+
 const addComment = async (comment) => {
   const newComment = new Comment({
     ...comment
   })
 
-
   const savedComment = await newComment.save()
-
-  const populatedComment = await savedComment.populate('user', { name: 1, avatar: 1, username: 1 })
-
-
-  return populatedComment
+  return savedComment
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @param {*} user_id 
+ * @returns 
+ */
 const removeComment = async (id, user_id) => {
   const user = await UserBase.findById(user_id)
   const commentToRemove = await Comment.findById(id)

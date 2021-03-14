@@ -14,11 +14,10 @@ export const initializePlaces = () => {
         type: 'INIT_PLACES',
         data: places
       })
-    } catch (exception) {
-      dispatch(changeNotification('There was an error loading the database. Please try again in later.', 'error_message'))
-      console.error('Error on initplaces: ', exception.message)
+    } catch (err) {
+      dispatch(changeNotification({title: 'Error', message: `There was an error loading the database. Please try again later.`}, 'error'))
+      console.error('Error on initplaces: ', err.response.data.error)
     }
-
   }
 }
 /**
@@ -27,34 +26,57 @@ export const initializePlaces = () => {
  * @param {*} place Place data to be added.
  * Dispatches an error notification in case of error to the changeNotification() function.
  */
-export const createPlace = (place) => {
+export const addPlace = (place) => {
   return async dispatch => {
     try {
-      const newPlace = await placeService.create(place)
+      const newPlace = await placeService.add(place)
       dispatch({
         type: 'NEW_PLACE',
         data: newPlace
       })
-    } catch (exception) {
-      dispatch(changeNotification(`Couldn\'t create a place: ${exception.message}`, 'error_message'))
-      console.error('Error on createPlace: ', exception.message)
+      dispatch(changeNotification({title:'Done', message: 'New place created!'}))
+    } catch (err) {
+      dispatch(changeNotification({title: 'Error', message: `Couldn\'t create a place: ${err.response.data.error}`}, 'error'))
+      console.error('Error on createPlace: ', err.response.data.error)
     }
   }
 }
 
-export const updatePlace = (place) => {
-  console.log('Update place tapahtuu')
-  
+/**
+ * Deletes a place
+ * @param {*} place 
+ * @returns 
+ */
+export const deletePlace = (id) => {
   return async dispatch => {
     try {
-      const newPlace = await placeService.update(place.id, place)
-      // dispatch({
-      //   type: 'UPDATE_PLACE',
-      //   data: newPlace
-      // })
-    } catch (exception) {
-      dispatch(changeNotification(`Couldn\'t update a place: ${exception.message}`, 'error_message'))
-      console.error('Error on updatePlace: ', exception.message)
+      const removed = await placeService.deleteObject(id)
+      dispatch({
+        type: 'DELETE_PLACE',
+        data: removed
+      })
+      dispatch(changeNotification({title:'Done', message: 'Place deleted!'}))
+    } catch (err) {
+      dispatch(changeNotification({title: 'Error', message: `Couldn\'t remove place: ${err.response.data.error}`}, 'error'))
+      console.error('Error on deletePlace: ', err.response.data.error)
+    }
+  }
+}
+
+
+export const updatePlace = (place_id, data) => {
+
+  return async dispatch => {
+    try {
+      const newPlace = await placeService.update(place_id, data)
+      dispatch({
+        type: 'UPDATE_PLACE',
+        data: newPlace
+      })
+      dispatch(changeNotification({title:'Done', message: 'Place info updated!'}))
+    } catch (err) {
+      dispatch(changeNotification({title: 'Error', message: `Couldn\'t update a place: ${err.response.data.error}`}, 'error'))
+      console.error('Error on updatePlace: ', err.message)
     }
   }
 }
@@ -83,8 +105,8 @@ const reducer = (state = [], action) => {
     //   return state.map(blog =>
     //     place.id !== id ? place : action.data
     //   )
-    // case 'DELETE':
-    //   return state.filter(place => place.id !== action.data.id)
+    case 'DELETE':
+      return state.filter(place => place.id !== action.data.id)
     case 'INIT_PLACES':
       return action.data
     default:

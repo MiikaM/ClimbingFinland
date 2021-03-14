@@ -4,19 +4,19 @@
 
 /* Footer */
 
-.footer {
-  background-color: color(primary);
-}
-
 .footer-bg {
-  background: url(../images/footerBG.jpg);
+  background: url('../images/footerBG.jpg');
   background-size: cover;
   background-position: 35% 60%;
   // z-index: 99999;
   width: 100%;
   // position: absolute;
-  opacity: 90%;
+  // opacity: 90%;
   clip-path: polygon(0 0, 100% 0, 100% 81%, 0% 100%);
+}
+
+.footer {
+  background-color: color(primary);
 }
 
 .footer-wrapper {

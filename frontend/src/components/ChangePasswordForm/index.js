@@ -5,6 +5,7 @@ import { useHistory, useRouteMatch } from 'react-router-dom'
 import * as yup from 'yup'
 
 import { changePassword } from '../../reducers/userReducer'
+import { changeNotification } from '../../reducers/notificationReducer'
 
 /**
  * The form for password change and the validation for it.
@@ -13,7 +14,6 @@ import { changePassword } from '../../reducers/userReducer'
 const ChangePasswordForm = ({ user }) => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const match = useRouteMatch('/:username/settings')
 
   const handleSubmit = (data) => {
     if (user) {
@@ -23,7 +23,7 @@ const ChangePasswordForm = ({ user }) => {
         history.go(0)
       }
       )
-
+      dispatch(changeNotification({title:'Done', message: 'You\'r password has been changed!'}))
     }
   }
 
@@ -73,8 +73,6 @@ const ChangePasswordForm = ({ user }) => {
               {errors.newPasswordAgain ? <div className='form-error-message'>{errors.newPasswordAgain}</div> : null}
 
               <button disabled={isSubmitting} type="submit" className="-submit" >Change password</button>
-              <pre style={{ color: 'blue' }}>{JSON.stringify(values, null, 2)}</pre>
-              <pre style={{ color: 'blue' }}>{JSON.stringify(errors, null, 2)}</pre>
 
             </Form>
           )}</Formik >

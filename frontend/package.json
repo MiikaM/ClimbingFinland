@@ -13,7 +13,6 @@
     "drei": "0.0.66",
     "firebase": "^7.17.1",
     "formik": "^2.1.5",
-    "google-oauth-jwt": "^0.2.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-cookie": "^4.0.3",
@@ -23,13 +22,11 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "react-spring": "^8.0.27",
-    "react-three-fiber": "^4.2.17",
     "react-transition-group": "^4.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.2.0",
-    "three": "^0.118.3",
     "universal-cookie": "^4.0.3",
+    "uuid": "^8.3.2",
     "yup": "^0.29.2"
   },
   "scripts": {
@@ -53,7 +50,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001/",
   "devDependencies": {
     "cypress": "^4.11.0",
     "eslint-plugin-cypress": "^2.11.1",

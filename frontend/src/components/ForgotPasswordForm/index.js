@@ -1,19 +1,22 @@
 import React from 'react'
 import { Formik, Field, Form } from 'formik'
+import { useDispatch } from 'react-redux'
+
 import { forgotPassword } from '../../services/contactServices'
 import * as yup from 'yup'
-
+import { changeNotification } from '../../reducers/notificationReducer'
 /**
  * The form for forgot password and the validation for it.
  */
 const ForgotPasswordForm = () => {
+  const dispatch = useDispatch()
 
   const handleSubmit = async (data) => {
-
     try {
-      const response = await forgotPassword(data)
+      await forgotPassword(data)
+      dispatch(changeNotification({title:'Done', message: 'A reset link has been sent to your email.'}))
     } catch (err) {
-      console.log('Error on forgot password form', { err })
+      dispatch(changeNotification({title: 'Error', message: `Oh no something went wrong: ${err.response.data.error}`}, 'error'))
     }
   }
 

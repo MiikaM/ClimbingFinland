@@ -2,6 +2,10 @@
 const { transporter } = require('../utils/nodemailer')
 const logger = require('../utils/logger')
 
+/**
+ * 
+ * @param {*} contact_info 
+ */
 const sendContactInfo = async (contact_info) => {
 
   try {

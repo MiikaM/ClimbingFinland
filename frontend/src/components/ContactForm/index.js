@@ -1,18 +1,22 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Formik, Field, Form } from 'formik'
 import { sendMail } from '../../services/contactServices'
 import * as yup from 'yup'
+import { changeNotification } from '../../reducers/notificationReducer'
 
 /**
  * The form for the contact form and the validation for it.
  */
 const ContactForm = () => {
+  const dispatch = useDispatch()
 
   const handleSubmit = async (data) => {
     try {
-      const response = await sendMail(data)
+      await sendMail(data)
+      dispatch(changeNotification({title:'Done', message: 'Thank you for contacting us. Your email has been sent'}))
     } catch (err) {
-      console.log('Error on the contact form ', { err })
+      dispatch(changeNotification({title: 'Error', message: `Oh no an error has occured ${err.response.data.error}`}, 'error'))
     }
   }
 

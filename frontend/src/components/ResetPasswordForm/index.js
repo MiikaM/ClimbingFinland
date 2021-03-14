@@ -1,18 +1,23 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+
 import { Formik, Field, Form } from 'formik'
 import { resetPassword } from '../../services/contactServices'
 import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
-
+import { changeNotification } from '../../reducers/notificationReducer'
 const ResetPasswordForm = () => {
   const history = useHistory()
+  const dispatch = useDispatch()
 
-  const handleSubmit = (data) => {
-    // try {
-    //   resetPassword(data)
-    // } catch (err) {
-    //   console.log({ err })
-    // }
+  const handleSubmit = async (data) => {
+
+    try {
+      await resetPassword(data)
+      dispatch(changeNotification({title:'Done', message: 'Your password has been reset.'}))
+    } catch (err) {
+      dispatch(changeNotification({title: 'Error', message: `Oh no there was an error while reseting your password ${err.response.data.error}`}, 'error'))
+    }
   }
 
   const validationSchema = yup.object({
@@ -39,7 +44,7 @@ const ResetPasswordForm = () => {
         history.push('/')
       }}
     >
-      {({ values, errors ,isSubmitting }) => (
+      {({ values, errors, isSubmitting }) => (
         <Form >
           <label htmlFor="newPassword">New password</label><br />
           <div>

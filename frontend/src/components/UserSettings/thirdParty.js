@@ -1,9 +1,23 @@
-import React,{ useState} from 'react'
+import React, { useState } from 'react'
 import SettingsForm from '../SettingsForm'
+import DeleteButton from '../SettingsForm/deleteButton'
 
 const ThirdParty = ({ login }) => {
-    const [changePass, setChangePass] = useState(false)
+    const [setting, setSetting] = useState('general')
+    let information
 
+    if (setting) {
+        switch (setting) {
+            case 'general':
+                information = <SettingsForm user={login} />
+                break;
+            case 'delete':
+                information = <DeleteButton user={login} />
+                break;
+            default:
+                information = <SettingsForm user={login} />
+        }
+    }
     return (
         <section className="content-wrapper-settings">
             <div className="wrapper">
@@ -14,26 +28,18 @@ const ThirdParty = ({ login }) => {
 
                             <h2>User Settings</h2>
                             <ul>
-                                <li onClick={() => setChangePass(false)}>
+                            <li onClick={() => setSetting('general')}>
                                     General
+                  </li>
+                                <li onClick={() => setSetting('delete')}>
+                                    Delete account
                   </li>
 
                             </ul>
                         </div>
                     </div>
                     {
-                        !changePass ?
-                            (<div className="account-settings wrap ">
-                                <div className="align" >
-
-                                    <h2>Account</h2>
-
-                                    <SettingsForm user={login} />
-                                </div>
-                            </div>
-
-                            )
-                            : null
+                        information
                     }
                 </div>
             </div>

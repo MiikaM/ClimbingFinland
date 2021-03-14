@@ -1,10 +1,8 @@
 import React from 'react'
 import {
-  ListSubheader,
   List,
   ListItem,
   ListItemText,
-  Collapse,
   makeStyles
 } from '@material-ui/core'
 

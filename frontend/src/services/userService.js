@@ -1,5 +1,6 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/api/users'
+// const baseUrl = 'http://localhost:3001/api/users'
+const baseUrl = '/api/users'
 
 /**
  * Requests all the users from the backend. 
@@ -13,20 +14,22 @@ const getAll = async () => {
  * Sends a upload an avatar request to the backend.
  * @param {*} image image to be uploaded for the active user 
  */
-const uploadAvatar = async (image) => {
-  // const config = {
-  //   headers: { Authorization: token }
-  // }
+// const uploadAvatar = async (image) => {
+//   // const config = {
+//   //   headers: { Authorization: token }
+//   // }
 
 
-  const imageForm = new FormData()
+//   const imageForm = new FormData()
 
-  imageForm.append('imageName', Date.now())
-  imageForm.append('imageData', image)
+//   imageForm.append('imageName', Date.now())
+//   imageForm.append('imageData', image)
 
-  const response = await axios.put(`${baseUrl}/update/uploadImage`, imageForm, { withCredentials: true })
-  return response.then(response => response.data)
-}
+//   const response = await axios.put(`${baseUrl}/update/uploadImage`, imageForm, { withCredentials: true })
+//   console.log({ response })
+
+//   return response.data
+// }
 
 /**
  * Sends an update user info request to the backend.
@@ -34,9 +37,8 @@ const uploadAvatar = async (image) => {
  * @param {*} data Updated user data
  */
 const updateUserInfo = async (username, data) => {
-  console.log('userService update user', {username}, {data})
-  
-  const response = await axios.put(`${baseUrl}/${username}`, data,  { withCredentials: true })
+
+  const response = await axios.put(`${baseUrl}/${username}`, data, { withCredentials: true })
   return response.data
 }
 
@@ -46,7 +48,7 @@ const updateUserInfo = async (username, data) => {
  * @param {*} data old and new password
  */
 const changePassword = async (username, data) => {
-  const response = await axios.put(`${baseUrl}/changePassword/${username}`, data,  { withCredentials: true })
+  const response = await axios.put(`${baseUrl}/changePassword/${username}`, data, { withCredentials: true })
   return response.data
 }
 
@@ -56,7 +58,15 @@ const changePassword = async (username, data) => {
  */
 const createUser = async (data) => {
   const response = await axios.post(baseUrl, data)
+  
   return response.data
 }
 
-export default { getAll, uploadAvatar, updateUserInfo, changePassword, createUser }
+const deleteUser = async (username) => {
+
+  
+  const response = await axios.delete(`${baseUrl}/${username}`, { withCredentials: true })
+  return response.data
+}
+
+export default { getAll, updateUserInfo, changePassword, createUser, deleteUser }

@@ -5,13 +5,13 @@ import { Field } from 'formik'
 const FormPage2 = ({ errors }) => {
   return (
     <>
-      <label htmlFor="name">Name</label><br />
+      <label htmlFor="name">Name*</label><br />
       <div>
         <Field name='name' type='input' />
       </div>
       {errors.name ? <div className='form-error-message'>{errors.name}</div> : null}
 
-      <label htmlFor="email">Email</label><br />
+      <label htmlFor="email">Email*</label><br />
       <div>
         <Field name='email' type='input' />
       </div>

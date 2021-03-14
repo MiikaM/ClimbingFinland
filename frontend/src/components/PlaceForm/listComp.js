@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import PlaceForm from './index'
 import ListItem from './listItem'
 
 const ListComp = ({ place }) => {

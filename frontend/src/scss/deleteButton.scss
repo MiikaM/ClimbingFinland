@@ -1,0 +1,46 @@
+// Variables
+$color: #c0392b;
+$color-dark: #a53125;
+$speed: "0.25s";
+
+/* Main Styles */
+
+.delete-button-wrapper {
+	display:flex;
+	text-align: center;
+	align-items: center;
+}
+
+.delete-button {
+	margin: auto;
+	background-color: $color;
+	width: 300px;
+	height: 100px;
+	line-height: 100px;
+	color: #fff;
+	cursor: pointer;
+	overflow: hidden;
+	border-radius: 5px;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+	padding: 1em;
+
+	span {
+		font-size: 2em;
+	}
+}
+
+.delete-button-small {
+	margin: 0px;
+	background-color: $color;
+	width: 70px;
+	height: 50px;
+	line-height: 50px;
+	color: #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+
+	span {
+		font-size: 2em;
+	}
+}

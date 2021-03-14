@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import firebase from 'firebase'
 import '../../scss/homepage.scss'
 import LogoBlue from '../../images/logo-blue.svg'
 import Footer from '../Footer'
@@ -7,13 +6,9 @@ import SearchBlue from '../../images/search-blue.svg'
 import Places from '../Places'
 import Login from '../Login'
 import Modal from '../Modal'
-import { useDispatch, useSelector } from 'react-redux'
-import DropDownMenu from '../NavHeader/dropDownMenu'
+import { useDispatch } from 'react-redux'
 import '../../scss/dropdown.scss'
-import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
-import AvatarSVG from '../../images/avatar.svg'
 import { getUser } from '../../reducers/loginReducer'
-import HeaderLogIn from '../NavHeader/headerLogIn'
 import NavHeader from '../NavHeader'
 
 
@@ -27,9 +22,7 @@ import NavHeader from '../NavHeader'
  */
 const HomePage = (params) => {
   const dispatch = useDispatch()
-  const [dropdown, setDropdown] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const user = useSelector(state => state.session)
   const [search, setSearch] = useState('')
 
   useEffect(() => {
@@ -37,17 +30,7 @@ const HomePage = (params) => {
       setIsOpen(params.location.open)
     }
     dispatch(getUser())
-  }, [])
-
-
-  const handleLoginModal = (e) => {
-    e.preventDefault()
-    setIsOpen(true)
-
-
-  }
-
-
+  }, [dispatch])
 
   const handleSearch = e => setSearch(e.target.value) 
 

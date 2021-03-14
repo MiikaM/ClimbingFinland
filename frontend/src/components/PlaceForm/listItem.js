@@ -8,8 +8,6 @@ const ListItem = ({ place }) => {
 
     if (!places) return null
 
-    const sortedPlaces = places.sort(place => place.name)
-
     return (
         <li>
             <h2 onClick={() => setOpen(!open)}>{place.name}</h2>

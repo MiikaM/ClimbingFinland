@@ -8,6 +8,9 @@ const error = (...params) => {
   console.error(...params)
 }
 
+/**
+ * Just a logger
+ */
 module.exports = {
   info, error
 }

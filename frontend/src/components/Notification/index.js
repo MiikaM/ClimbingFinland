@@ -1,5 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import '../../scss/notification.scss'
+import NotificationItem from './notificationItem'
+
 
 /**
  * Displays a notification with styles if the message is an error it uses error styles and if it's
@@ -9,13 +12,13 @@ import { useSelector } from 'react-redux'
 const Notification = () => {
   const notification = useSelector(state => state.notification)
 
-  if (notification === null) {
-    return null
-  }
-
   return (
-    <div className={notification.type} >
-      {notification.message}
+    <div className="notification-wrapper">
+      {
+        notification.map((note) => (
+          <NotificationItem key={note.id} note={note} />
+        ))
+      }
     </div>
   )
 }

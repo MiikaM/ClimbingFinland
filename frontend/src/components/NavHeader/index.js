@@ -7,11 +7,9 @@ import Modal from '../Modal'
 import "../../scss/nav.scss"
 import '../../scss/dropdown.scss'
 import { useSpring, animated } from 'react-spring'
-import DropDownMenu from './dropDownMenu'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { getUser } from '../../reducers/loginReducer'
-import firebase from 'firebase'
 import HeaderLogIn from './headerLogIn'
 
 /**
@@ -38,11 +36,11 @@ const NavHeader = ({ page = 'secondary' }) => {
 
   useEffect(() => {
     dispatch(getUser())
-  }, [])
+  }, [dispatch])
 
 
   if (!user) return null
-  console.log({isOpen})
+  
   
   return (
     <div>
@@ -61,7 +59,7 @@ const NavHeader = ({ page = 'secondary' }) => {
               <input type="text" className='search-bar' placeholder="Search..." />
             </div>
 
-            <HeaderLogIn modal={handleLoginModal} user={user} />
+            <HeaderLogIn modal={handleLoginModal} user={user} page={page} />
 
           </div>
         </div>

@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
+/**
+ * Model for a place.
+ */
 const placeSchema = mongoose.Schema({
   name: {
     type: String,
@@ -15,7 +18,8 @@ const placeSchema = mongoose.Schema({
     required: true
   },
   image: {
-    type: String
+    type: String,
+    default: 'uploads\\bg\\hkk-kansi.jpg'
   },
   openingHours: {
     type: Object,

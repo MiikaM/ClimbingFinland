@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import firebase from 'firebase'
 import Auth from '../../firebase/auth'
-import { googleLoginUser } from '../..//reducers/loginReducer'
 
 import '../../scss/login.scss'
 import LoginPic from '../../images/layout_testit/roya-ann-miller-G2QYE9czCEw-unsplash.jpg'
@@ -9,7 +8,6 @@ import LoginForm from './loginForm'
 import CloseSVG from '../../images/close.svg'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import { useHistory } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
 
 /**
  * Wrapper for login page.
@@ -18,7 +16,6 @@ import { useSelector, useDispatch } from 'react-redux'
  * - Login form
  */
 const Login = ({ close }) => {
-  const dispatch = useDispatch()
   const history = useHistory()
 
  

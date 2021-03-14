@@ -1,50 +1,31 @@
 import React, { useState } from 'react'
-import {
-  ListSubheader,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Collapse,
-  Link
-} from '@material-ui/core'
-
-import {
-  ExpandLess,
-  ExpandMore,
-  CheckCircleOutlineOutlined,
-  HighlightOffOutlined
-} from '@material-ui/icons'
-import Prices from './prices'
-import OpenHours from './open_hours'
-
 import Open from './open'
 
 
 
 
 const Info = ({ place }) => {
-  const [showOpenHours, setShowOpenHours] = useState(false)
-  const [showPrices, setShowPrices] = useState(false)
-  const pricing = !place.prices ?
-    null :
-    place.prices
+  // const [showOpenHours, setShowOpenHours] = useState(false)
+  // const [showPrices, setShowPrices] = useState(false)
+  // const pricing = !place.prices ?
+  //   null :
+  //   place.prices
 
-  const open_hours = !place.openingHours ?
-    null :
-    place.openingHours
+  // const open_hours = !place.openingHours ?
+  //   null :
+  //   place.openingHours
 
-  const open = Open(open_hours)
+  // const open = Open(open_hours)
 
-  const handleOpenHoursClick = (e) => {
-    e.preventDefault()
-    setShowOpenHours(!showOpenHours)
-  }
+  // const handleOpenHoursClick = (e) => {
+  //   e.preventDefault()
+  //   setShowOpenHours(!showOpenHours)
+  // }
 
-  const handlePricingClick = (e) => {
-    e.preventDefault()
-    setShowPrices(!showPrices)
-  }
+  // const handlePricingClick = (e) => {
+  //   e.preventDefault()
+  //   setShowPrices(!showPrices)
+  // }
 
   return (
     <li className="place-wrapper">

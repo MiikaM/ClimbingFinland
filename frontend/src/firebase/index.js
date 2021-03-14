@@ -1,23 +1,26 @@
 import firebase from 'firebase/app'
+import 'firebase/auth'
 import 'firebase/storage'
 
 /**
  * Config for the firebase application.
  * Initializes the firebase application.
  */
-export const firebaseConfig = {
-  apiKey: "AIzaSyCVmpjoCpS53LqU26ee693vwbKwIp3-0Mg",
-  authDomain: "climbingfinland-cf142.firebaseapp.com",
-  databaseURL: "https://climbingfinland-cf142.firebaseio.com",
-  projectId: "climbingfinland-cf142",
-  storageBucket: "climbingfinland-cf142.appspot.com",
-  messagingSenderId: "513581301963",
-  appId: "1:513581301963:web:e50aa3799f9ae5bc4c1b4e",
-  measurementId: "G-H8QRV1L13W"
-};
+const app = firebase.initializeApp({
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId:process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+})
 
-firebase.initializeApp(firebaseConfig)
+// export const auth = app.auth()
+
+export const auth = app.auth()
 
 export const storage = firebase.storage()
 
-export default firebase
+export default app

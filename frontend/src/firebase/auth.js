@@ -1,13 +1,12 @@
 import firebase from 'firebase'
-import { useDispatch } from 'react-redux'
-import googleLogin from '../services/loginService'
 
 /**
  * Auth for the firebase googleauthprovider.
+ * https://climbing-finland-v2.herokuapp.com/
  */
 const Auth = {
   signInFlow: 'popup',
-  signInSuccessUrl: 'http://localhost:3000/',
+  signInSuccessUrl: 'https://climbing-finland-v2.herokuapp.com/',
   signinOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID
   ],

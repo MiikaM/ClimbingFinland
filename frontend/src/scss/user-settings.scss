@@ -25,16 +25,24 @@
     border-radius: 30px;
     padding: 5px 10px 5px 10px;
   }
+
+  h4 {
+    color: color(primary)
+  }
+
+  div {
+    color: color(primary)
+
+  }
 }
 
 /* Header */
 
 .hero-wrapper {
-  background: url(../images/background_testit/jerry-zhang-Y8lCoTRgHPE-unsplash.jpg);
+  background: url('../images/jerry-zhang-Y8lCoTRgHPE-unsplash.jpg');
   background-size: cover;
   background-position: 50% 45%;
   border-radius: 0 0 10px 10px;
-  opacity: 85%;
   height: 45vh;
 }
 

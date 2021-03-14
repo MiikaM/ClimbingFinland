@@ -13,7 +13,7 @@ const Modal = ({ open, children, onClose }) => {
   const user = useSelector(state => state.session)
 
 
-  if (!open) return null
+  if (!open || !user) return null
   if (user.session) {
     return ReactDOM.createPortal(
       <>

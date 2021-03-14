@@ -1,26 +1,20 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { List, ListSubheader } from '@material-ui/core'
 import ShowComment from './showComment'
-import { CropPortrait } from '@material-ui/icons'
 import '../../scss/comment.scss'
 
 /**
  * Wrapper for the comment section.
  * Maps the individual comments if there are any.
- * @param {*} place_id Id for the visible place.
  * @param {*} header Header for the comment section.
  */
-const CommentSection = ({ place_id, header }) => {
+const CommentSection = ({ header }) => {
   const comments = useSelector(state => state.comments)
-
-  const list = [2, 2]
-
 
 
   return (
     <section className="comments-wrapper" >
-      <div className="wrapper">
+      <div className="wrapper align">
         <h2>{header}</h2>
         {
           comments.length < 1 ?

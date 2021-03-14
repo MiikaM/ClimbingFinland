@@ -1,4 +1,5 @@
 import userService from '../services/userService'
+import { getUser, logoutUser } from './loginReducer'
 import { changeNotification } from './notificationReducer'
 
 /**
@@ -7,20 +8,25 @@ import { changeNotification } from './notificationReducer'
  * @param {*} image image file to be uploaded as an avatar for the user.
  * Dispatches an error notification in case of error to the changeNotification() function.
  */
-export const uploadAvatar = (image) => {
-  return async dispatch => {
-    try {
-      const imageSave = await userService.uploadAvatar(image)
-      dispatch({
-        type: 'UPDATE_USER',
-        data: imageSave
-      })
-    } catch (err) {
-      dispatch(changeNotification(`Error: ${err.message}`, 'error_message'))
-    }
+// export const uploadAvatar = (image) => {
+//   return async dispatch => {
+//     try {
+//       const imageSave = await userService.uploadAvatar(image)
+//       console.log({ imageSave })
 
-  }
-}
+//       dispatch({
+//         type: 'UPDATE_USER',
+//         data: imageSave
+//       })
+//       dispatch(getUser())
+//       dispatch(changeNotification({ title: 'Done', message: 'Profile picture updated. If you can\'t see a change reload the page!' }))
+
+//     } catch (err) {
+//       dispatch(changeNotification({ title: 'Error', message: `Sorry, couldn\'t update your profile picture.` }, 'error'))
+//     }
+
+//   }
+// }
 
 /**
  * Dispatches => Updated user info to the user reducer.
@@ -33,15 +39,15 @@ export const updateUserInfo = (username, user_data) => {
   return async dispatch => {
     try {
       const newUserInfo = await userService.updateUserInfo(username, user_data)
-
       dispatch({
         type: 'UPDATE_USER',
         data: newUserInfo
       })
-      dispatch(changeNotification('Your information has been updated'))
-
+      dispatch(getUser())
+      dispatch(changeNotification({ title: 'Done', message: 'Your information has been updated.' }))
     } catch (err) {
-      dispatch(changeNotification(`Error: ${err.message}`, 'error_message'))
+      dispatch(changeNotification({ title: 'Error', message: `Sorry, couldn\'t update your information.` }, 'error'))
+
     }
 
   }
@@ -62,11 +68,9 @@ export const changePassword = (username, data) => {
         type: 'CHANGE_PASSWORD',
         data: newUserInfo
       })
-
-      dispatch(changeNotification('Your password has been changed!'))
+      dispatch(changeNotification({ title: 'Done', message: 'Your password has been changed!' }))
     } catch (err) {
-      dispatch(changeNotification(`Error: ${err.message}`, 'error_message'))
-
+      dispatch(changeNotification({ title: 'Error', message: `Sorry, couldn\'t change your password.` }, 'error'))
     }
 
   }
@@ -82,14 +86,33 @@ export const createUser = (data) => {
   return async dispatch => {
     try {
       const newUser = await userService.createUser(data)
+      dispatch({
+        type: 'CREATE_USER',
+        data: newUser
+      })
+      dispatch(changeNotification({ title: 'Done', message: 'Registeration successful. Please go confirm you\'r email address before trying to log in.' }))
     } catch (err) {
-      console.log('Error on create user', { err })
-    }
+      dispatch(changeNotification({ title: 'Error', message: `Sorry, couldn\'t create a new account. Try again later.` }, 'error'))
 
-    // dispatch({
-    //   type: 'CREATE_USER',
-    //   data: newUser
-    // })
+    }
+  }
+}
+
+export const deleteUser = (data) => {
+  return async dispatch => {
+    try {
+      const newUser = await userService.deleteUser(data)
+
+      dispatch({
+        type: 'DELETE_USER',
+        data: newUser
+      })
+      dispatch(logoutUser())
+      dispatch(changeNotification({ title: 'Done', message: 'You\'r account has been deleted.' }))
+    } catch (err) {
+      dispatch(changeNotification({ title: 'Error', message: `Sorry, something went wrong.` }, 'error'))
+
+    }
   }
 }
 
@@ -103,7 +126,6 @@ export const createUser = (data) => {
  */
 const reducer = (state = null, action) => {
 
-  let id = null
   switch (action.type) {
     case 'UPDATE_USER':
       window.localStorage.setItem('login', JSON.stringify(action.data))
@@ -111,6 +133,8 @@ const reducer = (state = null, action) => {
     case 'CREATE_USER':
       return state
     case 'CHANGE_PASSWORD':
+      return state
+    case 'DELETE_USER':
       return state
     default:
       return state

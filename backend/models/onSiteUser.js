@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const UserBase = require('./userBase')
 
+/**
+ * Model for an on-site user.
+ */
 const OnSiteUser = UserBase.discriminator('OnSiteUser',
   new mongoose.Schema({
     password: {

@@ -1,5 +1,6 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/api/login'
+// const baseUrl = 'http://localhost:3001/api/login'
+const baseUrl = '/api/login'
 
 /**
  * Request to log in to the application as an onsite user.
@@ -23,7 +24,7 @@ const login = async (user) => {
  * @param {*} user_token Google user token
  */
 const googleLogin = async (user_token) => {
-
+    
   const config = {
     headers: { Authorization: `Bearer ${user_token}` },
     withCredentials: true

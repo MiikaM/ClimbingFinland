@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 
+/**
+ * Model for a comment.
+ */
 const commentSchema = mongoose.Schema({
   comment: {
     type: String,

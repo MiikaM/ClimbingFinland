@@ -4,12 +4,14 @@ const cities = require('../data/cities.json')
 const _ = require('lodash')
 
 const timeReg = /\d\d:\d\d/
-const pictReg = /\.(gif|jpg|jpeg|tiff|png)/
+const pictReg = /\.(gif|jpg|jpeg|tiff|png|webp)/
 
+//Checks if input is a string
 const isString = (text) => {
   return typeof text === 'string' || text instanceof String
 }
 
+//Checks if input is a string array
 const isStringArray = (array) => {
   let length = 0
 
@@ -22,30 +24,35 @@ const isStringArray = (array) => {
   return (length === array.length)
 }
 
+//Checks if input is a valid URL
 const isUrl = (url) => {
   return validator.isURL(url)
 }
 
+//Checks if input is an object
 const isObject = (object) => {
-
-
   return ((typeof object === 'object' || object instanceof Object) &&
     Object.keys(object).length && Object.keys(object).length !== 0 && !(object.length !== undefined))
 }
 
+//Checks if input is a valid city
 const isCity = (city) => {
-
   return cities.includes(city)
 }
 
+//Checks if input is a picture
 const isPicture = (picture) => {
   return pictReg.test(picture)
 }
 
+//Checks if input is has prices
 const hasPrices = (prices) => {
-  if (!prices || prices.length > 0) {
+  logger.info({prices}, '+', prices.length)
+
+  if (!prices || prices.length <= 0) {
     throw new TypeError('Incorrect or missing pricing input')
   }
+
   try {
     prices.map(priceCategory => {
       hasPriceCategories(priceCategory)
@@ -58,6 +65,7 @@ const hasPrices = (prices) => {
   return false
 }
 
+//Checks if input has price categories: onetime, tentime and month
 const hasPriceCategories = (priceCategory) => {
 
   if (!priceCategory || !isObject(priceCategory)) {
@@ -83,6 +91,7 @@ const hasPriceCategories = (priceCategory) => {
 
 }
 
+//Checks if input is has correct prices
 const isPrice = (price) => {
   let result = false
 
@@ -93,6 +102,7 @@ const isPrice = (price) => {
   return result
 }
 
+//Checks if input is an object and exists
 const hasDays = (open_hours) => {
   if (!open_hours || open_hours === undefined || !isObject(open_hours)) {
     throw new TypeError('Incorrect or missing week input')
@@ -108,6 +118,7 @@ const hasDays = (open_hours) => {
   return false
 }
 
+//Checks if input is a day, object and exists. Also checks if the day has an opening and a closing time
 const hasOpenClose = (day) => {
 
   if (!day || !isObject(day) || !day.open || !day.close) {
@@ -125,6 +136,7 @@ const hasOpenClose = (day) => {
   return true
 }
 
+//Checks if input is a time
 const hasHourMinutes = (time) => {
 
   if (time === 'Closed') return true
@@ -135,8 +147,6 @@ const hasHourMinutes = (time) => {
 
   const correctReg = timeReg.test(time)
 
-
-
   let hour = parseInt(time.substring(0, separator))
   let minutes = parseInt(time.substring(separator + 1, time.length))
 
@@ -145,17 +155,14 @@ const hasHourMinutes = (time) => {
   } else hour = false
   if (minutes < 60 && minutes >= 0) { minutes = true } else minutes = false
 
-
-
-
   return (hour && minutes && correctReg)
 }
 
+//Checks if input is a valid phonenumber
 const isPhonenumber = (phonenumber) => {
   if (phonenumber === '-') return true
 
   let numberArray = phonenumber.split(' ').join('').split('')
-
 
   switch (numberArray[0]) {
     case '0':

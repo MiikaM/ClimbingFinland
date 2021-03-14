@@ -4,22 +4,41 @@ const jwt = require('jsonwebtoken')
 const { transporter } = require('../utils/nodemailer')
 const logger = require('../utils/logger')
 const bcrypt = require('bcrypt')
+const fs = require('fs')
 
+/**
+ * 
+ * @param {*} userDeleted 
+ * @param {*} userDeleting 
+ */
+const removeUser = async (userDeleted, userDeleting) => {
+  logger.info({ userDeleted }, { userDeleting })
+  const userToRemove = await UserBase.findOne({ username: userDeleted })
+  const userRemoving = await UserBase.findOne({ username: userDeleting })
 
-const removeUser = async (id, username) => {
-  const userToRemove = await UserBase.findById(id)
-  const userRemoving = await UserBase.findOne({ username: username })
-
+  logger.info({ userToRemove }, { userRemoving })
   if (!userToRemove) {
     throw new Error('User doesn\'t exist or has already been removed')
   }
+  logger.info('id jota poistetaan ', userToRemove._id, ' id joka poistaa ', userRemoving._id)
 
-  if (userToRemove !== userRemoving) {
+  logger.info(userToRemove._id !== userRemoving._id)
+  logger.info(userToRemove._id === userRemoving._id)
+  logger.info(userToRemove._id.equals(userRemoving._id))
+
+  if (!(userToRemove._id.equals(userRemoving._id))) {
     throw new Error('You are not authorized to remove this user')
   }
 
-
   const userComments = await Comment.find({ user: userToRemove._id })
+
+  if (userToRemove.avatar !== null && userToRemove.avatar !== '') {
+    try {
+      fs.unlinkSync(userToRemove.avatar)
+    } catch (err) {
+      logger.error(err.message)
+    }
+  }
 
   await userToRemove.remove()
 
@@ -31,7 +50,13 @@ const removeUser = async (id, username) => {
 
 }
 
-
+/**
+ * 
+ * @param {*} userToUpdate_username 
+ * @param {*} userUpdating 
+ * @param {*} newUser 
+ * @returns 
+ */
 const updateUser = async (userToUpdate_username, userUpdating, newUser) => {
   try {
     logger.info({ userToUpdate_username }, { userUpdating }, { newUser })
@@ -49,9 +74,14 @@ const updateUser = async (userToUpdate_username, userUpdating, newUser) => {
   }
 }
 
+/**
+ * 
+ * @param {*} passwords 
+ * @param {*} user 
+ */
 const changePassword = async (passwords, user) => {
   const oldPassword = passwords.oldPassword
-  const userInDb = await UserBase.findById(user.id)
+  const userInDb = await UserBase.findOne({ username: user.username })
 
   const passwordCorrect = user === null
     ? false
@@ -86,6 +116,11 @@ const changePassword = async (passwords, user) => {
   }
 }
 
+/**
+ * 
+ * @param {*} passwords 
+ * @returns 
+ */
 const hashPassword = async (passwords) => {
 
   if (!passwords.newPassword || passwords.newPassword.length < 8) {
@@ -107,28 +142,32 @@ const hashPassword = async (passwords) => {
 
 }
 
+/**
+ * 
+ * @param {*} user 
+ */
 const sendVerificationEmail = (user) => {
 
-  try {
-    const token = jwt.sign({ user: user.id }, process.env.EMAIL_SECRET, { expiresIn: '1d' })
-    const url = `http://localhost:3001/api/verification/${token}`
+  const token = jwt.sign({ user: user.id }, process.env.EMAIL_SECRET, { expiresIn: '1d' })
+  const url = `https://climbing-finland-v2.herokuapp.com/api/verification/${token}`
 
-    transporter.sendMail({
-      to: user.email, // list of receivers
-      subject: 'Verify your account', // Subject line
-      html: `<h1>Verify</h1><div>Verify your email by clicking the link below <br/> <a href=${url}>${url}</a></p></div>`, // html body
-    })
+  transporter.sendMail({
+    to: user.email, // list of receivers
+    subject: 'Verify your account', // Subject line
+    html: `<h1>Verify</h1><div>Verify your email by clicking the link below <br/> <a href=${url}>${url}</a></p></div>`, // html body
+  })
 
-  } catch (err) {
-    logger.error('verfificaatio ', err.message)
-  }
 }
 
+/**
+ * 
+ * @param {*} user 
+ */
 const sendResetPasswordEmail = (user) => {
   try {
     const token = jwt.sign({ user }, process.env.RESET_SECRET, { expiresIn: '1h' })
 
-    const url = `http://localhost:3001/api/passwordReset/${token}`
+    const url = `https://climbing-finland-v2.herokuapp.com/api/passwordReset/${token}`
 
     transporter.sendMail({
       to: user.email,

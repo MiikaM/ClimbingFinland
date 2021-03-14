@@ -5,7 +5,11 @@ const UserBase = require('../../models/userBase')
 const { userCheckerThirdParty } = require('../userHandling')
 const logger = require('../logger')
 
-
+/**
+ * 
+ * @param {*} token 
+ * @returns 
+ */
 const validateGoogleUser = async (token) => {
   const ticket = await checkTicket(token)
   const userId = ticket['sub']
@@ -26,14 +30,19 @@ const validateGoogleUser = async (token) => {
 
 }
 
+/**
+ * 
+ * @param {*} user 
+ * @returns 
+ */
 const validateOnSiteUser = async (user) => {
 
   const userInDb = await UserBase.findOne({ username: user.username })
 
-  if(!userInDb) {
-    throw Error('No such user in the database.')
+  if (!userInDb) {
+    throw Error('Invalid username or password.')
   }
-  
+
 
   const passwordCorrect = user === null
     ? false
@@ -47,6 +56,11 @@ const validateOnSiteUser = async (user) => {
   return userInDb
 }
 
+/**
+ * 
+ * @param {*} token 
+ * @returns 
+ */
 const checkTicket = async (token) => {
   try {
     const ticket = await admin.auth().verifyIdToken(token)
@@ -56,11 +70,17 @@ const checkTicket = async (token) => {
   }
 }
 
-const checkAdmin = async (id) => {
-  const user = await UserBase.findById(id)
+/**
+ * 
+ * @param {*} username 
+ */
+const checkAdmin = async (username) => {
+  console.log({username})
+  
+  const user = await UserBase.findOne({username: username})
 
   if (!user) {
-    throw new Error('User doesn\'t exist.')
+    throw new Error('invalid username or password')
   }
 
   const boolean = (user.type === 'AdminUser' && user.role === 'Admin')
@@ -70,6 +90,10 @@ const checkAdmin = async (id) => {
   }
 }
 
+/**
+ * 
+ * @param {*} verified 
+ */
 const checkVerified = (verified) => {
   if (!verified) {
     throw new Error('You have to verify your account first.')

@@ -1,5 +1,4 @@
 import React from 'react'
-import ProfilePic from '../../images/profile_testit/chad-madden-8mCMQSq41gQ-unsplash.jpg'
 
 /**
  * Wrapper for the comment information.
@@ -13,18 +12,21 @@ const ShowComment = ({ comment }) => {
 
   const pvm = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
-
-
   if (!comment) return null
-
+  
+  const addDefaultSrc = (e) => {
+    
+    e.target.src = `${user.avatar}`
+    
+  }
   return (
     <li className='card'>
       <div className="comment">
         <div className="comment-meta">
-          <img src={ProfilePic} alt="" className="comment-avatar" />
+          <img onError={addDefaultSrc} src={`../../${user.avatar}`} alt="" className="comment-avatar" />
         </div>
         <div className="comment-meta-meta">
-          <strong> <a href={`/${user.username}`}> {user.name} </a></strong>
+          <strong> {user.name}</strong>
           <p className="timestamp">{pvm}</p>
         </div>
 

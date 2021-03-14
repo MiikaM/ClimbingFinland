@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouteMatch } from 'react-router-dom'
-import Prices from '../Places/prices'
-import OpenHours from '../Places/open_hours'
+
 import CommentForm from '../CommentForm'
 import CommentSection from '../CommentSection'
-import { addComment, getComments } from '../../reducers/commentReducer'
-import LogoFooter from '../../images/logo-white.svg'
-import SearchSVG from '../../images/search.svg'
-import NavLogo from '../../images/logo-white-header.svg'
+import {  getComments } from '../../reducers/commentReducer'
+
 
 import MailLogo from '../../images/mail.svg'
 import WorldLogo from '../../images/world.svg'
 import PlaceLogo from '../../images/google-place.svg'
 import PhoneLogo from '../../images/phone.svg'
 import '../../scss/place.scss'
+import '../../scss/comment.scss'
 import Footer from '../Footer'
 import NavHeader from '../NavHeader'
 import PriceCategory from '../PriceCategory'
@@ -31,7 +29,8 @@ import PriceCategory from '../PriceCategory'
 const ChosenPlace = () => {
   const dispatch = useDispatch()
   const places = useSelector(state => state.places)
-  
+  const colors = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eight', 'nineth', 'tenth']
+
   const match = useRouteMatch('/gym/:place_name')
   const place = match
     ? places.find(place => place.name === match.params.place_name)
@@ -39,12 +38,15 @@ const ChosenPlace = () => {
 
 
   useEffect(() => {
-    dispatch(getComments(match.params.place_name))
-  }, [])
+    
+    if (match?.params?.place_name !== undefined) {
+      dispatch(getComments(match.params.place_name))
+    }
+  }, [place])
 
   if (!place) return null
 
-
+  const image = place.image.replace(/\\/g, '/')
 
 
   return (
@@ -52,12 +54,14 @@ const ChosenPlace = () => {
       <NavHeader />
 
       <section className="hero-wrapper" style={{
-        background: `url(${place.image})`,
+        background: `url('../${image}')`,
         backgroundSize: 'cover',
         backgroundPosition: '50% 45%',
         borderRadius: '0 0 10px 10px',
-        opacity: '85%'
       }}>
+      </section>
+
+      <section className="info-sec">
         <div className="wrapper">
           <div className="hero-content-place">
             <h1>{place.name}</h1>
@@ -131,8 +135,22 @@ const ChosenPlace = () => {
                 </li>
               </ul>
             </div>
+
+            <div className="card margin-left">
+              <h2>Tags</h2>
+              <ul className="likes-user">
+                {place.tags.map((tag, index) =>
+                (
+                  <li key={index} className={`tag-item ${colors[Math.floor(Math.random() * colors.length)]}`} >
+                    <p>{tag}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
+
+
       </section>
 
       <section className="prices">
@@ -145,7 +163,7 @@ const ChosenPlace = () => {
 
           <div className="price-wrapper">
             <ul className="price-list">
-              {Object.values(place.prices).map(price => (
+              {place.prices.map(price => (
                 <PriceCategory key={price.name} price={price} name={price.name} />
               ))}
             </ul>

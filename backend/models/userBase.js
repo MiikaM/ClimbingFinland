@@ -3,6 +3,9 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 const options = { discriminatorKey: 'type', collection: 'users' }
 
+/**
+ * Model for an user.
+ */
 const userBaseSchema = mongoose.Schema({
   username: {
     type: String,
@@ -20,8 +23,7 @@ const userBaseSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   verified: {
     type: Boolean,
@@ -29,7 +31,7 @@ const userBaseSchema = mongoose.Schema({
   },
   avatar: {
     type: String,
-    default: 'uploads/avatar.svg'
+    default: 'uploads/resized/1613377150308chad-madden-8mCMQSq41gQ-unsplash.jpg'
   },
   city: {
     type: String,

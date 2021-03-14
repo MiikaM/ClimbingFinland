@@ -3,11 +3,11 @@
 /* Header Nav */
 
 .hero-home {
-  background: url(../images/HomepageTopBG.jpg);
-  background-size: cover;
+  background: url('../images/HomepageTopBG.jpg');
   background-position: 50% 45%;
+  background-size: cover;
   border-radius: 0 0 10px 10px;
-  opacity: 85%;
+  // opacity: 85%;
 }
 
 .wrapper {
@@ -68,7 +68,7 @@
   margin-left: 2.2rem;
   position: absolute;
   cursor: pointer;
-  opacity: 50%;
+  // opacity: 50%;
 }
 
 .search-bar-main {

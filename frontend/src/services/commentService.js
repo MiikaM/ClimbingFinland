@@ -14,17 +14,17 @@ const getAll = () => {
  * Request for all comments of place
  */
 const getComments = async (place_name) => {
-  const response = await axios.get(`${baseUrl}/${place_name}`, { withCredentials: true })
-  return response.data
+  if (place_name !== undefined) {
+    const response = await axios.get(`${baseUrl}/${place_name}`, { withCredentials: true })
+    return response.data
+  }
 }
 
 /**
  * Request for adding a comment for a specific place
  */
 const addComment = async (data, place_id) => {
-  // const config = {
-  //   headers: { Authorization: token }
-  // }
+
 
   const newData = { ...data, id: place_id }
 

@@ -15,9 +15,9 @@ export const initializeComments = () => {
         data: comments
       })
 
-    } catch (exception) {
-      dispatch(changeNotification('There was an error loading the database. Please try again in later.', 'error_message'))
-      console.error('Error on initialize comments: ', exception.message)
+    } catch (err) {
+      dispatch(changeNotification({title: 'Error', message: `There was an error loading the database. Please try again later.`}, 'error'))
+      console.error('Error on initialize comments: ', err.response.data.error)
     }
   }
 }
@@ -37,9 +37,9 @@ export const getComments = (place_name) => {
         data: comments
       })
 
-    } catch (exception) {
-      dispatch(changeNotification('There was an error loading the database. Please try again in later.', 'error_message'))
-      console.error('Error on initialize comments: ', exception.message)
+    } catch (err) {
+      dispatch(changeNotification({title: 'Error', message: `There was an error loading the database. Please try again later.`}, 'error'))
+      console.error('Error on initialize comments: ', err.response.data.error)
     }
   }
 }
@@ -59,10 +59,12 @@ export const addComment = (comment, place_id) => {
         type: 'ADD_COMMENT',
         data: newComment
       })
-      dispatch(changeNotification('You commented! Nice!'))
-    } catch (exception) {
-      dispatch(changeNotification(`Sorry server didn't like that comment. Try again`, 'error_message'))
-      console.error('Error on addComment dispatch: ', exception.message)
+      dispatch(changeNotification({title:'Done', message: 'You commented! Nice!'}))
+
+    } catch (err) {
+      dispatch(changeNotification({title: 'Error', message: `Sorry server didn't like that comment. Try again.`}, 'error'))
+
+      console.error('Error on addComment dispatch: ', err.response.data.error)
     }
 
   }
@@ -82,17 +84,11 @@ const reducer = (state = [], action) => {
   switch (action.type) {
     case 'ADD_COMMENT':
       return state.concat(action.data)
-    // case 'VOTE':
-    //   id = action.data.id
-    //   return state.map(blog =>
-    //     blog.id !== id ? blog : action.data
-    //   )
-    // case 'DELETE':
-    //   return state.filter(blog => blog.id !== action.data.id)
+    case 'DELETE':
+      return state.filter(blog => blog.id !== action.data.id)
     case 'INIT_COMMENTS':
       return action.data
     case 'GET_COMMENTS':
-      
       return action.data
     default:
       return state

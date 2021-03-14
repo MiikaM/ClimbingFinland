@@ -1,8 +1,6 @@
 import React from 'react'
-import firebase from 'firebase'
 import { logoutUser } from '../../reducers/loginReducer'
 import '../../scss/dropdown.scss'
-import AvatarSVG from '../../images/avatar.svg'
 import SettingsSVG from '../../images/settings.svg'
 import LogoutSVG from '../../images/logout.svg'
 import { useDispatch } from 'react-redux'
@@ -29,9 +27,6 @@ const DropDownMenu = ({ user }) => {
 
   return (
     <div className='dropdown'>
-      <Link to={{ pathname: `/${user.username}` }}>
-        <img src={AvatarSVG} className='little-nav-icon' alt='user' /> My profile
-        </Link>
       <Link to={{ 
         pathname: `/${user.username}/settings`,
         user: user 

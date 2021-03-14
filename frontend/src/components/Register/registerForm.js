@@ -19,11 +19,11 @@ const RegisterForm = () => {
   let wrapper = `wrapper${page + 1}`
 
   const handleSubmit = (data) => {
-    // try {
-    //   dispatch(createUser(data))
-    // } catch (err) {
-    //   console.log('Error on register submit', err.error)
-    // }
+    try {
+      dispatch(createUser(data))
+    } catch (err) {
+      console.log('Error on register submit', err.error)
+    }
 
   }
 
@@ -53,7 +53,7 @@ const RegisterForm = () => {
       <Formik
         validateOnChange={true}
         validationSchema={validationSchema}
-        initialValues={{ username: '', password: '', passwordagain: '', name: '', email: '', city: '' }}
+        initialValues={{ username: '', password: '', passwordagain: '', name: '', email: '', city: '', adminVerification: '' }}
         onSubmit={(data, { setSubmitting, resetForm }) => {
           setSubmitting(true)
           handleSubmit(data)
@@ -76,9 +76,14 @@ const RegisterForm = () => {
             }
           </Form>
         )}</Formik>
+      {page === 0 ?
+        null :
+        <button onClick={() => setPage(page - 1)} className='submit'> Back </button>}
+
       {page !== 0 ?
         null :
         <button onClick={() => setPage(page + 1)} className='submit'> Next </button>}
+
 
       <p className="login-small" style={{ cursor: 'pointer' }}>
         <Link to={{
@@ -86,8 +91,6 @@ const RegisterForm = () => {
           open: true
         }}> Already have an account?</Link>
       </p>
-
-
     </div >
   )
 

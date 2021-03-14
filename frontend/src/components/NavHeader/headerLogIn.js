@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import { useSpring, animated } from 'react-spring'
-import { useSelector } from 'react-redux'
 import DropDownMenu from './dropDownMenu'
-import AvatarSVG from '../../images/avatar.svg'
 
 
-const HeaderLogIn = ({ modal, user }) => {
+const HeaderLogIn = ({ modal, user, page }) => {
     const [dropdown, setDropdown] = useState(false)
     const props = useSpring({ opacity: 1, marginTop: 0, from: { opacity: 0, marginTop: -500 } })
     const fadeIn = useSpring({ cursor: 'pointer', opacity: 1, from: { opacity: 0 }, config: { delay: 1000, duration: 1000 } })
+
+    if (!user) return null
     
+    const addDefaultSrc = (e) => {
+        e.target.src = `${user.avatar}`
+    }
 
     return (
         <nav>
@@ -20,11 +23,9 @@ const HeaderLogIn = ({ modal, user }) => {
                     (user.session) ?
                         <animated.li style={fadeIn} onClick={modal}>Log in</animated.li> :
                         <li>
-                            <animated.img style={fadeIn} src={AvatarSVG} className='nav-icon' alt='user' onClick={() => setDropdown(!dropdown)} />
+                            <animated.img style={fadeIn} onError={addDefaultSrc} src={page === 'main' ? user.avatar : `../${user.avatar}`} className='nav-icon' alt='user' onClick={() => setDropdown(!dropdown)} />
                             {
-                                dropdown ?
-                                    <DropDownMenu user={user} /> :
-                                    null
+                                dropdown && <DropDownMenu user={user} />
                             }
                         </li>
 

@@ -2,6 +2,9 @@ const morgan = require('morgan')
 const logger = require('./logger')
 const jwt = require('jsonwebtoken')
 
+/**
+ * Stringifies the token
+ */
 morgan.token('contents', function (req) {
   return JSON.stringify(req.body)
 })
@@ -9,10 +12,25 @@ morgan.token('contents', function (req) {
 //Logs the request info
 const morg = morgan(':method :url :status :res[content-length] - :response-time ms :contents')
 
+/**
+ * Receives a not defined endpoint
+ * @param {*} request 
+ * @param {*} response 
+ */
 const unknownEndpoint = (request, response) => {
+  console.log({request})
+  
   response.status(404).send({ error: 'Unknown place' })
 }
 
+/**
+ * Handles errors
+ * @param {*} error 
+ * @param {*} request 
+ * @param {*} response 
+ * @param {*} next 
+ * @returns 
+ */
 const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
@@ -43,7 +61,16 @@ const authenticate = (req, res, next) => {
       const decodedToken = jwt.verify(token, process.env.SECRET)
 
       req.user = {
-        ...decodedToken
+        username: decodedToken.username,
+        description: decodedToken.description,
+        name: decodedToken.name,
+        favouritePlaces: decodedToken.favouritePlaces,
+        role: decodedToken.role,
+        email: decodedToken.email,
+        verified: decodedToken.verified,
+        avatar: decodedToken.avatar,
+        city: decodedToken.city,
+        type: decodedToken.type
       }
 
       next()

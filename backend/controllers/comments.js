@@ -6,60 +6,74 @@ const { authenticate } = require('../utils/middleware')
 const Place = require('../models/place')
 const logger = require('../utils/logger')
 
-
+/**
+ * Receives a get request to get all the comments of an user
+ */
 commentsRouter.get('/', async (req, res) => {
-  const comments = await Comment.find({}).populate('user', { name: 1, avatar: 1, username: 1 })
-  res.status(200).json(comments.map(place => place.toJSON()))
-})
 
-// commentsRouter.get('/:id', async (req, res) => {
-//   const comments = await Comment.find({ place: req.params.id })
-//   res.json(comments.toJSON())
-// })
-
-commentsRouter.get('/:place_name', async (req, res) => {
-  logger.info(req.params.place_name)
-  const place = await Place.findOne({ name: req.params.place_name })
-
-  logger.info({place})
-  if (!place) {
-    res.status(404).send({ error: 'We couln\'t find the place you were looking for.' }.toJSON())
-  }
-  const comments = await Comment.find({ place: place._id }).populate('user', { name: 1, avatar: 1, username: 1 })
-  logger.info({comments})
-  res.status(200).json(comments.map(comment => comment.toJSON()))
-})
-
-commentsRouter.post('/', authenticate, async (req, res) => {
-  const body = req.body
   try {
+    const comments = await Comment.find({}).populate('user', { name: 1, avatar: 1, username: 1})
 
-    const newComment = await checkComment(body, body.id, req.user.id)
-    const addedComment = await addComment(newComment)
-    res.status(201).json(addedComment.toJSON())
-  } catch (e) {
-    res.status(400).json({ error: e.message })
+    res.status(200).json(comments.map(place => place.toJSON()))
+  } catch (err) {
+    res.status(400).json({ error: err.message })
   }
 })
 
-// commentsRouter.put('/:id', async (req, res) => {
+/**
+ * Receives a get request to find all the comments for a specific place.
+ * Checks if there is a place and then finds its' comments.
+ * Sends back the list of comments.
+ */
+commentsRouter.get('/:place_name', async (req, res) => {
 
-//   try {
-//     const place = checkPlace(req.body)
+  try {
+    const place = await Place.findOne({ name: req.params.place_name })
 
-//     const updated = await updatePlace(req.params.id, place)
-//     res.json(updated.toJSON()).status(204).end()
-//   } catch (e) {
-//     res.status(400).send(e.message)
-//   }
-// })
+    if (!place) {
+      res.status(404).json({ error: 'We couln\'t find the place you were looking for.' })
+    }
 
+    const comments = await Comment.find({ place: place._id }).populate('user', { name: 1, avatar: 1, username: 1 })
+
+    res.status(200).json(comments.map(comment => comment.toJSON()))
+  } catch (err) {
+    res.status(400).json({ error: err.message })
+  }
+})
+
+/**
+ * Receives: a post request
+ * Does:
+ * Returns: 
+ */
+commentsRouter.post('/', authenticate, async (req, res) => {
+
+  try {
+    const body = req.body
+    const newComment = await checkComment(body, body.id, req.user)
+    const addedComment = await addComment(newComment)
+    const comment = await Comment.findById(addedComment.id ).populate('user', { name: 1, avatar: 1, username: 1 })
+    console.log({comment})
+    
+    res.status(201).json(comment.toJSON())
+  } catch (err) {
+    res.status(400).json({ error: err.message })
+  }
+})
+
+/**
+ * Receives: a delete request
+ * Does:
+ * Returns: 
+ */
 commentsRouter.delete('/:id', authenticate, async (req, res) => {
+  
   try {
     await removeComment(req.params.id, req.user.id)
     res.json(204).end()
-  } catch (e) {
-    res.status(401).json({ error: e.message })
+  } catch (err) {
+    res.status(40).json({ error: err.message })
   }
 })
 

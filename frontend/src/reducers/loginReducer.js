@@ -17,10 +17,12 @@ export const loginUser = (user) => {
         type: 'LOGIN',
         data: loggedIn
       })
-      // dispatch('Successfully logged in!')
-    } catch (exception) {
-      dispatch(changeNotification(`Login failed ${exception.message}`, 'error_message'))
-      console.error('Error on login: ', exception.message)
+      dispatch(changeNotification({title:'Done', message: 'Successfully logged in!'}))
+
+    } catch (err) {
+      dispatch(changeNotification({title: 'Error', message: `Login failed ${err.response.data.error}`}, 'error'))
+
+      console.error('Error on login: ', {err})
     }
   }
 }
@@ -32,19 +34,18 @@ export const loginUser = (user) => {
  * Dispatches an error notification in case of error to the changeNotification() function.
  */
 export const googleLoginUser = (user_token) => {
+  
   return async dispatch => {
     try {
       const loggedIn = await loginService.googleLogin(user_token)
 
-      window.localStorage.clear()
       dispatch({
         type: 'LOGIN',
         data: loggedIn
       })
-      dispatch(changeNotification('Successfully logged in!'))
-    } catch (exception) {
-      dispatch(changeNotification(`Login failed ${exception.message}`, 'error_message'))
-      console.error('Error on google login: ', exception.message)
+      dispatch(changeNotification({title:'Done', message: 'Successfully logged in!'}))
+    } catch (err) {
+      dispatch(changeNotification({title: 'Error', message: `Login failed ${err.response.data.error}`}, 'error'))
     }
   }
 }
@@ -59,20 +60,17 @@ export const getUser = () => {
     try {
       const check = await loginService.getUser()
 
-      console.log({ check })
-
       if (check) {
         dispatch({
           type: 'GET_USER',
           data: check
         })
+      } else {
+        window.localStorage.clear()
+        firebase.auth().signOut()
       }
-      window.localStorage.clear()
-      firebase.auth().signOut()
-
     } catch (err) {
-      console.log({ err })
-
+      console.log('Not logged in.')
     }
   }
 }
@@ -85,17 +83,15 @@ export const getUser = () => {
 export const logoutUser = () => {
   return async dispatch => {
     try {
-      const logoutUser = await loginService.logoutUser()
+      await loginService.logoutUser()
 
       dispatch({
         type: 'LOGOUT'
       })
-      dispatch(changeNotification('You have logged out!'))
+      dispatch(changeNotification({title:'Done', message: 'You have logged out!'}))
 
     } catch (err) {
-      dispatch(changeNotification(`Logout failed ${err.message}`, 'error_message'))
-
-
+      dispatch(changeNotification({title: 'Error', message: `Logout failed ${err.response.data.error}`}, 'error'))
     }
   }
 }
@@ -120,9 +116,8 @@ const reducer = (state = { session: true }, action) => {
       window.location.reload(true)
       return { session: true }
     case 'GET_USER':
-      const user = JSON.parse(action.data)
-      window.localStorage.setItem('login', (user))
-      return user
+      window.localStorage.setItem('login', JSON.stringify(action.data))
+      return action.data
     default:
       return state
   }

@@ -5,6 +5,7 @@
 
   .wrapper {
     max-width: 1366px;
+    text-align: center;
   }
 
   li {
@@ -30,6 +31,10 @@
 
   .comments-list-wrapper {
     padding: 1.5em;
+    
+    li{
+      height:auto;
+    }
   }
 
   .comment {

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Formik, Field, Form } from 'formik'
-import { sendMail } from '../../services/contactServices'
-import { loginUser, getUser } from '../../reducers/loginReducer'
+import { loginUser } from '../../reducers/loginReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import * as yup from 'yup'
@@ -10,10 +9,8 @@ import * as yup from 'yup'
  * The form for logging in and the validation for it.
  * @param {*} props 
  */
-const LoginForm = props => {
+const LoginForm = (props) => {
   const dispatch = useDispatch()
-  const history = useHistory()
-  const user = useSelector(state => state.session)
 
   const handleSubmit = (data) => {
     dispatch(loginUser(data))

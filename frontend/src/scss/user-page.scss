@@ -5,7 +5,7 @@
 /* Header */
 
 .hero-wrapper {
-  background: url(../images/background_testit/jerry-zhang-Y8lCoTRgHPE-unsplash.jpg);
+  background: url('/public/images/jerry-zhang-Y8lCoTRgHPE-unsplash.jpg');
   background-size: cover;
   background-position: 50% 45%;
   border-radius: 0 0 10px 10px;
@@ -79,7 +79,7 @@
 .likes-user {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   margin-top: 0.5em;
 }
 

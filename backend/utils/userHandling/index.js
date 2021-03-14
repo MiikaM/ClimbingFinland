@@ -9,7 +9,11 @@ const logger = require('../logger')
 const UserBase = require('../../models/userBase')
 const { hashPassword } = require('../../services/userService')
 
-
+/**
+ * 
+ * @param {*} user_data 
+ * @returns 
+ */
 const userChecker = async (user_data) => {
 
 
@@ -26,6 +30,11 @@ const userChecker = async (user_data) => {
   return createOnSite(user_data, passwordHash)
 }
 
+/**
+ * 
+ * @param {*} user_data 
+ * @returns 
+ */
 const userCheckerThirdParty = async (user_data) => {
 
   if (user_data.iss !== process.env.PROJECT_ISS || user_data.aud !== process.env.PROJECT_ID || !checkIatExp(user_data.iat, user_data.exp)) {
@@ -42,12 +51,23 @@ const userCheckerThirdParty = async (user_data) => {
   return user
 }
 
+/**
+ * 
+ * @param {*} iat 
+ * @param {*} exp 
+ * @returns 
+ */
 const checkIatExp = (iat, exp) => {
   const iatCorrect = ((Math.round((new Date()).getTime() / 1000)) > iat)
   const expCorrect = ((Math.round((new Date()).getTime() / 1000)) < exp)
   return (iatCorrect && expCorrect)
 }
 
+/**
+ * 
+ * @param {*} thirdParty_data 
+ * @returns 
+ */
 const createThirdParty = async (thirdParty_data) => {
 
   if (!thirdParty_data.email_verified) {
@@ -66,10 +86,21 @@ const createThirdParty = async (thirdParty_data) => {
   return thirdParty
 }
 
+/**
+ * 
+ * @param {*} min 
+ * @param {*} max 
+ * @returns 
+ */
 const rndInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
+/**
+ * 
+ * @param {*} name 
+ * @returns 
+ */
 const hashUsername = async (name) => {
 
   const nameSplitted = name.split(' ')
@@ -94,6 +125,12 @@ const hashUsername = async (name) => {
 
 }
 
+/**
+ * 
+ * @param {*} admin_data 
+ * @param {*} passwordHash 
+ * @returns 
+ */
 const createAdmin = (admin_data, passwordHash) => {
 
   const admin = new AdminUser({
@@ -108,6 +145,12 @@ const createAdmin = (admin_data, passwordHash) => {
   return admin
 }
 
+/**
+ * 
+ * @param {*} onSite_data 
+ * @param {*} passwordHash 
+ * @returns 
+ */
 const createOnSite = (onSite_data, passwordHash) => {
 
   const onSite = new OnSiteUser({
@@ -122,8 +165,12 @@ const createOnSite = (onSite_data, passwordHash) => {
   return onSite
 }
 
+/**
+ * 
+ * @param {*} image 
+ * @returns 
+ */
 const resizeImage = async (image) => {
-
 
   try {
     const resizePath = `${process.env.UPLOAD_FOLDER_RESIZED}${image.filename}`

@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import SettingsForm from '../SettingsForm'
 import ChangePasswordForm from '../ChangePasswordForm'
 import ListComp from '../PlaceForm/listComp'
+import DeleteButton from '../SettingsForm/deleteButton'
+import PlaceAddForm from '../PlaceForm/placeAddForm'
 
 const Admin = ({ login }) => {
     const [setting, setSetting] = useState('general')
-    console.log('helloi')
 
     let information
 
@@ -19,6 +20,12 @@ const Admin = ({ login }) => {
                 break;
             case 'places':
                 information = <ListComp />
+                break;
+            case 'addPlace':
+                information = <PlaceAddForm />
+                break;
+            case 'delete':
+                information = <DeleteButton user={login} />
                 break;
             default:
                 information = <SettingsForm user={login} />
@@ -44,6 +51,13 @@ const Admin = ({ login }) => {
                                 <li onClick={() => setSetting('places')}>
                                     Place control
                   </li>
+                                <li onClick={() => setSetting('addPlace')}>
+                                    Add a place
+                  </li>
+                                <li onClick={() => setSetting('delete')}>
+                                    Delete account
+                  </li>
+
 
                             </ul>
                         </div>
