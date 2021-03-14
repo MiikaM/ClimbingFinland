@@ -1,5 +1,6 @@
-Climbing Finland (In the making - not up at the moment)
+CLIMBING FINLAND 
 
-The website shows all of the dedicated climbing gyms in Finland area, the prices, descriptions, activities and opening times.
-
-You are able to log in as a google user or onsite user. 
+osoite: https://climbing-finland-v2.herokuapp.com/
+Deployattu Github repo: https://github.com/MiikaM/ClimbingFinlandDeploy
+Työaikakirjanpito voi ladata: repossta tai nähdä https://drive.google.com/file/d/100yZlJDZK2tJNykQ7wb7T6afX31bEXHX/view?usp=sharing
+Käyttöohjeet https://drive.google.com/file/d/1q068P1UdE1595KpjvaISK6sSC_UBgIn7/view?usp=sharing
