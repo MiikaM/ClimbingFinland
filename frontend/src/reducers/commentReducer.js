@@ -1,6 +1,11 @@
 import commentService from '../services/commentService'
 import { changeNotification } from './notificationReducer'
 
+/**
+ * Dispatches => initialized comments to the comments reducer.
+ * Calls commentservice getAll() function.
+ * Dispatches an error notification in case of error to the changeNotification() function.
+ */
 export const initializeComments = () => {
   return async dispatch => {
     try {
@@ -17,6 +22,12 @@ export const initializeComments = () => {
   }
 }
 
+/**
+ * Dispatches => requested comments to the comments reducer.
+ * Calls commentservice getComments() function to get comment infos.
+ * @param {*} place_name The name of the place which comments are requested.
+ * Dispatches an error notification in case of error to the changeNotification() function.
+ */
 export const getComments = (place_name) => {
   return async dispatch => {
     try {
@@ -33,6 +44,13 @@ export const getComments = (place_name) => {
   }
 }
 
+/**
+ * Dispatches => added comment to the comments reducer .
+ * Calls commentService addComment() function to add comment data.
+ * @param {*} comment Comment data to be added.
+ * @param {*} place_id The id of the place where the comment will be added.
+ * Dispatches an error notification in case of error to the changeNotification() function.
+ */
 export const addComment = (comment, place_id) => {
   return async dispatch => {
     try {
@@ -50,6 +68,15 @@ export const addComment = (comment, place_id) => {
   }
 }
 
+/**
+ * Controls the functions for the comments store.
+ * @param {*} state state of the comments store.
+ * @param {*} action action or info provided to the reducer.
+ * ADD_COMMENT => adds the comment data to the state.
+ * INIT_COMMENTS => Initializes the comment store with the data provided to the reducer.
+ * GET_COMMENTS => Replaces the comments store state with the data provided to the reducer.
+ * Default => returns the state of the store.
+ */
 const reducer = (state = [], action) => {
   // let id = null
   switch (action.type) {

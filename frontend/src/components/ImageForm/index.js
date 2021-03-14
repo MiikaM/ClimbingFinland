@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { uploadAvatar } from '../../reducers/userReducer'
 
+/**
+ * The form for uploading an image for the user and the validation for it.
+ */
 const ImageForm = () => {
   const [image, setImage] = useState(null)
   const users = useSelector(state => state.users)
@@ -16,7 +19,6 @@ const ImageForm = () => {
     }
   }
 
-  console.log({ image })
   const handleUpload = (event) => {
     event.preventDefault()
 
@@ -31,7 +33,6 @@ const ImageForm = () => {
     ? users.find(user => user.id.toString() === '5f294ce5e5953a8730d56fe5')
     : null
 
-  console.log({ user })
 
   return (
     <div>

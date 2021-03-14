@@ -31,30 +31,18 @@ import { getUser } from './reducers/loginReducer'
 import Modal from './components/Modal';
 
 
+/**
+ * Initializing the App => Places & Active user (Google or Onsite user)
+ * Controller for site navigation
+ */
 const App = () => {
   const dispatch = useDispatch()
   // const loggedIn = useSelector(state => state.session
 
 
   if (!firebase.apps.length) {
-    console.log(process.env.AUTHID, process.env.CLIENTID)
     firebase.initializeApp(firebaseConfig)
   }
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged(async user => {
-      if (user) {
-        const id_token = await firebase.auth().currentUser.getIdToken()
-        console.log({ id_token })
-        if (!!id_token) {
-          dispatch(googleLoginUser(id_token))
-        }
-      }
-    })
-
-  }, [])
-
-
   useEffect(() => {
     dispatch(initializePlaces())
   }, [dispatch])
@@ -62,6 +50,28 @@ const App = () => {
   useEffect(() => {
     dispatch(getUser())
   }, [])
+
+  // useEffect(() => {
+  //   try {
+  //     firebase.auth().onAuthStateChanged(async user => {
+
+  //       if (user) {
+  //         console.log({ user })
+
+  //         const id_token = await firebase.auth().currentUser.getIdToken()
+  //         console.log({ id_token })
+  //         if (!!id_token) {
+  //           dispatch(googleLoginUser(id_token))
+  //         }
+  //       }
+  //     })
+  //   } catch (err) {
+  //     console.log('error is', err.message)
+  //   }
+  // }, [])
+
+
+
 
 
 

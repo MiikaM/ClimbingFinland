@@ -22,7 +22,6 @@ contactRouter.post('/forgot', async (req, res) => {
   const body = req.body
   const user = await UserBase.findOne({ email: body.email })
 
-  console.log({ user })
 
   if (!user) {
     res.status(400).send({ error: 'User doesn\'t exist' }).end()
@@ -35,7 +34,6 @@ contactRouter.post('/forgot', async (req, res) => {
 
 contactRouter.post('/contact', async (req, res) => {
   const body = req.body
-  console.log({ body })
   try {
     sendContactInfo(req.body)
   } catch (err) {
@@ -49,9 +47,7 @@ contactRouter.get('/passwordReset/:token', async (req, res) => {
 
     const token = req.params.token
     const user = jwt.verify(req.params.token, process.env.RESET_SECRET)
-    console.log({ user })
     const userInDb = await UserBase.findById(user.user.id)
-    console.log({userInDb})
     if (!userInDb) {
       res.status(404).end()
     }
@@ -68,10 +64,8 @@ contactRouter.get('/passwordReset/:token', async (req, res) => {
 contactRouter.post('/passwordReset', resetAuthentication, async (req, res) => {
   const body = req.body
   try {
-    console.log({body})
     const user = await UserBase.findById(req.id)
 
-    console.log({user})
     const passwordHash = await hashPassword(body)
 
     user.password = passwordHash

@@ -19,11 +19,19 @@ import Footer from '../Footer'
 import NavHeader from '../NavHeader'
 import PriceCategory from '../PriceCategory'
 
-
+/**
+ * Show the info page of a chosen place.
+ * The page includes 
+ * - Picture
+ * - Comments
+ * - Opening hours
+ * - Prices
+ * - Other information
+ */
 const ChosenPlace = () => {
   const dispatch = useDispatch()
   const places = useSelector(state => state.places)
-  console.log({ places })
+  
   const match = useRouteMatch('/gym/:place_name')
   const place = match
     ? places.find(place => place.name === match.params.place_name)
@@ -35,8 +43,7 @@ const ChosenPlace = () => {
   }, [])
 
   if (!place) return null
-  // console.log({ match, place })
-  console.log({ place })
+
 
 
 

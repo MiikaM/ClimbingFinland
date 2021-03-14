@@ -3,7 +3,9 @@ import '../../scss/footer.scss'
 import LogoFooter from '../../images/logo-white.svg'
 import ContactForm from '../ContactForm'
 
-
+/**
+ * The footer wrapper for the pages.
+ */
 const Footer = () =>  {
   return (
     <section className="footer">

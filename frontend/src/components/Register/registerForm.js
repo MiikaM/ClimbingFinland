@@ -22,9 +22,8 @@ const RegisterForm = () => {
     // try {
     //   dispatch(createUser(data))
     // } catch (err) {
-    //   console.log(err.error)
+    //   console.log('Error on register submit', err.error)
     // }
-    console.log({ data })
 
   }
 

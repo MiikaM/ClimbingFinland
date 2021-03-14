@@ -1,7 +1,6 @@
 import React from 'react'
 
 const PriceCategory = ({ price, name }) => {
-  console.log({ price })
   return (
     <li>
       <div className="card">

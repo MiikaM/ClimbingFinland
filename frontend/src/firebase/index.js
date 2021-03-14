@@ -1,6 +1,10 @@
 import firebase from 'firebase/app'
 import 'firebase/storage'
 
+/**
+ * Config for the firebase application.
+ * Initializes the firebase application.
+ */
 export const firebaseConfig = {
   apiKey: "AIzaSyCVmpjoCpS53LqU26ee693vwbKwIp3-0Mg",
   authDomain: "climbingfinland-cf142.firebaseapp.com",

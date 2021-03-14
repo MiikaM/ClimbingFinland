@@ -8,20 +8,25 @@ import LogoutSVG from '../../images/logout.svg'
 import { useDispatch } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
 
-
+/**
+ * Wrapper for the dropdown menu.
+ * @param {*} user logged in user 
+ * Includes => 
+ * - Link to user page.
+ * - Link to settings page.
+ * - Logout button.
+ */
 const DropDownMenu = ({ user }) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
   const handleLogout = (e) => {
     e.preventDefault()
-    console.log('tapahtuu')
 
     dispatch(logoutUser())
     history.push('/')
   }
 
-  console.log({ user })
   return (
     <div className='dropdown'>
       <Link to={{ pathname: `/${user.username}` }}>

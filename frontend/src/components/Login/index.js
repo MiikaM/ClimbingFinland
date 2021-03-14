@@ -11,7 +11,12 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-
+/**
+ * Wrapper for login page.
+ * @param {*} close modal control 
+ * Includes => 
+ * - Login form
+ */
 const Login = ({ close }) => {
   const dispatch = useDispatch()
   const history = useHistory()

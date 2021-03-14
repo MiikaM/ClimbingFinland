@@ -1,8 +1,8 @@
 
 const { transporter } = require('../utils/nodemailer')
+const logger = require('../utils/logger')
 
 const sendContactInfo = async (contact_info) => {
-  console.log({ contact_info })
 
   try {
     transporter.sendMail({
@@ -11,7 +11,7 @@ const sendContactInfo = async (contact_info) => {
       html: `<div><h1> Message:</h1><p> ${contact_info.message}</p>  <div> <Strong>From: ${contact_info.email}</Strong></div></div>`
     })
   } catch (err) {
-    console.log({ err })
+    logger.error({ err })
   }
 }
 

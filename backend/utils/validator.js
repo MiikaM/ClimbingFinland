@@ -27,12 +27,7 @@ const isUrl = (url) => {
 }
 
 const isObject = (object) => {
-  // console.log({object})
-  // console.log(typeof object)
-  // console.log(Object.keys(object).length)
-  // console.log( Object.keys(object).length !== 0)
-  // console.log(object instanceof Object)
-  // console.log(object.length)
+
 
   return ((typeof object === 'object' || object instanceof Object) &&
     Object.keys(object).length && Object.keys(object).length !== 0 && !(object.length !== undefined))
@@ -48,11 +43,11 @@ const isPicture = (picture) => {
 }
 
 const hasPrices = (prices) => {
-  if (!prices || !isObject(prices)) {
+  if (!prices || prices.length > 0) {
     throw new TypeError('Incorrect or missing pricing input')
   }
   try {
-    Object.values(prices).map(priceCategory => {
+    prices.map(priceCategory => {
       hasPriceCategories(priceCategory)
     })
 
@@ -121,8 +116,7 @@ const hasOpenClose = (day) => {
 
   const opening = day.open
   const closing = day.close
-  // console.log({opening})
-  // console.log({closing})
+
 
   if (!hasHourMinutes(opening) || !hasHourMinutes(closing)) {
     throw new TypeError('Incorrect opening or closing time input')
@@ -132,45 +126,36 @@ const hasOpenClose = (day) => {
 }
 
 const hasHourMinutes = (time) => {
-  // console.log({time})
+
   if (time === 'Closed') return true
   const separator = time.indexOf(':')
 
-  // console.log({separator})
+
   if (separator === -1) return false
 
   const correctReg = timeReg.test(time)
 
-  // console.log({correctReg})
+
 
   let hour = parseInt(time.substring(0, separator))
   let minutes = parseInt(time.substring(separator + 1, time.length))
-
-  console.log({ hour })
-  console.log({ minutes })
 
   if (hour < 24 && hour >= 0) {
     hour = true
   } else hour = false
   if (minutes < 60 && minutes >= 0) { minutes = true } else minutes = false
 
-  // console.log({hour})
-  // console.log({minutes})
-  // console.log({correctReg})
+
 
 
   return (hour && minutes && correctReg)
 }
 
 const isPhonenumber = (phonenumber) => {
-  console.log({phonenumber})
   if (phonenumber === '-') return true
 
   let numberArray = phonenumber.split(' ').join('').split('')
 
-
-  console.log({ numberArray }, { phonenumber })
-  console.log('paikassa 1', numberArray[1], 'ja pituus: ', numberArray.length)
 
   switch (numberArray[0]) {
     case '0':

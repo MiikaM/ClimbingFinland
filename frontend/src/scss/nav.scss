@@ -4,7 +4,6 @@
  /* Nav */
 
 .nav-header {
-  background-color: color(primary);
   border-radius: 0 0 10px 10px;
   max-height: 80px;
   position: relative;
@@ -12,6 +11,15 @@
     padding: 1em;
   }
 }
+
+.main {
+  background-color: none;
+}
+
+.secondary {
+  background-color: color(primary);
+}
+
 
 .header-logo {
   width: 135px;

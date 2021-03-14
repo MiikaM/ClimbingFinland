@@ -35,9 +35,7 @@ commentsRouter.post('/', authenticate, async (req, res) => {
   try {
 
     const newComment = await checkComment(body, body.id, req.user.id)
-    console.log({ newComment })
     const addedComment = await addComment(newComment)
-    console.log({addedComment})
     res.status(201).json(addedComment.toJSON())
   } catch (e) {
     res.status(400).json({ error: e.message })

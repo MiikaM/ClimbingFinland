@@ -1,23 +1,32 @@
 import axios from 'axios'
 const baseUrl = '/api/comments'
 
+/**
+ * Request for all comments
+ */
 const getAll = () => {
   const request = axios.get(baseUrl, { withCredentials: true })
   return request.then(response => response.data)
 }
 
+
+/**
+ * Request for all comments of place
+ */
 const getComments = async (place_name) => {
   const response = await axios.get(`${baseUrl}/${place_name}`, { withCredentials: true })
   return response.data
 }
 
+/**
+ * Request for adding a comment for a specific place
+ */
 const addComment = async (data, place_id) => {
   // const config = {
   //   headers: { Authorization: token }
   // }
 
   const newData = { ...data, id: place_id }
-  console.log({ newData })
 
   const response = await axios.post(baseUrl, newData, { withCredentials: true })
   return response.data
@@ -28,6 +37,9 @@ const addComment = async (data, place_id) => {
 //   return request.then(response => response.data)
 // }
 
+/**
+ * Request for deleting a comment from a specific place as an Admin
+ */
 const deleteObject = (id) => {
   // const config = {
   //   headers: { Authorization: token }

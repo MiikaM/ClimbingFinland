@@ -6,6 +6,9 @@ import './index.scss';
 import App from './App';
 import store from './store'
 
+/**
+ * Redux store provider for the app
+ */
 ReactDOM.render(
   <Router>
     <Provider store={store} >

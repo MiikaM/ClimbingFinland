@@ -8,7 +8,6 @@ const ResetPasswordForm = () => {
   const history = useHistory()
 
   const handleSubmit = (data) => {
-    console.log({ data })
     // try {
     //   resetPassword(data)
     // } catch (err) {

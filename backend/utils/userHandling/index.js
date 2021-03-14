@@ -11,7 +11,7 @@ const { hashPassword } = require('../../services/userService')
 
 
 const userChecker = async (user_data) => {
-  console.log({ user_data })
+
 
   if (!user_data.password) {
     throw new Error('Password is invalid')
@@ -27,7 +27,6 @@ const userChecker = async (user_data) => {
 }
 
 const userCheckerThirdParty = async (user_data) => {
-  console.log({ user_data })
 
   if (user_data.iss !== process.env.PROJECT_ISS || user_data.aud !== process.env.PROJECT_ID || !checkIatExp(user_data.iat, user_data.exp)) {
     throw new Error('User token is not authenticated by google.')
@@ -35,7 +34,6 @@ const userCheckerThirdParty = async (user_data) => {
 
   const user = await createThirdParty(user_data)
 
-  console.log({ user })
 
   if (!user) {
     throw new Error('User creation failed.')
@@ -51,7 +49,7 @@ const checkIatExp = (iat, exp) => {
 }
 
 const createThirdParty = async (thirdParty_data) => {
-  console.log({ thirdParty_data })
+
   if (!thirdParty_data.email_verified) {
     throw new Error('In order to use a Google account to sign in, you must have your google account verified.')
   }
@@ -64,7 +62,6 @@ const createThirdParty = async (thirdParty_data) => {
     avatar: thirdParty_data.picture
   })
 
-  console.log({thirdParty})
 
   return thirdParty
 }
@@ -74,7 +71,6 @@ const rndInteger = (min, max) => {
 }
 
 const hashUsername = async (name) => {
-  console.log({name})
 
   const nameSplitted = name.split(' ')
   let boolean = true
@@ -92,7 +88,7 @@ const hashUsername = async (name) => {
     boolean = false
   }
 
-  console.log({usernameJoined})
+
 
   return usernameJoined
 
@@ -127,7 +123,7 @@ const createOnSite = (onSite_data, passwordHash) => {
 }
 
 const resizeImage = async (image) => {
-  console.log({ image })
+
 
   try {
     const resizePath = `${process.env.UPLOAD_FOLDER_RESIZED}${image.filename}`
@@ -140,7 +136,7 @@ const resizeImage = async (image) => {
       .toFile(
         path.resolve(resizePath)
       )
-    console.log({ resized })
+
     fs.unlinkSync(image.path)
 
     return resizePath

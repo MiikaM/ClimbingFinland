@@ -3,16 +3,17 @@ import { Formik, Field, Form } from 'formik'
 import { forgotPassword } from '../../services/contactServices'
 import * as yup from 'yup'
 
+/**
+ * The form for forgot password and the validation for it.
+ */
 const ForgotPasswordForm = () => {
 
   const handleSubmit = async (data) => {
-    console.log({ data })
 
     try {
       const response = await forgotPassword(data)
-      console.log({ response })
     } catch (err) {
-      console.log({ err })
+      console.log('Error on forgot password form', { err })
     }
   }
 

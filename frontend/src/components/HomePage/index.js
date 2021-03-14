@@ -13,14 +13,24 @@ import '../../scss/dropdown.scss'
 import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
 import AvatarSVG from '../../images/avatar.svg'
 import { getUser } from '../../reducers/loginReducer'
+import HeaderLogIn from '../NavHeader/headerLogIn'
+import NavHeader from '../NavHeader'
 
 
-
+/**
+ * Wrapper for the homepage.
+ * @param {*} params 
+ * Includes => 
+ * - Modal handling 
+ * - Places
+ * - Search bar
+ */
 const HomePage = (params) => {
   const dispatch = useDispatch()
   const [dropdown, setDropdown] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const user = useSelector(state => state.session)
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     if (params.location.open) {
@@ -34,39 +44,20 @@ const HomePage = (params) => {
     e.preventDefault()
     setIsOpen(true)
 
-    console.log({ isOpen })
 
   }
 
-  console.log({ user })
+
+
+  const handleSearch = e => setSearch(e.target.value) 
 
   return (
     
-
-    <div>
+/// Tää NavBariks 
+    <div>  
       <section className="hero-home">
-        <div className="wrapper">
-          <div className="header">
-            <nav>
-              <ul>
-                {
-                  !user ?
-                    <li style={{ cursor: 'pointer' }} onClick={handleLoginModal}>Log in</li> :
-                    <li>
-                      <img src={AvatarSVG} className='nav-icon' alt='user' onClick={() => setDropdown(!dropdown)} />
-                      {
-                        dropdown ?
-                          <DropDownMenu user={user} /> :
-                          null
-                      }
-                    </li>
-
-                }
-              </ul>
-            </nav>
-          </div>
-
-
+        <div className="wrappers">
+        <NavHeader page={'main'} />
 
           <div className="hero-content-home">
 
@@ -85,10 +76,10 @@ const HomePage = (params) => {
         <div className="wrapper ">
           <div className="search-container-main">
             <img src={SearchBlue} alt="" className="search-icon-main" />
-            <input type="text" className='search-bar-main' placeholder="Search..." />
+            <input type="text" className='search-bar-main' onChange={handleSearch} placeholder="Search..." />
           </div>
 
-          <Places />
+          <Places search={search}/>
         </div>
       </section>
 

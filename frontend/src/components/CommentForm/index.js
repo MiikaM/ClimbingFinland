@@ -6,12 +6,17 @@ import { addComment } from '../../reducers/commentReducer'
 import ProfilePic from '../../images/profile_testit/chad-madden-8mCMQSq41gQ-unsplash.jpg'
 import '../../scss/comment.scss'
 
+/**
+ * The form for commenting.
+ * If not logged in you can't comment
+ * @param {*} place_id The id of the place where the comments are to be designated. 
+ */
 const CommentForm = ({ place_id }) => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.session)
 
   const handleSubmit = (data) => {
-    console.log({ data, place_id })
+
     dispatch(addComment(data, place_id))
   }
 

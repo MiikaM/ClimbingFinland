@@ -12,7 +12,6 @@ const jwt = require('jsonwebtoken')
 
 usersRouter.get('/', async (request, response) => {
   const users = await UserBase.find({}).populate('favouritePlaces', { name: 1, description: 1 })
-  console.log({ users })
   response.json(users.map(u => u.toJSON()))
 })
 
@@ -31,9 +30,7 @@ usersRouter.post('/', async (request, response) => {
   const body = request.body
 
   try {
-    console.log({ body })
     const userToSave = await userChecker(body)
-    console.log({ userToSave })
     const savedUser = await userToSave.save()
     sendVerificationEmail(savedUser)
     response.status(204).end()
@@ -62,17 +59,10 @@ usersRouter.put('/:username', authenticate, async (req, res) => {
     checkVerified(req.user.verified)
     const updatedUser = await updateUser(req.params.username, req.user, body)
 
-    console.log('controller ', { updatedUser })
-    const userForToken = {
-      username: updatedUser.username,
-      id: updatedUser.id,
-      verified: updatedUser.verified
-    }
+    const userForToken = { ...updatedUser }
     const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '1h' })
 
-    console.log({ token })
-
-    res.status(200).cookie('token', token, { httpOnly: true })
+    res.status(200).cookie('token', token, { httpOnly: true, expires: new Date(Date.now() + 60000) })
       .send({
         username: updatedUser.username,
         description: updatedUser.description,
@@ -82,7 +72,8 @@ usersRouter.put('/:username', authenticate, async (req, res) => {
         email: updatedUser.email,
         verified: updatedUser.verified,
         avatar: updatedUser.avatar,
-        city: updatedUser.city
+        city: updatedUser.city,
+        type: updatedUser.type
 
       })
   } catch (e) {
@@ -106,15 +97,12 @@ usersRouter.put('/changePassword/:username', authenticate, async (req, res) => {
 usersRouter.put('/update/uploadImage', authenticate, upload.single('imageData'), async (req, res) => {
   const body = req.body
   const file = req.file
-  console.log({ body })
-  console.log({ file })
+
 
   try {
     checkVerified(req.user.verified)
 
     const user = await UserBase.findById(req.user.id)
-
-    console.log({ user })
 
     const resizedImagePath = await resizeImage(file)
 
@@ -129,8 +117,6 @@ usersRouter.put('/update/uploadImage', authenticate, upload.single('imageData'),
 
     user.avatar = resizedImagePath
     const updatedUser = await user.save()
-
-    console.log({ updatedUser })
 
     res.status(200).json(updatedUser.toJSON())
   } catch (e) {

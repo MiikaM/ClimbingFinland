@@ -1,8 +1,13 @@
 import userService from '../services/userService'
 import { changeNotification } from './notificationReducer'
 
+/**
+ * Dispatches => Updated user info to the user reducer.
+ * Calls userService uploadAvatar() function to upload the avatar.
+ * @param {*} image image file to be uploaded as an avatar for the user.
+ * Dispatches an error notification in case of error to the changeNotification() function.
+ */
 export const uploadAvatar = (image) => {
-  console.log('dispatch', { image })
   return async dispatch => {
     try {
       const imageSave = await userService.uploadAvatar(image)
@@ -17,11 +22,18 @@ export const uploadAvatar = (image) => {
   }
 }
 
+/**
+ * Dispatches => Updated user info to the user reducer.
+ * Calls userService updateUserInfo() function to update user info.
+ * @param {*} username username of the, to be updated, user
+ * @param {*} user_data 
+ * Dispatches an error notification in case of error to the changeNotification() function.
+ */
 export const updateUserInfo = (username, user_data) => {
   return async dispatch => {
     try {
       const newUserInfo = await userService.updateUserInfo(username, user_data)
-      console.log({ newUserInfo })
+
       dispatch({
         type: 'UPDATE_USER',
         data: newUserInfo
@@ -35,6 +47,13 @@ export const updateUserInfo = (username, user_data) => {
   }
 }
 
+/**
+ * Dispatches => Updated user info to the user reducer.
+ * Calls the userService.changePassword() function to change the users password.
+ * @param {*} username username of the user who's password is to be changed. 
+ * @param {*} data password data.
+ * Dispatches an error notification in case of error to the changeNotification() function.
+ */
 export const changePassword = (username, data) => {
   return async dispatch => {
     try {
@@ -53,13 +72,18 @@ export const changePassword = (username, data) => {
   }
 }
 
+/**
+ * Dispatches => new user data to the user reducer.
+ * Calls the userService.createUser() function to add a new user.
+ * @param {*} data data of the new user.
+ * Dispatches an error notification in case of error to the changeNotification() function.
+ */
 export const createUser = (data) => {
   return async dispatch => {
     try {
       const newUser = await userService.createUser(data)
-      console.log({ newUser })
     } catch (err) {
-      console.log({ err })
+      console.log('Error on create user', { err })
     }
 
     // dispatch({
@@ -69,12 +93,19 @@ export const createUser = (data) => {
   }
 }
 
+/**
+ * Controls the functions for the login store.
+ * @param {*} state state of the login store 
+ * @param {*} action action or info provided to the reducer.
+ * UPDATE_USER => Updates action data info to the localstorage and to user store.
+ * CREATE_USER => Updates user data to user store.
+ * CHANGE_PASSWORD => Updates user data to user store.
+ */
 const reducer = (state = null, action) => {
 
   let id = null
   switch (action.type) {
     case 'UPDATE_USER':
-      console.log('action data: ', action.data)
       window.localStorage.setItem('login', JSON.stringify(action.data))
       return state
     case 'CREATE_USER':

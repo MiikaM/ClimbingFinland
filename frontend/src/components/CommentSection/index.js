@@ -5,12 +5,18 @@ import ShowComment from './showComment'
 import { CropPortrait } from '@material-ui/icons'
 import '../../scss/comment.scss'
 
+/**
+ * Wrapper for the comment section.
+ * Maps the individual comments if there are any.
+ * @param {*} place_id Id for the visible place.
+ * @param {*} header Header for the comment section.
+ */
 const CommentSection = ({ place_id, header }) => {
   const comments = useSelector(state => state.comments)
 
   const list = [2, 2]
 
-  console.log({ comments })
+
 
   return (
     <section className="comments-wrapper" >

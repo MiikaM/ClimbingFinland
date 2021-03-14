@@ -34,13 +34,10 @@ const validateOnSiteUser = async (user) => {
     throw Error('No such user in the database.')
   }
   
-  console.log({ userInDb })
 
   const passwordCorrect = user === null
     ? false
     : await bcrypt.compare(user.password, userInDb.password)
-
-  console.log({passwordCorrect})
 
   if (!(user && passwordCorrect)) {
     throw Error('invalid username or password')
@@ -61,7 +58,6 @@ const checkTicket = async (token) => {
 
 const checkAdmin = async (id) => {
   const user = await UserBase.findById(id)
-  console.log({ user })
 
   if (!user) {
     throw new Error('User doesn\'t exist.')

@@ -4,6 +4,9 @@ import NavHeader from '../NavHeader'
 import Footer from '../Footer'
 import ForgotPasswordForm from '../ForgotPasswordForm'
 
+/**
+ * Wrapper for the Forgot password page.
+ */
 const ForgotPassword = () => {
   return (
     <div>

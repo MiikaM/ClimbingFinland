@@ -3,15 +3,16 @@ import { Formik, Field, Form } from 'formik'
 import { sendMail } from '../../services/contactServices'
 import * as yup from 'yup'
 
+/**
+ * The form for the contact form and the validation for it.
+ */
 const ContactForm = () => {
 
   const handleSubmit = async (data) => {
-    // console.log({data})
     try {
       const response = await sendMail(data)
-      console.log(response.data.notification) // Notifcaatio
     } catch (err) {
-      console.log({ err })
+      console.log('Error on the contact form ', { err })
     }
   }
 

@@ -8,19 +8,30 @@ import Footer from '../Footer'
 import SettingsForm from '../SettingsForm'
 import ChangePasswordForm from '../ChangePasswordForm'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, useRouteMatch } from 'react-router-dom'
+import { Redirect, useHistory, useRouteMatch } from 'react-router-dom'
 import { getUser } from '../../reducers/loginReducer'
 import { uploadAvatar } from '../../reducers/userReducer'
+import ThirdParty from './thirdParty'
+import Admin from './admin'
+import OnSite from './onSite'
 
 
 const UserSettings = (params) => {
   const dispatch = useDispatch()
-  const [changePass, setChangePass] = useState(false)
+  const history = useHistory()
   const [yes, setYes] = useState(false)
+
   const match = useRouteMatch('/:username/settings')
   const user = params.location.user
   const login = useSelector(state => state.session)
 
+
+  if (!user) {
+    history.push('/')
+  }
+
+
+  let information
   const handleUpload = (event) => {
     event.preventDefault()
 
@@ -28,6 +39,21 @@ const UserSettings = (params) => {
       dispatch(uploadAvatar(event.target.files[0]))
     }
   }
+  if (login) {
+    console.log('tyyppi', login.type)
+    switch (login.type) {
+      case 'AdminUser':
+        information = <Admin login={login} />
+        break;
+      case 'ThirdPartyUser':
+        information = <ThirdParty login={login} />
+        break;
+      default:
+        information = <OnSite login={login} />
+    }
+  }
+
+  console.log({ information })
 
 
   return (
@@ -55,50 +81,7 @@ const UserSettings = (params) => {
                 </div>
               </div>
             </section>
-
-            <section className="content-wrapper-settings">
-              <div className="wrapper">
-                <div className="settings">
-
-                  <div className="user-settings wrap">
-                    <div className="align " >
-
-                      <h2>User Settings</h2>
-                      <ul>
-                        <li onClick={() => setChangePass(false)}>
-                          General
-                  </li>
-
-                        <li onClick={() => setChangePass(true)}>
-                          Change Password
-                  </li>
-                      </ul>
-                    </div>
-                  </div>
-                  {
-                    !changePass ?
-                      (<div className="account-settings wrap ">
-                        <div className="align " >
-
-                          <h2>Account</h2>
-
-                          <SettingsForm user={login} />
-                        </div>
-                      </div>
-
-                      )
-                      : (<div className="change-password wrap">
-                        <div className="align " >
-
-                          <h2>Change password</h2>
-
-                          <ChangePasswordForm user={login} />
-                        </div>
-                      </div>)
-                  }
-                </div>
-              </div>
-            </section>
+          {information}
           </>
 
       }

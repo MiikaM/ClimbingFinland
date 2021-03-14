@@ -22,7 +22,8 @@ const placeSchema = mongoose.Schema({
     required: true
   },
   prices: {
-    type: Object
+    type: Array,
+    of: Object
   },
   tags: {
     type: Array,

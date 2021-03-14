@@ -22,9 +22,7 @@ loginRouter.post('/', async (request, response) => {
   if (body.type === 'onSite') {
     try {
 
-      console.log({ body })
       validatedUser = await validateOnSiteUser(body.user)
-      console.log({ validatedUser })
     } catch (e) {
       logger.error(e.message)
       return response.status(401).json({ error: e.message })
@@ -35,9 +33,15 @@ loginRouter.post('/', async (request, response) => {
 
   const userForToken = {
     username: validatedUser.username,
-    id: validatedUser.id,
+    description: validatedUser.description,
+    name: validatedUser.name,
+    favouritePlaces: validatedUser.favouritePlaces,
+    role: validatedUser.role,
+    email: validatedUser.email,
     verified: validatedUser.verified,
-    role: validatedUser.role
+    avatar: validatedUser.avatar,
+    city: validatedUser.city,
+    type: validatedUser.type
   }
 
   if (!userForToken) {
@@ -50,13 +54,11 @@ loginRouter.post('/', async (request, response) => {
     return response.status(401).json({ error: 'Please confirm your email to login.' }).end()
   }
 
-  console.log({ userForToken })
 
   const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '1h' })
 
-  console.log({ token })
 
-  response.status(200).cookie('token', token, { httpOnly: true })
+  response.status(200).cookie('token', token, { httpOnly: true, expires: new Date(Date.now() + 60000) })
     .send({
       username: validatedUser.username,
       description: validatedUser.description,
@@ -66,7 +68,8 @@ loginRouter.post('/', async (request, response) => {
       email: validatedUser.email,
       verified: validatedUser.verified,
       avatar: validatedUser.avatar,
-      city: validatedUser.city
+      city: validatedUser.city,
+      type: validatedUser.type
     })
 })
 
