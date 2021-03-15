@@ -6,9 +6,9 @@ const { userCheckerThirdParty } = require('../userHandling')
 const logger = require('../logger')
 
 /**
- * 
- * @param {*} token 
- * @returns 
+ * Validates the google user with access tokens ['ticket'] property
+ * @param {*} token google access token
+ * @returns the user document in the database
  */
 const validateGoogleUser = async (token) => {
   const ticket = await checkTicket(token)
@@ -31,9 +31,9 @@ const validateGoogleUser = async (token) => {
 }
 
 /**
- * 
- * @param {*} user 
- * @returns 
+ * validates onsite user. findss the document by username and checks if the passwrod is correct.
+ * @param {*} user login information
+ * @returns user document in the database
  */
 const validateOnSiteUser = async (user) => {
 
@@ -57,9 +57,9 @@ const validateOnSiteUser = async (user) => {
 }
 
 /**
- * 
+ *  Verifies the id token with firebase.auth()
  * @param {*} token 
- * @returns 
+ * @returns verified token information
  */
 const checkTicket = async (token) => {
   try {
@@ -71,8 +71,8 @@ const checkTicket = async (token) => {
 }
 
 /**
- * 
- * @param {*} username 
+ * Checks if the user is an Admin
+ * @param {*} username username inputted
  */
 const checkAdmin = async (username) => {
   console.log({username})
@@ -91,7 +91,7 @@ const checkAdmin = async (username) => {
 }
 
 /**
- * 
+ * Checks if the user is verified
  * @param {*} verified 
  */
 const checkVerified = (verified) => {

@@ -10,9 +10,9 @@ const UserBase = require('../../models/userBase')
 const { hashPassword } = require('../../services/userService')
 
 /**
- * 
- * @param {*} user_data 
- * @returns 
+ * Checks if the user data is correct
+ * @param {*} user_data Registering username, password, password confirmation, username, adminverification, name etc.
+ * @returns The created user document 
  */
 const userChecker = async (user_data) => {
 
@@ -31,9 +31,9 @@ const userChecker = async (user_data) => {
 }
 
 /**
- * 
- * @param {*} user_data 
- * @returns 
+ * Verifies that the user is a real google user
+ * @param {*} user_data google token information
+ * @returns the created user document
  */
 const userCheckerThirdParty = async (user_data) => {
 
@@ -52,10 +52,10 @@ const userCheckerThirdParty = async (user_data) => {
 }
 
 /**
- * 
- * @param {*} iat 
- * @param {*} exp 
- * @returns 
+ * Checks the tokens validity
+ * @param {*} iat assigned time for the token
+ * @param {*} exp expiring time for the token
+ * @returns boolean for if the token is still valid
  */
 const checkIatExp = (iat, exp) => {
   const iatCorrect = ((Math.round((new Date()).getTime() / 1000)) > iat)
@@ -64,9 +64,9 @@ const checkIatExp = (iat, exp) => {
 }
 
 /**
- * 
- * @param {*} thirdParty_data 
- * @returns 
+ * Takes thirdparty information and creates a new Thirdparty user
+ * @param {*} thirdParty_data thirdparty data
+ * @returns the user object
  */
 const createThirdParty = async (thirdParty_data) => {
 
@@ -87,19 +87,18 @@ const createThirdParty = async (thirdParty_data) => {
 }
 
 /**
- * 
- * @param {*} min 
- * @param {*} max 
- * @returns 
+ * @param {*} min minimum
+ * @param {*} max maximum
+ * @returns a random integer in between min, max
  */
 const rndInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
 /**
- * 
- * @param {*} name 
- * @returns 
+ * hashes an username. User for thirdparty users  
+ * @param {*} name users name
+ * @returns a hashed name
  */
 const hashUsername = async (name) => {
 
@@ -119,17 +118,15 @@ const hashUsername = async (name) => {
     boolean = false
   }
 
-
-
   return usernameJoined
 
 }
 
 /**
- * 
- * @param {*} admin_data 
- * @param {*} passwordHash 
- * @returns 
+ * Creates a admin user based on the inputted data
+ * @param {*} admin_data inputted data for the user 
+ * @param {*} passwordHash hashed password for the database
+ * @returns the user object
  */
 const createAdmin = (admin_data, passwordHash) => {
 
@@ -146,10 +143,10 @@ const createAdmin = (admin_data, passwordHash) => {
 }
 
 /**
- * 
- * @param {*} onSite_data 
- * @param {*} passwordHash 
- * @returns 
+ * Creates a onsite Enduser (normal) based on the inputted data
+ * @param {*} onSite_data inputted data for the user 
+ * @param {*} passwordHash hashed password for the database
+ * @returns the user object
  */
 const createOnSite = (onSite_data, passwordHash) => {
 
@@ -166,9 +163,9 @@ const createOnSite = (onSite_data, passwordHash) => {
 }
 
 /**
- * 
- * @param {*} image 
- * @returns 
+ * Rezises and optimizes the image used for user profile pictures
+ * @param {*} image image data inputted
+ * @returns a new path for the image file
  */
 const resizeImage = async (image) => {
 

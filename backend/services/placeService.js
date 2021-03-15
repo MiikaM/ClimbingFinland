@@ -4,9 +4,11 @@ const { uploadImage } = require('../utils/placeHandling')
 const fs = require('fs')
 
 /**
- * 
- * @param {*} place 
- * @returns 
+ * Add's the inputted place in to the database
+ * If the file (place image) is not given uses default image in thhe model.
+ * @param {*} place Place info
+ * @param {*} file place image file
+ * @returns The saved document
  */
 const addPlace = async ( place, file=null) => {
 
@@ -29,10 +31,12 @@ const addPlace = async ( place, file=null) => {
 }
 
 /**
- * 
- * @param {*} id 
- * @param {*} place 
- * @returns 
+ *  Updates the place info.
+ * If the file is given removes the old image from the server (NOT IMPLEMENTED)
+ * @param {*} id place id
+ * @param {*} place place info
+ * @param {*} file image file
+ * @returns The updated document
  */
 const updatePlace = async (id, place, file = null) => {
   // if (file !== null) {
@@ -63,30 +67,30 @@ const updatePlace = async (id, place, file = null) => {
   return newPlace
 }
 
+// /** NOT IMPLEMENTED USED FOR TESTING
+//  * 
+//  * @param {*} id 
+//  * @param {*} image 
+//  * @returns 
+//  */
+// const updatePlaceImage = async (id, image) => {
+//   const placeToUpdate = await Place.findById(id)
+
+//   if (!placeToUpdate) {
+//     throw new Error('Couldn\'t find the place you were trying to update.')
+//   }
+
+
+
+//   const updatedPlace = await placeToUpdate.save()
+
+//   return updatedPlace
+// }
+
 /**
- * 
- * @param {*} id 
- * @param {*} image 
- * @returns 
- */
-const updatePlaceImage = async (id, image) => {
-  const placeToUpdate = await Place.findById(id)
-
-  if (!placeToUpdate) {
-    throw new Error('Couldn\'t find the place you were trying to update.')
-  }
-
-
-
-  const updatedPlace = await placeToUpdate.save()
-
-  return updatedPlace
-}
-
-/**
- * 
- * @param {*} id 
- * @returns 
+ * Removes the place document with the given id
+ * @param {*} id document id
+ * @returns removed document
  */
 const removePlace = async (id) => {
   const placeToRemove = await Place.findByIdAndDelete(id)

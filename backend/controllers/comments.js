@@ -43,9 +43,9 @@ commentsRouter.get('/:place_name', async (req, res) => {
 })
 
 /**
- * Receives: a post request
- * Does:
- * Returns: 
+ * Receives: a post request to add a comment
+ * Does: Sends the document to be validated => Then to be added => finds the document and populates: name, avatar and username
+ * Returns: Saved document with populated user info.
  */
 commentsRouter.post('/', authenticate, async (req, res) => {
 
@@ -63,9 +63,9 @@ commentsRouter.post('/', authenticate, async (req, res) => {
 })
 
 /**
- * Receives: a delete request
- * Does:
- * Returns: 
+ * Receives: a delete request to remove a comment document
+ * Does: Sends the document to be deleted
+ * Returns: 204 statuss
  */
 commentsRouter.delete('/:id', authenticate, async (req, res) => {
   

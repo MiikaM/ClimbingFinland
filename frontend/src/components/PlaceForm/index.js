@@ -145,9 +145,9 @@ const PlaceForm = ({ place }) => {
                             {(errors?.openingHours?.tue?.close) ? <div className='form-error-message'>{errors.openingHours.tue.close}</div> : null}
                         </div>
 
-                        <label htmlFor="openingHours.wed.close openingHours.wed.close">Wednesday</label><br />
+                        <label htmlFor="openingHours.wed.open openingHours.wed.close">Wednesday</label><br />
                         <div>
-                            <Field onChange={handleChange} name='openingHours.wed.close' value={values.openingHours.wed.open} type='input' /> - <Field onChange={handleChange} name='openingHours.wed.close' value={values.openingHours.wed.close} type='input' />
+                            <Field onChange={handleChange} name='openingHours.wed.open' value={values.openingHours.wed.open} type='input' /> - <Field onChange={handleChange} name='openingHours.wed.close' value={values.openingHours.wed.close} type='input' />
                             {(errors?.openingHours?.wed?.open) ? <div className='form-error-message'>{errors.openingHours.wed.open}</div> : null}
                             {(errors?.openingHours?.wed?.close) ? <div className='form-error-message'>{errors.openingHours.wed.close}</div> : null}
                         </div>

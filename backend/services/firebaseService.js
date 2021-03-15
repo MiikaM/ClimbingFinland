@@ -2,6 +2,7 @@ const admin = require('firebase-admin')
 
 /**
  * Initializes firebase.
+ * auth and database.
  */
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),

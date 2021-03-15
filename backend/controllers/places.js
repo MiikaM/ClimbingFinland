@@ -8,9 +8,9 @@ const { checkAdmin, checkVerified } = require('../utils/loginHandling')
 const logger = require('../utils/logger')
 
 /**
- * Receives: a get request
- * Does:
- * Returns: 
+ * Receives: a get request to find all the places 
+ * Does: Finds all the documents
+ * Returns: All the found documents
  */
 placesRouter.get('/', async (req, res) => {
 
@@ -24,9 +24,9 @@ placesRouter.get('/', async (req, res) => {
 })
 
 /**
- * Receives: a post request
- * Does:
- * Returns: 
+ * Receives: a post request to add a place
+ * Does: Sends the user to be checked (if(verified && admin)) => place info to be checked => place info to be added 
+ * Returns: The saved document
  */
 placesRouter.post('/', authenticate, upload.single('imageData'), async (req, res) => {
 
@@ -53,9 +53,9 @@ placesRouter.post('/', authenticate, upload.single('imageData'), async (req, res
 })
 
 /**
- * Receives: a put request
- * Does:
- * Returns: 
+ * Receives: a put request to update a place document
+ * Does: Sends the user to be checked (if(verified && admin)) => Sends the data to be checked then to be updated
+ * Returns: The updated document
  */
 placesRouter.put('/:id', authenticate, upload.single('imageData'), async (req, res) => {
 
@@ -79,30 +79,30 @@ placesRouter.put('/:id', authenticate, upload.single('imageData'), async (req, r
   }
 })
 
+// /** NOT IMPLEMENTED used for testing
+//  * Receives: a put request
+//  * Does:
+//  * Returns: 
+//  */
+// placesRouter.put('/upload/:id', authenticate, upload.single('imageData'), async (req, res) => {
+
+//   try {
+//     const file = req.file
+//     await checkAdmin(req.user.username)
+//     checkVerified(req.user.verified)
+
+//     const updated = await updatePlaceImage(req.params.id, file)
+
+//     res.json(updated.toJSON()).status(204).end()
+//   } catch (err) {
+//     res.status(400).json({ error: err.message })
+//   }
+// })
+
 /**
- * Receives: a put request
- * Does:
- * Returns: 
- */
-placesRouter.put('/upload/:id', authenticate, upload.single('imageData'), async (req, res) => {
-
-  try {
-    const file = req.file
-    await checkAdmin(req.user.username)
-    checkVerified(req.user.verified)
-
-    const updated = await updatePlaceImage(req.params.id, file)
-
-    res.json(updated.toJSON()).status(204).end()
-  } catch (err) {
-    res.status(400).json({ error: err.message })
-  }
-})
-
-/**
- * Receives: a delete request
- * Does:
- * Returns: 
+ * Receives: a delete request to remove a place document
+ * Does: Sends the user to be checked (if(verified && admin)) => document to be removed
+ * Returns: if(success) status 204
  */
 placesRouter.delete('/:id', authenticate, async (req, res) => {
 

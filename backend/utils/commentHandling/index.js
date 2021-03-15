@@ -3,10 +3,10 @@ const Place = require('../../models/place')
 const UserBase = require('../../models/userBase')
 
 /**
- * 
- * @param {*} object 
- * @param {*} place 
- * @param {*} user 
+ *  Checks the comment information
+ * @param {*} object Comment object
+ * @param {*} place place id for which the comment is assigned
+ * @param {*} user user id for the user who commented
  * @returns 
  */
 const checkComment = async (object, place, user) => {
@@ -21,14 +21,14 @@ const checkComment = async (object, place, user) => {
     throw new Error('Not logged in.')
   }
 
-  const checkedPlace = {
+  const checkedComment = {
     comment: parseComment(object.comment),
     user: userInDb.id,
     place: place,
     date: parseDate(date),
   }
 
-  return checkedPlace
+  return checkedComment
 }
 
 module.exports = { checkComment }

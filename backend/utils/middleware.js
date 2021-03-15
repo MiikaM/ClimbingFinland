@@ -50,6 +50,12 @@ const errorHandler = (error, request, response, next) => {
   next(error)
 }
 
+/**
+ * Checks if the user is authenticated: Checks the token and returns the user info to req.user.
+ * @param {*} req request coming in
+ * @param {*} res *
+ * @param {*} next *
+ */
 const authenticate = (req, res, next) => {
 
   const token = req.cookies.token
@@ -81,6 +87,12 @@ const authenticate = (req, res, next) => {
 
 }
 
+/**
+ * Checks for the resetpassword token.
+ * @param {*} req *
+ * @param {*} res *
+ * @param {*} next *
+ */
 const resetAuthentication = (req, res, next) => {
   const token = req.cookies.token_reset
 
@@ -101,6 +113,12 @@ const resetAuthentication = (req, res, next) => {
 
 }
 
+/**
+ * Takes the token from 'authorization' header
+ * @param {*} request 
+ * @param {*} response 
+ * @param {*} next 
+ */
 const tokenExtractor = (request, response, next) => {
   const authorization = request.get('authorization')
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {

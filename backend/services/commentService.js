@@ -3,9 +3,9 @@ const UserBase = require('../models/userBase')
 const logger = require('../utils/logger')
 
 /**
- * 
- * @param {*} comment 
- * @returns 
+ * Saves the comment to the database
+ * @param {*} comment comment info
+ * @returns Saved comment
  */
 
 const addComment = async (comment) => {
@@ -18,9 +18,9 @@ const addComment = async (comment) => {
 }
 
 /**
- * 
- * @param {*} id 
- * @param {*} user_id 
+ * Removes a comment of a user (not implemented on the website). 
+ * @param {*} id comment id 
+ * @param {*} user_id users' id who's deleting the comment
  * @returns 
  */
 const removeComment = async (id, user_id) => {

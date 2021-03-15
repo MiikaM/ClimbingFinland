@@ -7,9 +7,11 @@ const bcrypt = require('bcrypt')
 const fs = require('fs')
 
 /**
- * 
- * @param {*} userDeleted 
- * @param {*} userDeleting 
+ * Checks if the user who's deleting the user document is allowed to remove.
+ * Removes the document, comments for that document and 
+ * it's image (NOT IMPLEMENTED)
+ * @param {*} userDeleted user document to be removed  
+ * @param {*} userDeleting user who is removing the document
  */
 const removeUser = async (userDeleted, userDeleting) => {
   logger.info({ userDeleted }, { userDeleting })
@@ -20,11 +22,6 @@ const removeUser = async (userDeleted, userDeleting) => {
   if (!userToRemove) {
     throw new Error('User doesn\'t exist or has already been removed')
   }
-  logger.info('id jota poistetaan ', userToRemove._id, ' id joka poistaa ', userRemoving._id)
-
-  logger.info(userToRemove._id !== userRemoving._id)
-  logger.info(userToRemove._id === userRemoving._id)
-  logger.info(userToRemove._id.equals(userRemoving._id))
 
   if (!(userToRemove._id.equals(userRemoving._id))) {
     throw new Error('You are not authorized to remove this user')
@@ -32,13 +29,13 @@ const removeUser = async (userDeleted, userDeleting) => {
 
   const userComments = await Comment.find({ user: userToRemove._id })
 
-  if (userToRemove.avatar !== null && userToRemove.avatar !== '') {
-    try {
-      fs.unlinkSync(userToRemove.avatar)
-    } catch (err) {
-      logger.error(err.message)
-    }
-  }
+  // if (userToRemove.avatar !== null && userToRemove.avatar !== '') {
+  //   try {
+  //     fs.unlinkSync(userToRemove.avatar)
+  //   } catch (err) {
+  //     logger.error(err.message)
+  //   }
+  // }
 
   await userToRemove.remove()
 
@@ -51,11 +48,11 @@ const removeUser = async (userDeleted, userDeleting) => {
 }
 
 /**
- * 
- * @param {*} userToUpdate_username 
- * @param {*} userUpdating 
- * @param {*} newUser 
- * @returns 
+ * Updates the user document information
+ * @param {*} userToUpdate_username User document which is to be updated
+ * @param {*} userUpdating The user updating the document
+ * @param {*} newUser the user information
+ * @returns updated user document
  */
 const updateUser = async (userToUpdate_username, userUpdating, newUser) => {
   try {
@@ -75,9 +72,9 @@ const updateUser = async (userToUpdate_username, userUpdating, newUser) => {
 }
 
 /**
- * 
- * @param {*} passwords 
- * @param {*} user 
+ * Checks the passwords inputted and hanges the password of an user 
+ * @param {*} passwords passwords: old password and new password + new password confirmation.
+ * @param {*} user user whos password will be changed
  */
 const changePassword = async (passwords, user) => {
   const oldPassword = passwords.oldPassword
@@ -117,9 +114,9 @@ const changePassword = async (passwords, user) => {
 }
 
 /**
- * 
- * @param {*} passwords 
- * @returns 
+ * hashes inputted passwords.
+ * @param {*} passwords Password and password confirmation
+ * @returns hashed password
  */
 const hashPassword = async (passwords) => {
 
@@ -143,7 +140,7 @@ const hashPassword = async (passwords) => {
 }
 
 /**
- * 
+ * Sends the verification link to the users email address
  * @param {*} user 
  */
 const sendVerificationEmail = (user) => {
@@ -161,8 +158,8 @@ const sendVerificationEmail = (user) => {
 }
 
 /**
- * 
- * @param {*} user 
+ * Sends a link to reset the users password to the given email
+ * @param {*} user document
  */
 const sendResetPasswordEmail = (user) => {
   try {

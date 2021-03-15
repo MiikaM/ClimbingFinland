@@ -6,9 +6,10 @@ const path = require('path')
 const logger = require('../../utils/logger')
 
 /**
+ * Sends the place object to be validated and parsed
  * 
  * @param {*} object 
- * @returns 
+ * @returns the validated and parsed place
  */
 const checkPlace = (object) => {
   const checkedPlace = {
@@ -29,7 +30,7 @@ const checkPlace = (object) => {
 }
 
 /**
- * 
+ * Resized and optimizes the image file and saves it to the server. 
  * @param {*} image 
  * @returns 
  */

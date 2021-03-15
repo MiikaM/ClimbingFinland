@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const UserBase = require('./userBase')
 
-/**
+
  * Model for an admin user.
  */
 const AdminUser = UserBase.discriminator('AdminUser',
