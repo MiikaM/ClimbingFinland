@@ -198,7 +198,7 @@ const PlaceAddForm = () => {
                     <FieldArray name='prices'>
                         {arrayHelpers => (
                             <div>
-                                <h4>Pricing</h4>
+                                <h4>Pricing (€)</h4>
                                 <button
                                     type="button"
                                     className="submit"
@@ -273,7 +273,7 @@ const PlaceAddForm = () => {
                     <FieldArray name='tags'>
                         {arrayHelpers => (
                             <div>
-                                <label htmlFor="tags">Tags</label>
+                                <label htmlFor="tags">Services</label>
                                 <button className="submit" type="button" onClick={() => arrayHelpers.push('')}>
                                     add
                             </button> <br />

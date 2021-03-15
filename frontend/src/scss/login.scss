@@ -32,8 +32,6 @@
   border-radius: 0 10px 10px 0;
   background-color: color(white_accent);
 
-
-
   // border: 1px solid black;
   // border-left: none;
 }
@@ -53,5 +51,19 @@
 
     top: 20px;
     right: 20px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .login-image {
+    display: none;
+  }
+  .login {
+    display: grid;
+    grid-template-columns: 200px auto;
+  }
+
+  .login-container {
+    border-radius: 10px;
   }
 }
