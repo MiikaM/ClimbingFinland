@@ -3,7 +3,7 @@
 (**Not deployed ATM**)
 
 Deployed Github repo: https://github.com/MiikaM/ClimbingFinlandDeploy
-Instructions (Finnish) https://drive.google.com/file/d/1q068P1UdE1595KpjvaISK6sSC_UBgIn7/view?usp=sharing
+[Instructions (Finnish)](https://drive.google.com/file/d/1q068P1UdE1595KpjvaISK6sSC_UBgIn7/view?usp=sharing)
 
 # Description
 
